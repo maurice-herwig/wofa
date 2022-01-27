@@ -1,2 +1,3 @@
 # Weight finite automata
 
+todo....
