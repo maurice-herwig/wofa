@@ -1,0 +1,2 @@
+# Weight of finite automata
+
