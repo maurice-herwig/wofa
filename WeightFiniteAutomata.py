@@ -135,7 +135,7 @@ class Matrix:
     """Class that contains the matrices needed to calculate the weight of a language and if needed determines the matrices for further word lengths.
     """
     def __init__(self, fa):
-        """ Constructor of the matrix class.
+        """ Constructor of the Matrix class.
 
         Args:
             fa (FiniteAutomata): Finite automaton for which the matrices are created.

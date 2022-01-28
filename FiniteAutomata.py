@@ -1,31 +1,106 @@
 class FiniteAutomata:
-
+    """ Finite Automata is a class to create objects from NFAs and DFAs. On which various operations implemented below can be performed.
+    """
+    # Classes variables
     alphabet = set()
     SIMUEQ = 0
     BISIMU = 1
     minimization_engine = SIMUEQ
 
-    ######################################
-    # Klassenmethoden für Klassenvariablen
-    ######################################
-
+    """ =======================================================================================================================
+        Getter and setter methods for the class variables. 
+        =======================================================================================================================
+    """
     @classmethod
     def set_minimization_engine(cls,engine):
+        """ Set the method that can be used to minimize a finite automata object. Currently BISIMU and SIMUEQ can be used.
+
+        Args:
+            engine (string): SIMUEQ or BISIMU
+        """
         FiniteAutomata.minimization_engine = engine
 
     @classmethod
     def set_alphabet(cls,sigma):
+        """ Set the alphabet which uses finite automata. 
+        !!!Important this is a class variable and not an object variable. Therefore, special care must be taken when using automata 
+        with different alphabets. It is also not useful to set this class variable to the union of the alphabets of all automata.
+        Since this leads with the computation of the weighting to wrong results, because thereby the quantity of the maximum possible words 
+        increases clearly.
+
+        Args:
+            sigma (set() of strings): The alphabet of finite automata.
+        """
         FiniteAutomata.alphabet = sigma
 
     @classmethod
     def get_alphabet(cls):
+        """ Returns the set of all alphabet letters. 
+
+        Returns:
+            set() of strings: Set of alphabet letters.
+        """
         return FiniteAutomata.alphabet
 
-    #############
-    # Initializer
-    #############
+    """ =======================================================================================================================
+        Methods for creating some simple example automata.
+        =======================================================================================================================
+    """
+    @classmethod
+    def one_symbol_nfa(cls,a):
+        """ Create a finite automaton object that accepts only the exact word of length 1 that reads the letter a. 
 
+        Args:
+            a (char): letter
+
+        Returns:
+            FiniteAutomat: Finite automaton object.
+        """
+        return cls({0},[(0,a,1)],{1})
+
+    @classmethod
+    def univ_symbol_nfa(cls):
+        """ Create a finite automaton object that describes the language that describes all words of length 1 over the given alphabet (FiniteAutomat.alphabet).
+
+        Returns:
+            FiniteAutomat: Finite automaton object.
+        """
+        transitions = [(0,a,1) for a in cls.alphabet]
+        return cls({0},transitions,{1})
+
+    @classmethod
+    def empty_nfa(cls):
+        """ Create a finite automaton object that describes the empty language.
+
+        Returns:
+            FiniteAutomat: Finite automaton object.
+        """
+        return cls({0},[],set())
+
+    @classmethod
+    def full_nfa(cls):
+        """ Creates a finite automaton object of the full language over the given alphabet (FiniteAutomat.alphabet).
+
+        Returns:
+            FiniteAutomat: Finite automaton object.
+        """
+        transitions = [(0,a,0) for a in cls.alphabet]
+        return cls({0}, transitions, {0})
+
+    """ =======================================================================================================================
+        Object methods.
+        =======================================================================================================================
+    """
     def __init__(self, initials, transitions, finals):
+        """ Constructor of the FiniteAutomata class.
+
+        Args:
+            initials (set() of integers):                   Set of initial states of the finite automaton.
+            transitions (list of tupels(int, char, int)):   List with tuples of all transitions between two states. The tuples have 
+                                                            the form (q, a, p) and describe by reading the letter a the automaton goes from the 
+                                                            state q to the state p.
+            finals ([type]):                                Set of finial states of the finite automaton.
+        """
         self.num_states = 0
         self.initials = set()
         self.finals = set()
@@ -39,9 +114,10 @@ class FiniteAutomata:
         for (p,a,q) in transitions:
             self.__add_transition(p,a,q)
 
-    #################################################
-    # getter- und setter-Methoden für Objektvariablen
-    #################################################
+    """ =======================================================================================================================
+        Getter and setter methods for the object variables and some simple methods.
+        =======================================================================================================================
+    """
 
     def get_number_of_states(self):
         return self.num_states
@@ -142,11 +218,80 @@ class FiniteAutomata:
     def unpack(self):
         return FiniteAutomata.alphabet, set(range(self.get_number_of_states())), self.successors, self.get_initials(), self.get_finals()
 
-    ############################
-    # Funktionen für Minimierung
-    ############################
+    def accepts_empty_word(self):
+        """ Determines whether the empty word is in the language described by the machine.
 
+        Returns:
+            bool: Is the empty word in the language.
+        """
+        return self.get_initials().intersection(self.get_finals()) != set()
+
+    def is_empty(self):
+        """ Determines whether the language described by the automaton is the empty language.
+
+        Returns:
+            bool: Is the language the empty language.
+        """
+        if len(self.__productives()) == 0:
+            return True
+        return False
+
+    def __str__(self):
+        """ Overwrite the standard console output.
+        """
+        return(f'alphabet:    {self.get_alphabet()}\n'
+          f'states:      {self.__get_all_states()}\n'
+          f'starting:    {self.get_initials()}\n'
+          f'accepting:   {self.get_finals()}\n'
+          f'transitions: {self.get_transitions()}\n')
+
+    def get_length_longest_run(self):
+        """ Determines the length of the longest run on the machine without visiting a state twice. 
+        This is useful because incrementing this value by 1 in most cases gives the pumping constant of the language of the automaton. 
+
+        Returns:
+            int: Length of the longest run.
+        """
+        
+        def next_step(before):
+            res = []
+            found_one_next = False
+       
+            for next in self.get_all_successors(before[1]):
+                if next in before[0]:
+                    res.append(len(before[0]))
+                else:
+                    found_one_next = True
+                    new_set = before[0].copy()
+                    new_set.add(next)
+                    res.append(next_step((new_set, next)))
+
+            if(not found_one_next):
+                return len(before[0])
+            return max(res)
+        
+        list = []
+        res = []
+
+        for init in self.get_initials():
+            list.append(({init}, init))
+
+        for next in list:
+            res.append(next_step(next))
+
+        if res == []:
+            return 1
+        return max(res)
+        
+    """ =======================================================================================================================
+        Methods for the minimization of finite automata.
+        =======================================================================================================================
+    """
     def __reachables(self):
+        """ Calculates the set of reachable states of the finite automaton.
+        Returns:
+            set() of integer: Set of reachable states.
+        """
         reachables = set()
 
         todo = list(self.get_initials())
@@ -161,6 +306,12 @@ class FiniteAutomata:
         return reachables
 
     def __productives(self):
+        """ Calculates the set of productive states of the finite automaton. 
+        A productive state is a state from which at least one run to a final state exists.  
+
+        Returns:
+            set() of integer:  Set of productive states.
+        """
         productives = set()
 
         todo = list(self.get_finals())
@@ -173,20 +324,20 @@ class FiniteAutomata:
                         todo.append(p)
         return productives
 
-    # def __rename(self,new_names):
-    #     # expects a dictionary whose domain contains at least all states named in any transition
-    #     self.__set_initials({ new_names[q] for q in self.get_initials() })
-    #     self.__set_finals({ new_names[q] for q in self.get_finals() })
-    #     transitions = self.get_transitions()
-    #     self.__clear_transitions()
-    #     for (p,a,q) in transitions:
-    #         self.__add_transition(new_names[p],a,new_names[q])
+    def __shrink_to(self, remaining):
+        """ By means of this method, a finite automaton can be shrunk to a given set. Only the transitions between the states to which the 
+        automaton is to be reduced are retained. This can be especially helpful when minimizing to the productive states, since this results 
+        in smaller and more efficient automata. 
 
-    def __shrink_to(self, survivors):
-        # find new names for the survivors and rename them accordingly
+        Args:
+            remaining (set() of integer): The set of states to which the finite automaton is to be shrink.
+
+        Returns:
+            self: Returns the own object but shrunk to the amount of input states.
+        """
         i = 0
         new_names = {}
-        for q in survivors:
+        for q in remaining:
             new_names[q] = i
             i += 1
 
@@ -196,30 +347,35 @@ class FiniteAutomata:
         ps = self.get_initials()
         self.__clear_initials()
         for p in ps:
-            if p in survivors:
+            if p in remaining:
                 self.__make_initial(new_names[p])
 
         qs = self.get_finals()
         self.__clear_finals()
         for q in qs:
-            if q in survivors:
+            if q in remaining:
                 self.__make_final(new_names[q])
 
-        # reinsert all transitions between survivors
+        # reinsert all transitions between remaining
         transitions = self.get_transitions()
         self.__clear_transitions()
         for (p,a,q) in transitions:
-            if p in survivors and q in survivors:
+            if p in remaining and q in remaining:
                 self.__add_transition(new_names[p],a,new_names[q])
 
         return self
 
     def __simulation_pairs(self):
-        # returns the set { (p,q) | p ~< q }
+        """ TODO
+
+        Returns:
+            set of pairs of integer: { (p,q) | p ~< q } TODO 
+        """
         n = self.get_number_of_states()
         fs = self.get_finals()
         sim = { (p,q) for p in range(n) for q in range(n) if p != q and (p not in fs or q in fs) }
         old_sim = set()
+        
         # turn sim into largest is-simulated-by relation by successively removing pairs (p,q) such that p is not simulated by q
         while sim != old_sim:
             old_sim = sim.copy()
@@ -247,16 +403,25 @@ class FiniteAutomata:
         return sim
 
     def simulation_equivalence_pairs(self):
-        # returns the set { (p,q) | p ~~ q and p < q }
+        """ TODO
+
+        Returns:
+            set of pairs of integer: { (p,q) | p ~~ q and p < q } TODO
+        """
         simulated_by = self.__simulation_pairs()
         return { (p,q) for (p,q) in simulated_by if p < q and (q,p) in simulated_by }
 
     def bisimulation_pairs(self):
-        # returns the set { (p,q) | p ~ q and p < q }
+        """ TODO
+
+        Returns:
+            set of pairs of integer: { (p,q) | p ~ q and p < q } TODO
+        """  
         n = self.get_number_of_states()
         fs = self.get_finals()
         sim = { (p,q) for p in range(n-1) for q in range(p,n) if (p not in fs or q in fs) and (p in fs or q not in fs) }
         old_sim = set()
+        
         # turn sim into largest bisimulation by successively removing pairs (p,q) such that p is not bisimilar to q
         while sim != old_sim:
             old_sim = sim.copy()
@@ -297,6 +462,15 @@ class FiniteAutomata:
         return sim
 
     def __merge_states(self,replacements):
+        """ Merges the states of the automaton q and p exactly when the dictionary (replacement) maps from q to p. 
+        For example, simulation-equivalent states can be combined into one state to minimize the automaton. 
+
+        Args:
+            replacements (dict of int: int): Describes the replacements where the state from the key is replaced by the state from the value. 
+
+        Returns:
+            self: Returns the finite automaton objeckt with the substitutions/merges of states.
+        """
         for (p, a, q) in self.get_transitions().copy():
             p1 = replacements[p]
             q1 = replacements[q]
@@ -306,12 +480,16 @@ class FiniteAutomata:
         return self
 
     def __minimize(self):
-        # minimisation via some simulation-based equivalence quotienting
+        """ Minimisation via some simulation-based equivalence quotienting. 
+        Merge pairs of equivalent states, using smallest state as representative of equivalence class.   
 
-        # merge pairs of equivalent states, using smallest state as representative of equivalence class
+        Returns:
+            self: Returns the minimized automaton.
+        """     
         replacements = { p: p for p in range(0,self.get_number_of_states()) }
         mergable = set()
 
+        # Determine the states that can be combined into one.
         if FiniteAutomata.minimization_engine == FiniteAutomata.SIMUEQ:
             mergable = self.simulation_equivalence_pairs()
         elif FiniteAutomata.minimization_engine == FiniteAutomata.BISIMU:
@@ -332,93 +510,17 @@ class FiniteAutomata:
         self.__shrink_to(self.__reachables())
         return self
 
-    #####################################################
-    # automatentheoretische Konstruktionen und Funktionen
-    #####################################################
-
-    @classmethod
-    def one_symbol_nfa(cls,a):
-        return cls({0},[(0,a,1)],{1})
-
-    @classmethod
-    def univ_symbol_nfa(cls):
-        transitions = [(0,a,1) for a in cls.alphabet]
-        return cls({0},transitions,{1})
-
-    @classmethod
-    def empty_nfa(cls):
-        return cls({0},[],set())
-
-    def accepts_empty_word(self):
-        return self.get_initials().intersection(self.get_finals()) != set()
-
-    def is_empty(self):
-            if self.get_number_of_states() == 0:
-                return True
-            return False
-
-    def union(self,nfa):
-        # add a new initial state which behaves like all initial states of self and nfa
-        s = self.get_number_of_states()
-        # self.num_states += (1 + nfa.num_states)
-
-        for a in FiniteAutomata.get_alphabet():
-            for p in self.get_initials():
-                for q in self.get_successors(p,a):
-                    self.__add_transition(s,a,q)
-            for p in nfa.get_initials():
-                for q in nfa.get_successors(p,a):
-                    self.__add_transition(s,a,q+s+1)
-
-        # make the new state final if any of the initial states was final
-        for q in self.get_initials().intersection(self.get_finals()).union(nfa.get_initials().intersection(nfa.get_finals())):
-            self.__make_final(s)
-            break
-
-        self.__clear_initials()
-        self.__make_initial(s)
-
-        # import transitions from nfa into self
-        for (p,a,q) in nfa.get_transitions():
-            self.__add_transition(p+s+1,a,q+s+1)
-
-        # make finals states of nfa final in self as well
-        for q in nfa.get_finals():
-            self.__make_final(q+s+1)
-
-        # union construction can create unreachable states, remove these now
-        self.__shrink_to(self.__reachables())
-        self.__minimize()
-        return self
-
-    def concatenate(self,nfa):
-        s = self.get_number_of_states()
-        # self.num_states = s + nfa.num_states
-
-        # import all transitions from nfa into self
-        for (p,a,q) in nfa.get_transitions():
-            self.__add_transition(p+s,a,q+s)
-
-        # add transitions from all final states in self to successors of initial states in nfa
-        for a in FiniteAutomata.get_alphabet():
-            for p in nfa.get_initials():
-                succs = nfa.get_successors(p,a)
-                for q in succs:
-                    for r in self.get_finals():
-                        self.__add_transition(r,a,q+s)
-
-        # set new final states
-        if not nfa.accepts_empty_word():
-            self.__clear_finals()
-        for q in nfa.get_finals():
-            self.__make_final(q+s)
-
-        self.__shrink_to(self.__reachables())
-        self.__minimize()
-
-        return self
-
+    """ =======================================================================================================================
+        Operations on the finite automata like: determinize, complement, ...
+        =======================================================================================================================
+    """
     def star(self):
+        """ Surround the set of words in the language with the star opration.
+        For example, if the automaton describes the language "aa", the language of the automaton after this operation is "(aa)*".
+
+        Returns:
+            self: Finite automaton created by the star operation.
+        """
         finals_without_outgoing = { q for q in self.get_finals() if self.get_all_successors(q) == set() }
         initials_without_incoming = { q for q in self.get_initials() if self.get_all_predecessors(q) == set() }
 
@@ -450,7 +552,6 @@ class FiniteAutomata:
                 if not done:
                     # add an additional final state, make this the only initial only
                     n = self.get_number_of_states()
-                    # self.num_states += 1
                     for a in FiniteAutomata.get_alphabet():
                         for p in self.get_initials():
                             for q in self.get_successors(p,a):
@@ -462,50 +563,15 @@ class FiniteAutomata:
         self.__minimize()
         return self
 
-    def intersect(self,nfa):
-        codes = {}
-        n = 0
-        def code(p,q):
-            nonlocal n
-            if (p,q) in codes:
-                return codes[(p,q)]
-            else:
-                codes[(p,q)] = n
-                n += 1
-                return n-1
-
-        result = FiniteAutomata.empty_nfa()
-
-        initial_pairs = [ (p,q,code(p,q)) for p in self.get_initials() for q in nfa.get_initials() ]
-        for (p,q,c) in initial_pairs:
-            result.__make_initial(c)
-
-        todo = initial_pairs
-        visited = set()
-        while todo:
-            (p,q,c) = todo.pop(0)
-            if c not in visited:
-                visited.add(c)
-
-                for a in FiniteAutomata.get_alphabet():
-                    p_succs = self.get_successors(p,a)
-                    q_succs = nfa.get_successors(q,a)
-                    new_states = [ (p1,q1,code(p1,q1)) for p1 in p_succs for q1 in q_succs ]
-                    for (p1,q1,c1) in new_states:
-                        result.__add_transition(c,a,c1)
-                    todo += new_states
-
-                if p in self.get_finals() and q in nfa.get_finals():
-                    result.__make_final(c)
-
-        result.num_states = n
-        result.__shrink_to(result.__productives())
-        result.__minimize()
-        return result
-
     def __power_set_construction(self):
+        """ Power sets construction of the finite automaton.
+
+        Returns:
+            FiniteAutomata: The deterministic finite automaton resulting from the power set construction. 
+        """
         codes = {}
         n = 0
+
         def code(ps):
             nonlocal n
             if ps in codes:
@@ -515,11 +581,11 @@ class FiniteAutomata:
                 n += 1
                 return n-1
 
-        result = FiniteAutomata.empty_nfa()
+        res = FiniteAutomata.empty_nfa()
 
         initial_state = frozenset(self.get_initials())
         c = code(initial_state)
-        result.__make_initial(c)
+        res.__make_initial(c)
 
         todo = [ (initial_state,c) ]
         visited = set()
@@ -535,19 +601,23 @@ class FiniteAutomata:
                     succs = frozenset(succs)
                     c1 = code(succs)
                     new_state = (succs, c1)
-                    result.__add_transition(c,a,c1)
+                    res.__add_transition(c,a,c1)
                     todo.append(new_state)
 
                 if self.get_finals().intersection(ps) != set():
-                    result.__make_final(c)
+                    res.__make_final(c)
 
-        #result.num_states = n
-        return result
+        return res
 
     def determinize(self):
+        """ Method to determine a finite automaton to obtain a deterministic finite automaton. 
+
+        Returns:
+            FiniteAutomata: A deterministic finite automaton describing the same language.
+        """
         dfa = self.__power_set_construction()
         dfa.__shrink_to(dfa.__productives())
-        dfa.__minimize() # wieviel bringt das auf einem DFA? vielleicht Brzozowski o.a. stattdessen
+        dfa.__minimize()
         return dfa
 
     def complement(self):
@@ -564,57 +634,158 @@ class FiniteAutomata:
         compl.__minimize()
         return compl
 
+    """ =======================================================================================================================
+        Operations between two finite automata like: union, intersect, ...
+        =======================================================================================================================
+    """
+    def union(self, other):
+        """ Unions the language of this finite automaton with the language of another finite automaton.
+
+        Args:
+            other (FiniteAutomata:): The finite automaton with which this object is to be union.
+
+        Returns:
+            self: The union of the two finite automatas.
+        """
+        # add a new initial state which behaves like all initial states of self and nfa
+        s = self.get_number_of_states()
+
+        for a in FiniteAutomata.get_alphabet():
+            for p in self.get_initials():
+                for q in self.get_successors(p,a):
+                    self.__add_transition(s,a,q)
+
+            for p in other.get_initials():
+                for q in other.get_successors(p,a):
+                    self.__add_transition(s,a,q+s+1)
+
+        # make the new state final if any of the initial states was final
+        for q in self.get_initials().intersection(self.get_finals()).union(other.get_initials().intersection(other.get_finals())):
+            self.__make_final(s)
+            break
+
+        self.__clear_initials()
+        self.__make_initial(s)
+
+        # import transitions from other into self
+        for (p,a,q) in other.get_transitions():
+            self.__add_transition(p+s+1, a, q+s+1)
+
+        # make finals states of other final in self as well
+        for q in other.get_finals():
+            self.__make_final(q+s+1)
+
+        # union construction can create unreachable states, remove these now
+        self.__shrink_to(self.__reachables())
+        self.__minimize()
+        return self
+
+    def concatenate(self, other):
+        """ Concatenates the language of this finite automaton with the language of another finite automaton.
+
+        Args:
+            other (FiniteAutomata:): The finite automaton with which this object is to be concatenate.
+
+        Returns:
+            self: The concatenation of the two finite automatas.
+        """
+        s = self.get_number_of_states()
+
+        # import all transitions from other into self
+        for (p,a,q) in other.get_transitions():
+            self.__add_transition(p+s,a,q+s)
+
+        # add transitions from all final states in self to successors of initial states in other
+        for a in FiniteAutomata.get_alphabet():
+            for p in other.get_initials():
+                succs = other.get_successors(p,a)
+                for q in succs:
+                    for r in self.get_finals():
+                        self.__add_transition(r,a,q+s)
+
+        # set new final states
+        if not other.accepts_empty_word():
+            self.__clear_finals()
+        for q in other.get_finals():
+            self.__make_final(q+s)
+
+        self.__shrink_to(self.__reachables())
+        self.__minimize()
+        return self
+
+    def intersect(self,other):
+        """ Intersect the language of the finite automaton with the language of another finite automaton.
+
+        Args:
+            other (FiniteAutomata:): The finite automaton with which this object is to be intersect.
+
+        Returns:
+            self: The intersection of the two finite automatas.
+        """
+        codes = {}
+        n = 0
+        def code(p,q):
+            nonlocal n
+            if (p,q) in codes:
+                return codes[(p,q)]
+            else:
+                codes[(p,q)] = n
+                n += 1
+                return n-1
+
+        result = FiniteAutomata.empty_nfa()
+
+        # set new initial states
+        initial_pairs = [ (p,q,code(p,q)) for p in self.get_initials() for q in other.get_initials() ]
+        for (p,q,c) in initial_pairs:
+            result.__make_initial(c)
+
+        todo = initial_pairs
+        visited = set()
+        while todo:
+            (p,q,c) = todo.pop(0)
+            if c not in visited:
+                visited.add(c)
+
+                # set new transitions
+                for a in FiniteAutomata.get_alphabet():
+                    p_succs = self.get_successors(p,a)
+                    q_succs = other.get_successors(q,a)
+                    new_states = [ (p1,q1,code(p1,q1)) for p1 in p_succs for q1 in q_succs ]
+                    for (p1,q1,c1) in new_states:
+                        result.__add_transition(c,a,c1)
+                    todo += new_states
+                
+                # set new final states
+                if p in self.get_finals() and q in other.get_finals():
+                    result.__make_final(c)
+
+        result.num_states = n
+        result.__shrink_to(result.__productives())
+        result.__minimize()
+        return result
+
     def symetrical_difference(self, other):
+        """ Determines the symmetric difference between the languages described by 2 finite automata and 
+        additionally the two disjoint subsets of the symmetric difference. 
+
+        Args:
+            other (FiniteAutomata:): The finite automaton with which the symmetric difference is to be formed. 
+
+        Returns:
+            FiniteAutomata, FiniteAutomata, FiniteAutomata: 1, 2, 3
+                                                            1: The finite automaton that describes the language in which all words are located 
+                                                            that were only in the language of self and not in the language of the other. 
+                                                            2: The finite automaton that describes the language in which all words are located 
+                                                            that were only in the language of the other and not in the language of self. 
+                                                            3: The finite automaton describing the union of the languages from 1 and 2. 
+                                                            So the symmetric difference between self and other.
+        """
         self.__minimize()
         other.__minimize()
-        
-        self_dfa = self.determinize()
-        self_comp = self_dfa.complement()
-        other_dfa = other.determinize()
-        other_comp = other_dfa.complement()
 
-        s_sub_o = self_dfa.intersect(other_comp)
-        o_sub_s = other_dfa.intersect(self_comp)
+        s_sub_o = self.determinize().intersect(other.complement())
+        o_sub_s = other.determinize().intersect(self.complement())
+        sym_diff = s_sub_o.union(o_sub_s)
 
-        return s_sub_o, o_sub_s
-    
-    def __str__(self):
-        return(f'alphabet:    {self.get_alphabet()}\n'
-          f'states:      {self.__get_all_states()}\n'
-          f'starting:    {self.get_initials()}\n'
-          f'accepting:   {self.get_finals()}\n'
-          f'transitions: {self.get_transitions()}\n')
-
-    def get_length_of_longest_run(self):
-        #gibt die Länge des längsten Lauf auf dem NFA beziehungsweise DFA zurück ohne das ein Zustand zweimal besucht wird.
-        # += 1 ergibt dies die Pumpin Zahl des Autoamten 
-        list = []
-        results = []
-
-        for inintial in self.get_initials():
-            list.append(({inintial}, inintial))
-
-        for next in list:
-            results.append(self.__next_step_of_longest_run(next))
-
-        if results == []:
-            return 1
-        return max(results)
-    
-    def __next_step_of_longest_run(self, before):
-        #hilfsfunkion für get_length_of_longest_run
-        results = []
-        found_one_next = False
-       
-        for next in self.get_all_successors(before[1]):
-            if next in before[0]:
-                results.append(len(before[0]))
-            else:
-                found_one_next = True
-                new_set = before[0].copy()
-                new_set.add(next)
-                results.append(self.__next_step_of_longest_run((new_set, next)))
-
-        if(not found_one_next):
-            return len(before[0])
-        return max(results)
+        return s_sub_o, o_sub_s, sym_diff
