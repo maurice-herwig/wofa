@@ -1,2 +1,3 @@
-# Weight of finite automata
+# Weight finite automata
 
+todo....
