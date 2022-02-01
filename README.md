@@ -11,41 +11,39 @@ TODO...
 TODO...
 
 ## Example
+Here is an example of how the weighting of a language can be used for teaching. The task was to specify a finite automaton which describes the language of the words above the alphabet {a, b} which do not contain the subword "abba".A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automata 1 A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automat 1 is a better submission than the submission of automat 2, even if both submissions are not submissions that describe the required language. This is expressed by weighting the symmetric difference of the languages of these two automata to the sample solution by a metric value. Which significantly simplifies the evaluation of these deliveries. 
 
-
-
-
-TODO
-
-Grafik der Testautomaten für dieses Beispiel.....
+TODO Grafik der Testautomaten für dieses Beispiel.....
 ```python   
+# Setting the alphabet.
+FiniteAutomata.set_alphabet({'a', 'b'})
 
-    # Setting the alphabet.
-    FiniteAutomata.set_alphabet({'a', 'b'})
+# Create a solution object.
+sol = FiniteAutomata({0}, [(0, 'a', 2), (0, 'b', 0), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 1), (1, 'b', 0)], {0, 1, 2, 3})
 
-    # Create a solution object.
-    sol = FiniteAutomata({0}, [(0, 'a', 2), (0, 'b', 0), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 1), (1, 'b', 0)], {0, 1, 2, 3})
+# Determine the parameters. x is the proportion of the weight to be allocated to the constant part.
+x = 0.5
+eta = sol.get_length_longest_run() + 1
+lam = (1-x)**(1/eta)
 
-    # Determine the parameters. x is the proportion of the weight to be allocated to the constant part.
-    x = 0.5
-    eta = sol.get_length_longest_run() + 1
-    lam = (1-x)**(1/eta)
+# Loading of different finite automata over the same alphabet.
+a_1 = FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 3), (3, 'a', 3), (3, 'b', 2), (2, 'a', 3), (2, 'b', 1), (1, 'a', 4), (1, 'b', 1), (1, 'b', 3)], {1, 2, 3})
+a_2 = FiniteAutomata({0}, [(0, 'a', 0), (0, 'b', 2), (2, 'a', 0), (2, 'b', 1), (1, 'b', 2), (1, 'a', 3)], {0, 1, 2})
 
-    # Loading of different finite automata over the same alphabet.
-    a_1 = FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 3), (3, 'a', 3), (3, 'b', 2), (2, 'a', 3), (2, 'b', 1), (1, 'a', 4), (1, 'b', 1), (1, 'b', 3)], {1, 2, 3})
-    a_2 = FiniteAutomata({0}, [(0, 'a', 0), (0, 'b', 2), (2, 'a', 0), (2, 'b', 1), (1, 'b', 2), (1, 'a', 3)], {0, 1, 2})
-
-    # Determine the weight of the symmetrical difference and then print the result.
-    print(f'Automata 1 diff. to Solution = {weight_diff(sol, a_1, eta, lam)[2]}')
-    print(f'Automata 2 diff. to Solution = {weight_diff(sol, a_2, eta, lam)[2]}')
+# Determine the weight of the symmetrical difference and then print the result.
+print(f'Weight diff. Automata 1 to Solution = {weight_diff(sol, a_1, eta, lam)[2]}')
+print(f'Weight diff. Automata 2 to Solution = {weight_diff(sol, a_2, eta, lam)[2]}')
 
 ```
 
 Console Output: 
 ```
-Automata 1 diff. to Solution = 0.05534231111710203
-Automata 2 diff. to Solution = 0.145111985762509
+Weight diff. Automata 1 to Solution = 0.05534231111710203
+Weight diff. Automata 2 to Solution = 0.145111985762509
 ```
+
+More examples can be found in the [Example.py](https://syre.fm.cs.uni-kassel.de/mherwig/weight-of-finite-automata/-/blob/main/Example.py) file.
+
 ## Project structure
 - [Example.py](https://syre.fm.cs.uni-kassel.de/mherwig/weight-of-finite-automata/-/blob/main/Example.py)
 
