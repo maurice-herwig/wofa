@@ -766,26 +766,37 @@ class FiniteAutomata:
         return result
 
     def symetrical_difference(self, other):
-        """ Determines the symmetric difference between the languages described by 2 finite automata and 
-        additionally the two disjoint subsets of the symmetric difference. 
+        """ Determines the symmetric difference between the languages described by 2 finite automata.
 
         Args:
             other (FiniteAutomata:): The finite automaton with which the symmetric difference is to be formed. 
 
         Returns:
-            FiniteAutomata, FiniteAutomata, FiniteAutomata: 1, 2, 3
-                                                            1: The finite automaton that describes the language in which all words are located 
-                                                            that were only in the language of self and not in the language of the other. 
-                                                            2: The finite automaton that describes the language in which all words are located 
-                                                            that were only in the language of the other and not in the language of self. 
-                                                            3: The finite automaton describing the union of the languages from 1 and 2. 
-                                                            So the symmetric difference between self and other.
+            FiniteAutomata: The finite automaton that describing the union of the languages of the 2 finite automata.
+        """
+        subsets = self.subsets_symetrical_difference(other)
+
+        sym_diff = subsets[0].union(subsets[1])
+
+        return sym_diff
+
+    def subsets_symetrical_difference(self, other):
+        """ Determine the two disjoint subsets of the symmetric difference of 2 languages represented by a finite automaton. 
+        The union of these subsets then yields the symmetric difference.
+
+        Args:
+            other (FiniteAutomata:): The finite automaton with which the two disjoint subsets of the symmetric difference is to be formed. 
+
+        Returns:
+            FiniteAutomata, FiniteAutomata: 1: The finite automaton that describes the language in which all words are located 
+                                                that were only in the language of self and not in the language of the other. 
+                                            2: The finite automaton that describes the language in which all words are located 
+                                                that were only in the language of the other and not in the language of self. 
         """
         self.__minimize()
         other.__minimize()
 
         s_sub_o = self.determinize().intersect(other.complement())
         o_sub_s = other.determinize().intersect(self.complement())
-        sym_diff = s_sub_o.union(o_sub_s)
 
-        return s_sub_o, o_sub_s, sym_diff
+        return s_sub_o, o_sub_s

@@ -18,17 +18,15 @@ def weight_diff(fa_a, fa_b, eta, lam):
                                 2: The weight of the language containing the words contained only in fa_b and not in fa_a. 
                                 3: The weight of the symmetrical difference.
     """
-    sym_diff = fa_a.symetrical_difference(fa_b)
+    sym_diff = fa_a.subsets_symetrical_difference(fa_b)
+    weight_a_sub_b = 0
+    weight_b_sub_a = 0
 
     if not sym_diff[0].is_empty():
         weight_a_sub_b = weight(sym_diff[0], eta, lam)
-    else:
-       weight_a_sub_b = 0
-
+       
     if not sym_diff[1].is_empty():
         weight_b_sub_a = weight(sym_diff[1], eta, lam)
-    else:
-       weight_b_sub_a = 0
 
     return weight_a_sub_b, weight_b_sub_a, (weight_a_sub_b + weight_b_sub_a)
 
