@@ -13,7 +13,10 @@ TODO...
 ## Example
 Here is an example of how the weighting of a language can be used for teaching. The task was to specify a finite automaton which describes the language of the words above the alphabet {a, b} which do not contain the subword "abba".A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automata 1 A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automat 1 is a better submission than the submission of automat 2, even if both submissions are not submissions that describe the required language. This is expressed by weighting the symmetric difference of the languages of these two automata to the sample solution by a metric value. Which significantly simplifies the evaluation of these deliveries. 
 
-TODO Grafik der Testautomaten für dieses Beispiel.....
+![](./ExampleAutomatas.svg)
+
+![](./ExampleAutomatas.jpg)
+
 ```python   
 # Setting the alphabet.
 FiniteAutomata.set_alphabet({'a', 'b'})
