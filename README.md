@@ -1,6 +1,6 @@
 # Weight finite automata 
 
-TODO description
+This is a project to determine the weight of a regular language represented by a finite automaton. Besides the weight of a language, a measure of how far 2 regular languages are from each other can be determined by determining the weight of the symetric difference. 
 
 ## Installation
 
