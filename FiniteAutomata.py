@@ -140,8 +140,24 @@ class FiniteAutomata:
         else:
             return set()
 
+    def get_all_predecessors_with_letter(self, s):
+        return { (q, a) for a in self.get_alphabet() for q in self.get_predecessors(s,a) }
+
     def get_all_predecessors(self, s):
         return { p for a in self.alphabet for p in self.get_predecessors(s, a) }
+
+    def __post(self, a, s_):
+        """ Calculates the set of successor states for a given letter and a set of states.
+
+        Args:
+            a (Char): letter
+            s_ (set() of integer): The set of states
+
+        Returns:
+            set() of integer: the calculated states.
+        """
+        #berechent die menge der nachfolgerzustände für einen gegebenen Buchstaben und eine Menge von Zuständen
+        return{ s for q in s_ for s in self.get_successors(q, a)}   
 
     def get_initials(self):
         return self.initials
@@ -800,3 +816,111 @@ class FiniteAutomata:
         o_sub_s = other.determinize().intersect(self.complement())
 
         return s_sub_o, o_sub_s
+
+    def equivalence_test(self, other):
+        """ Tests whether two finite automata objects describe the same language. 
+
+        Args:
+             other (FiniteAutomata:): The finite automaton for which you want to check if it is equivalent to the self automaton.
+
+        Returns:
+            bool, str: The result of the test, if the test is wrong one wrong word as a representative.
+        """
+        s_sub_o, false_word  = self.inclusion(other)
+        if not s_sub_o:
+            return False, false_word
+
+        o_sub_s, false_word = other.inclusion(self)
+        if not o_sub_s:
+           return False, false_word
+
+        return True, None
+
+    def inclusion(self, other):
+        """ Checks if the language of the current automaton is a subset of language of the other automaton. For this purpose, we use the 
+        antichains method, since it has been shown by previous investigations to be the most effective in terms of practical runtime. 
+
+        Args:
+            other (FiniteAutomata:): finite automaton to be tested for whose language is a superset of the self automaton.
+
+        Returns:
+            bool, str: The result of the test, if the test is wrong one wrong word as a representative.
+        """
+        q = dict()
+        queue = list()
+        
+        # final and none final states of the other.
+        states_other = other.__get_all_states()
+        non_final_other = states_other.difference(other.get_finals()) 
+        
+        # determine all (fin_self x{non_fin_other})
+        for l in self.get_finals():
+            
+            # Check for the empty word
+            if l in self.get_initials() and other.get_initials().issubset(non_final_other):
+                return False, "empty Word"
+            
+            q[l] = [non_final_other]
+            queue.append((l, non_final_other, " "))
+            
+        # Dictionary that maps each letter of the alphabet to a number.
+        letters = dict()
+        i = 0
+        for a in self.get_alphabet():
+            letters[a] = i
+            i+=1
+
+        # List of already calculated tuples. The memory location of the tuple (q, a) = q (interpreted as a number) * number of letters + map of this letter. 
+        # If that tuple has not been calculated yet, the place is initialized with 0.
+        posts = [0 for _ in range(other.get_number_of_states() * len(letters))]
+   
+        # Determine all tuples that are still in the queue.
+        while len(queue) > 0:
+
+            (l_, s_, word) = queue.pop()
+            
+            # Iterate over all predecessor states with the respective letter.   
+            for (l, a) in self.get_all_predecessors_with_letter(l_):
+                
+                s = set()
+                for i in range(other.get_number_of_states()):
+                    
+                    # Determination of the position in the posts list.
+                    pos = i * len(letters) + letters[a]
+                    
+                    # Check if post() has been calculated before. If not determine it and calculate the set s
+                    if posts[pos] == 0:
+                        result = other.__post(a, {i})
+                        posts[pos] = result
+                        if result.issubset(s_):
+                            s.add(i)
+                    else:
+                        if posts[pos].issubset(s_):
+                            s.add(i)
+                
+                # Check if there is a set a tuple (init_self x {init_other}), in this case the inclusion is not correct. 
+                if l in self.get_initials() and other.get_initials().issubset(s):
+                    return False, a + word
+               
+                # Otherwise, include (l, {s}) in q and check if it must also be included in the queue.
+                if l in q.keys():
+                    q_l = q[l]
+                    add = True
+                    for sets in q_l.copy():
+                        if s.issubset(sets) :
+                            add = False
+                        elif sets.issubset(s):
+                            q_l.remove(sets)
+                    
+                    if add:   
+                        q_l.append(s)
+                        q[l] = q_l
+                        queue.append((l, s, a + word))
+                
+                else:
+                    q[l] = [s]
+                    queue.append((l, s, a + word))
+        
+        
+        return True, None
+    
