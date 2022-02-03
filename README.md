@@ -2,6 +2,8 @@
 
 This is a project to determine the weight of a regular language represented by a finite automaton. Besides the weight of a language, a measure of how far 2 regular languages are from each other can be determined by determining the weight of the symetric difference. 
 
+## Installation
+
 If you want to use this library stand-alone then use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements for this package
 
 ```bash
@@ -25,6 +27,8 @@ Here is an example of how the weighting of a language can be used for teaching. 
 ![](./assets/ExampleAutomatas.jpg)
 
 ```python   
+TODO imports....
+
 # Setting the alphabet.
 FiniteAutomata.set_alphabet({'a', 'b'})
 
@@ -55,18 +59,25 @@ Weight diff. Automata 2 to Solution = 0.145111985762509
 More examples can be found in the [Example.py](./Example.py) file.
 
 ## Project structure
-TODO anpassen
+- [assets](./assets)
+
+- [docs](./docs)
+
+- [src](./src)
+
+  Contains the source code.
+    - [FiniteAutomata.py](./src/FiniteAutomata.py)
+
+      Finite automata can be used to create finite automata objects on which various operations such as minimization, determinization, complement formation, determination of the symmetric difference and many more can be performed. 
+
+  - [WeightFiniteAutomata.py](./src/WeightFiniteAutomata.py)
+
+    This class can be used to calculate the weight of a FiniteAutomata object and the weight of the difference between two FiniteAutomata objects.
+
+
 - [Example.py](./Example.py)
 
   This file contains some examples of computations of the weights of regular languages represented by a finite automaton. Thus, the file should help to get an understanding of the application of weighting and to clarify the usage with some examples.  
-
-- [FiniteAutomata.py](./src/FiniteAutomata.py)
-
-  Finite automata can be used to create finite automata objects on which various operations such as minimization, determinization, complement formation, determination of the symmetric difference and many more can be performed. 
-
-- [WeightFiniteAutomata.py](./src/WeightFiniteAutomata.py)
-
-  This class can be used to calculate the weight of a FiniteAutomata object and the weight of the difference between two FiniteAutomata objects.
 
 ## Authors
 
