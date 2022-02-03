@@ -1,5 +1,5 @@
-from FiniteAutomata import FiniteAutomata
-from WeightFiniteAutomata import weight_diff, weight
+from src import FiniteAutomata
+from src import weight_diff, weight
 
 """ This file contains various examples that illustrate how the calculation of the weighting of a language works. 
     The various examples are briefly described at the point of implementation. 

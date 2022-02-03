@@ -1,0 +1,5 @@
+# “Requirements files” are files containing a list of items to be installed using pip install like so:
+# pip install -r requirements.txt
+
+# requirementA
+# requirementB

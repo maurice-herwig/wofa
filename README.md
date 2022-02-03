@@ -13,7 +13,7 @@ TODO...
 ## Example
 Here is an example of how the weighting of a language can be used for teaching. The task was to specify a finite automaton which describes the language of the words above the alphabet {a, b} which do not contain the subword "abba".A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automata 1 A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automat 1 is a better submission than the submission of automat 2, even if both submissions are not submissions that describe the required language. This is expressed by weighting the symmetric difference of the languages of these two automata to the sample solution by a metric value. Which significantly simplifies the evaluation of these deliveries. 
 
-![](./ExampleAutomatas.jpg)
+![](./assets/ExampleAutomatas.jpg)
 
 ```python   
 # Setting the alphabet.
@@ -46,15 +46,16 @@ Weight diff. Automata 2 to Solution = 0.145111985762509
 More examples can be found in the [Example.py](./Example.py) file.
 
 ## Project structure
+TODO anpassen
 - [Example.py](./Example.py)
 
   This file contains some examples of computations of the weights of regular languages represented by a finite automaton. Thus, the file should help to get an understanding of the application of weighting and to clarify the usage with some examples.  
 
-- [FiniteAutomata.py](./FiniteAutomata.py)
+- [FiniteAutomata.py](./src/FiniteAutomata.py)
 
   Finite automata can be used to create finite automata objects on which various operations such as minimization, determinization, complement formation, determination of the symmetric difference and many more can be performed. 
 
-- [WeightFiniteAutomata.py](./WeightFiniteAutomata.py)
+- [WeightFiniteAutomata.py](./src/WeightFiniteAutomata.py)
 
   This class can be used to calculate the weight of a FiniteAutomata object and the weight of the difference between two FiniteAutomata objects.
 
@@ -69,4 +70,7 @@ Research group "[Theoretical Computer Science / Formal Methods](https://www.uni-
 
 
 ## License
-TODO...
+[MIT](https://choosealicense.com/licenses/mit/) 
+
+If you use this template then change the license according to your needs. 
+See [here](https://choosealicense.com/) to choose the correct license.

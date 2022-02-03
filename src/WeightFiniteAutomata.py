@@ -1,4 +1,4 @@
-from FiniteAutomata import FiniteAutomata
+from src import FiniteAutomata
 from collections import defaultdict
 import numpy as np
 
