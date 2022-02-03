@@ -2,9 +2,18 @@
 
 This is a project to determine the weight of a regular language represented by a finite automaton. Besides the weight of a language, a measure of how far 2 regular languages are from each other can be determined by determining the weight of the symetric difference. 
 
-## Installation
+If you want to use this library stand-alone then use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements for this package
 
-TODO...
+```bash
+pip install -r requirements.txt 
+```
+
+If you want to import this library into another project use
+
+````bash
+pip install git+https://syre.fm.cs.uni-kassel.de/mherwig/weight-of-finite-automata
+````
+This installs the current master version as a package.
 
 ## Usage
 
