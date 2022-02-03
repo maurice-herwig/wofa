@@ -1,4 +1,4 @@
-from src import FiniteAutomata
+from weight_finite_automata import FiniteAutomata
 from collections import defaultdict
 import numpy as np
 

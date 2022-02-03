@@ -63,14 +63,14 @@ More examples can be found in the [Example.py](./Example.py) file.
 
 - [docs](./docs)
 
-- [src](./src)
+- [weight_finite_automata](./weight_finite_automata)
 
   Contains the source code.
-    - [FiniteAutomata.py](./src/FiniteAutomata.py)
+    - [FiniteAutomata.py](./weight_finite_automata/FiniteAutomata.py)
 
       Finite automata can be used to create finite automata objects on which various operations such as minimization, determinization, complement formation, determination of the symmetric difference and many more can be performed. 
 
-  - [WeightFiniteAutomata.py](./src/WeightFiniteAutomata.py)
+  - [WeightFiniteAutomata.py](./weight_finite_automata/WeightFiniteAutomata.py)
 
     This class can be used to calculate the weight of a FiniteAutomata object and the weight of the difference between two FiniteAutomata objects.
 
