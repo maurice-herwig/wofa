@@ -18,7 +18,7 @@ This installs the current master version as a package.
 
 ## Usage
 
-To use it, one or two [```FiniteAutomata```](./weight_finite_automata/FiniteAutomata.py) objects must be created. The constructor of [```FiniteAutomata(initials, transitions, finals)```](./weight_finite_automata/FiniteAutomata.py)  needs the set of initial states, the transitions and the set of final states. With [```weight(dfa, eta, lam)```](./weight_finite_automata/WeightFiniteAutomata.py) the weight of the language of a deterministic finite automaton (DFA) can be determined and with [```weight_diff(fa_a, fa_b, eta, lam)```](./weight_finite_automata/WeightFiniteAutomata.py) the weight of the difference of two finite automata can be determined. 
+To use it, one or two [```FiniteAutomata```](./wofa/FiniteAutomata.py) objects must be created. The constructor of [```FiniteAutomata(initials, transitions, finals)```](./wofa/FiniteAutomata.py)  needs the set of initial states, the transitions and the set of final states. With [```weight(dfa, eta, lam)```](./wofa/WeightFiniteAutomata.py) the weight of the language of a deterministic finite automaton (DFA) can be determined and with [```weight_diff(fa_a, fa_b, eta, lam)```](./wofa/WeightFiniteAutomata.py) the weight of the difference of two finite automata can be determined. 
 
 The parameters eta and lambda have the following meaning:
 - eta: Threshold value up to which all words are constantly included in the weighting.
