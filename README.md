@@ -41,12 +41,12 @@ eta = sol.get_length_longest_run() + 1
 lam = (1-x)**(1/eta)
 
 # Loading of different finite automata over the same alphabet.
-a_1 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)], {2, 3, 4}))
-a_2 = FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3),              (3, 'b', 2)], {1, 2, 3}))
+automat1 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)], {2, 3, 4}))
+automat2 = FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3),              (3, 'b', 2)                          ], {1, 2, 3}))
 
 # Determine the weight of the symmetrical difference and then print the result.
-print(f'Weight diff. Automata 1 to Solution = {weight_diff(sol, a_1, eta, lam)[2]}')
-print(f'Weight diff. Automata 2 to Solution = {weight_diff(sol, a_2, eta, lam)[2]}')
+print(f'Weight diff. Automata 1 to Solution = {weight_diff(sol, automat1, eta, lam)[2]}')
+print(f'Weight diff. Automata 2 to Solution = {weight_diff(sol, automat2, eta, lam)[2]}')
 
 ```
 
