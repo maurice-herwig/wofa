@@ -1,16 +1,15 @@
-# Weight finite automata 
-
-This is a project to determine the weight of a regular language represented by a finite automaton. Besides the weight of a language, a measure of how far 2 regular languages are from each other can be determined by determining the weight of the symetric difference. 
+# WoFA
+Weight of finite automata (WoFA) is a project to determine the weight of a regular language represented by a finite automaton. Besides the weight of a language, a measure of how far 2 regular languages are from each other can be determined by determining the weight of the symetric difference. 
 
 ## Installation
 
-If you want to use this library stand-alone then use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements for this package
+If you want to use this library stand-alone then use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements for this package.
 
 ```bash
 pip install -r requirements.txt 
 ```
 
-If you want to import this library into another project use
+If you want to import this library into another project use:
 
 ````bash
 pip install git+https://syre.fm.cs.uni-kassel.de/mherwig/wofa
@@ -19,7 +18,14 @@ This installs the current master version as a package.
 
 ## Usage
 
-TODO...
+To use it, one or two [```FiniteAutomata```](./weight_finite_automata/FiniteAutomata.py) objects must be created. The constructor of [```FiniteAutomata(initials, transitions, finals)```](./weight_finite_automata/FiniteAutomata.py)  needs the set of initial states, the transitions and the set of final states. With [```weight(dfa, eta, lam)```](./weight_finite_automata/WeightFiniteAutomata.py) the weight of the language of a deterministic finite automaton (DFA) can be determined and with [```weight_diff(fa_a, fa_b, eta, lam)```](./weight_finite_automata/WeightFiniteAutomata.py) the weight of the difference of two finite automata can be determined. 
+
+The parameters eta and lambda have the following meaning:
+- eta: Threshold value up to which all words are constantly included in the weighting.
+
+- lambda: decay rate, which describes how strongly the weighting decreases for increasing word lengths. 
+
+The following example illustrates the use of this libary with a concrete example.
 
 ## Example
 Here is an example of how the weighting of a language can be used for teaching. The task was to specify a finite automaton which describes the language of the words above the alphabet {a, b} which do not contain the subword "abba".A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automata 1 A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automat 1 is a better submission than the submission of automat 2, even if both submissions are not submissions that describe the required language. This is expressed by weighting the symmetric difference of the languages of these two automata to the sample solution by a metric value. Which significantly simplifies the evaluation of these deliveries. 
@@ -27,7 +33,8 @@ Here is an example of how the weighting of a language can be used for teaching. 
 ![](./assets/ExampleAutomatas.jpg)
 
 ```python   
-TODO imports....
+from wofa import FiniteAutomata
+from wofa import weight_diff, weight
 
 # Setting the alphabet.
 FiniteAutomata.set_alphabet({'a', 'b'})
@@ -63,14 +70,14 @@ More examples can be found in the [Example.py](./Example.py) file.
 
 - [docs](./docs)
 
-- [weight_finite_automata](./weight_finite_automata)
+- [wofa](./wofa)
 
   Contains the source code.
-    - [FiniteAutomata.py](./weight_finite_automata/FiniteAutomata.py)
+    - [FiniteAutomata.py](./wofa/FiniteAutomata.py)
 
       Finite automata can be used to create finite automata objects on which various operations such as minimization, determinization, complement formation, determination of the symmetric difference and many more can be performed. 
 
-  - [WeightFiniteAutomata.py](./weight_finite_automata/WeightFiniteAutomata.py)
+  - [WeightFiniteAutomata.py](./wofa/WeightFiniteAutomata.py)
 
     This class can be used to calculate the weight of a FiniteAutomata object and the weight of the difference between two FiniteAutomata objects.
 
