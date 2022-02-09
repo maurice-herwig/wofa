@@ -11,7 +11,7 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'weight of finite automata'
+NAME = 'wofa'
 DESCRIPTION = 'weight of finite automata is a project to determine the weight of a regular language represented by a finite automaton. Besides the weight of a language, a measure of how far 2 regular languages are from each other can be determined by determining the weight of the symetric difference.'
 URL = ''
 EMAIL = 'maurice.herwig@uni-kassel.de'
