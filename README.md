@@ -13,7 +13,7 @@ pip install -r requirements.txt
 If you want to import this library into another project use
 
 ````bash
-pip install git+https://syre.fm.cs.uni-kassel.de/mherwig/weight-of-finite-automata
+pip install git+https://syre.fm.cs.uni-kassel.de/mherwig/wofa
 ````
 This installs the current master version as a package.
 
