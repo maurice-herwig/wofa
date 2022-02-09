@@ -27,20 +27,20 @@ def example_sym_diff():
     lam = (1-x)**(1/eta)
 
     # Loading of different finite automata over the same alphabet. 
-    a_1 = FiniteAutomata({0}, [(0, 'a', 5), (0, 'b', 7), (5, 'a', 5), (5, 'b', 1), (1, 'a', 5), (1, 'b', 4), (4, 'b', 5), (7, 'a', 3), (7, 'b', 7), (3, 'a', 3), (3, 'b', 6), (6, 'a', 3), (6, 'b', 2), (2, 'b', 3)], {0, 1, 2, 3, 4, 5, 6, 7})
-    a_2 = FiniteAutomata({0}, [(0, 'a', 2), (0, 'b', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 1), (1, 'b', 1), (1, 'a', 2)], {0, 1, 2, 3, 4})
-    a_3 = FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 3), (3, 'a', 3), (3, 'b', 2), (2, 'a', 3), (2, 'b', 1), (1, 'a', 4), (1, 'b', 1), (1, 'b', 3)], {1, 2, 3})
-    a_4 = FiniteAutomata({0}, [(0, 'a', 0), (0, 'b', 2), (2, 'a', 0), (2, 'b', 1), (1, 'b', 2), (1, 'a', 3)], {0, 1, 2})
-    a_5 = FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 1), (1, 'a', 0), (1, 'b', 2), (2, 'a', 0), (2, 'b', 3), (3, 'a', 4), (3, 'b', 0)] ,{0})
-    a_6 = FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4), (4, 'b', 4), (4, 'a', 1), (1, 'a', 1), (1, 'b', 1)], {1})
+    automat1 = FiniteAutomata({0}, [(0, 'a', 3), (0, 'b', 1), (3, 'a', 3), (3, 'b', 4), (4, 'a', 3), (4, 'b', 2), (2, 'b', 3), (1, 'a', 3), (1, 'b', 1), (3, 'b', 4), (4, 'b', 2), (2, 'b', 3)], {0, 1, 2, 3, 4})
+    automat2 = FiniteAutomata({0}, [(0, 'a', 2), (0, 'b', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 1), (1, 'b', 1), (1, 'a', 2)], {0, 1, 2, 3, 4})
+    automat3 = FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 3), (3, 'a', 3), (3, 'b', 2), (2, 'a', 3), (2, 'b', 1), (1, 'a', 4), (1, 'b', 1), (1, 'b', 3)], {1, 2, 3})
+    automat4 = FiniteAutomata({0}, [(0, 'a', 0), (0, 'b', 2), (2, 'a', 0), (2, 'b', 1), (1, 'b', 2), (1, 'a', 3)], {0, 1, 2})
+    automat5 = FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 1), (1, 'a', 0), (1, 'b', 2), (2, 'a', 0), (2, 'b', 3), (3, 'a', 4), (3, 'b', 0)] ,{0})
+    automat6 = FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4), (4, 'b', 4), (4, 'a', 1), (1, 'a', 1), (1, 'b', 1)], {1})
 
     # Determine the weight of the symmetrical difference and then print the result.
-    print(f'Weight diff. Automata 1 to Solution = {weight_diff(sol, a_1, eta, lam)[2]}')
-    print(f'Weight diff. Automata 2 to Solution = {weight_diff(sol, a_2, eta, lam)[2]}')
-    print(f'Weight diff. Automata 3 to Solution = {weight_diff(sol, a_3, eta, lam)[2]}')
-    print(f'Weight diff. Automata 4 to Solution = {weight_diff(sol, a_4, eta, lam)[2]}')
-    print(f'Weight diff. Automata 5 to Solution = {weight_diff(sol, a_5, eta, lam)[2]}')
-    print(f'Weight diff. Automata 6 to Solution = {weight_diff(sol, a_6, eta, lam)[2]}')
+    print(f'Weight diff. Automata 1 to Solution = {weight_diff(sol, automat1, eta, lam)[2]}')
+    print(f'Weight diff. Automata 2 to Solution = {weight_diff(sol, automat2, eta, lam)[2]}')
+    print(f'Weight diff. Automata 3 to Solution = {weight_diff(sol, automat3, eta, lam)[2]}')
+    print(f'Weight diff. Automata 4 to Solution = {weight_diff(sol, automat4, eta, lam)[2]}')
+    print(f'Weight diff. Automata 5 to Solution = {weight_diff(sol, automat5, eta, lam)[2]}')
+    print(f'Weight diff. Automata 6 to Solution = {weight_diff(sol, automat6, eta, lam)[2]}')
     print()
 
 def example_weight_lang():
@@ -54,12 +54,25 @@ def example_weight_lang():
 
     # Loading of different finite automata over the same alphabet. 
     automatas = []
+    # solution
     automatas.append(FiniteAutomata({0}, [(0, 'a', 2), (0, 'b', 0), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 1), (1, 'b', 0)], {0, 1, 2, 3}))
+    
+    # automat1
     automatas.append(FiniteAutomata({0}, [(0, 'a', 5), (0, 'b', 7), (5, 'a', 5), (5, 'b', 1), (1, 'a', 5), (1, 'b', 4), (4, 'b', 5), (7, 'a', 3), (7, 'b', 7), (3, 'a', 3), (3, 'b', 6), (6, 'a', 3), (6, 'b', 2), (2, 'b', 3)], {0, 1, 2, 3, 4, 5, 6, 7}))
+    
+    # automat2
     automatas.append(FiniteAutomata({0}, [(0, 'a', 2), (0, 'b', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 1), (1, 'b', 1), (1, 'a', 2)], {0, 1, 2, 3, 4}))
+    
+    # automat3
     automatas.append(FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 3), (3, 'a', 3), (3, 'b', 2), (2, 'a', 3), (2, 'b', 1), (1, 'a', 4), (1, 'b', 1), (1, 'b', 3)], {1, 2, 3}))
+    
+    # automat4
     automatas.append(FiniteAutomata({0}, [(0, 'a', 0), (0, 'b', 2), (2, 'a', 0), (2, 'b', 1), (1, 'b', 2), (1, 'a', 3)], {0, 1, 2}))
+    
+    # automat5
     automatas.append(FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 1), (1, 'a', 0), (1, 'b', 2), (2, 'a', 0), (2, 'b', 3), (3, 'a', 4), (3, 'b', 0)] ,{0}))
+    
+    # automat6
     automatas.append(FiniteAutomata({0}, [(0, 'b', 0), (0, 'a', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4), (4, 'b', 4), (4, 'a', 1), (1, 'a', 1), (1, 'b', 1)], {1}))
     
     #x is the proportion of the weight to be allocated to the constant part.
