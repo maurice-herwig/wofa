@@ -58,11 +58,9 @@ ax.set_zlabel('weight')
 res = []
 for automata in automatas: 
     res_i = []
-    for eta in etas:
+    for lam in lams:
         r = []
-    
-        for lam in lams:
-            #r.append(weight(sol, eta, lam))
+        for eta in etas:
             r.append(weight_diff(sol, automata, eta, lam)[2])
         res_i.append(r)
     res.append(res_i)
@@ -87,7 +85,7 @@ ax.plot_surface(X, Y, Z, cmap ='BuGn', edgecolor ='green')
 
 
 
-# hinzufügen der ursrünglichen Werts
+# hinzufï¿½gen der ursrï¿½nglichen Werts
 x = 0.5
 eta = sol.get_length_longest_run() + 1
 lam = (1-x)**(1/eta)

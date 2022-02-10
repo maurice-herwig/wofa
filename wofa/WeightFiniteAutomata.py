@@ -1,6 +1,7 @@
 from wofa import FiniteAutomata
 from collections import defaultdict
 import numpy as np
+import matplotlib.pyplot as plt
 
 def weight_diff(fa_a, fa_b, eta, lam):
     """Method determines the weight of the symmetric difference of two finite automata. 
@@ -128,6 +129,85 @@ def __weight_with_matrix(dfa, eta, lam, up_to = 0):
     weight += weight_ex_part
     
     return weight
+
+def vis_weight(dfa, num_val, max_eta):
+
+    #
+    etas = np.array([int(i) for i in np.linspace(0, max_eta, num_val)])
+    lams = np.linspace(0.5, 1, num_val + 1)[:num_val]
+
+    #
+    x, y = np.meshgrid(etas, lams)
+    z = weight_values(dfa, etas, lams)
+
+    #
+    ax = plt.axes(projection ='3d')
+    ax.set_xlabel("eta")
+    ax.set_ylabel("lambda")
+    ax.set_zlabel('weight')
+
+    # 
+    ax.plot_surface(x, y, z, cmap ='viridis', edgecolor ='green')
+    plt.show()
+
+def vis_diff(fa_a, fa_b, num_val, max_eta):
+
+    #
+    etas = np.array([int(i) for i in np.linspace(0, max_eta, num_val)])
+    lams = np.linspace(0.5, 1, num_val + 1)[:num_val]
+
+    #
+    x, y = np.meshgrid(etas, lams)
+    z1, z2, z3 = weight_sym_values(fa_a, fa_b, etas, lams)
+
+    #
+    ax = plt.axes(projection ='3d')
+    ax.set_xlabel("eta")
+    ax.set_ylabel("lambda")
+    ax.set_zlabel('weight')
+
+    # 
+    ax.plot_surface(x, y, z1, cmap ='viridis', edgecolor ='green')
+    ax.plot_surface(x, y, z2, cmap ='Oranges', edgecolor ='orange')
+    ax.plot_surface(x, y, z3, cmap ='Greys', edgecolor ='grey')
+    plt.show()
+
+def weight_values(dfa, etas, lams):
+    
+    res = []
+    for lam in lams:
+        i_res = []
+        for eta in etas:
+            i_res.append(weight(dfa, eta, lam))
+        res.append(i_res)
+    
+    return np.array(res)
+
+def weight_sym_values(fa_a, fa_b, etas, lams):
+    
+    #
+    res_a_sub_b = []
+    res_b_sub_a = []
+    res_w = []
+
+    #
+    for lam in lams:
+        i_res_a_sub_b = []
+        i_res_b_sub_a = []
+        i_res_w = []
+        for eta in etas:
+            w0, w1, w2 = weight_diff(fa_a, fa_b, eta, lam)
+            i_res_a_sub_b.append(w0)
+            i_res_b_sub_a.append(w1)
+            i_res_w.append(w2)
+        
+        #
+        res_a_sub_b.append(i_res_a_sub_b)
+        res_b_sub_a.append(i_res_b_sub_a)
+        res_w.append(i_res_w)
+
+    return np.array(res_a_sub_b), np.array(res_b_sub_a), np.array(res_w)
+
 
 class Matrix:
     """Class that contains the matrices needed to calculate the weight of a language and if needed determines the matrices for further word lengths.
