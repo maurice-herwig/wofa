@@ -1,5 +1,6 @@
 from wofa import FiniteAutomata
 from wofa import weight_diff, weight, vis_weight, vis_diff
+import numpy as np
 
 """ This file contains various examples that illustrate how the calculation of the weighting of a language works. 
     The various examples are briefly described at the point of implementation. 
@@ -167,6 +168,9 @@ def example_lamda():
     print()
 
 def example_visualisation():
+    """ TODO
+    """
+    
     # Setting the alphabet.
     FiniteAutomata.set_alphabet({'a', 'b'})
     
@@ -174,9 +178,12 @@ def example_visualisation():
     sol = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 1)], {1, 2, 3, 4})
     
     #
-    vis_weight(sol.determinize(), 30, 30)
+    vis_weight(sol.determinize(), np.arange(0, 11) , 20, 'heatmap')
 
 def example_visaulisation_diff():
+    """ TODO
+    """
+
     # Setting the alphabet.
     FiniteAutomata.set_alphabet({'a', 'b'})
     
@@ -188,7 +195,7 @@ def example_visaulisation_diff():
 
     automat6 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4), (4, 'a', 5), (4, 'b', 4), (5, 'a', 5), (5, 'b', 5)], {5})
 
-    vis_diff(sol, automat3, 10, 10)
+    vis_diff(sol, automat6, np.arange(0, 11), 20, 'heatmap')
 
 
 
