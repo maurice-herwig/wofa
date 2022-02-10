@@ -1,6 +1,9 @@
 from wofa import FiniteAutomata
 from collections import defaultdict
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import seaborn as sns
 
 def weight_diff(fa_a, fa_b, eta, lam):
     """Method determines the weight of the symmetric difference of two finite automata. 
@@ -128,6 +131,166 @@ def __weight_with_matrix(dfa, eta, lam, up_to = 0):
     weight += weight_ex_part
     
     return weight
+
+def vis_weight(dfa, etas, num_lams, type = 'heatmap'):
+    """ Visualize the weight results in a 3 dimensional figure with different values for eta and lambda.
+    !!!Important!!! The input of the parameter dfa must be a deterministic finite automaton.
+                    For not deterministic finite automaton it is not possible to determine the weight.
+
+    Args:
+        dfa (FiniteAutomata):   The deterministic finite automaton on which the weights of the language for different values is to be determined.
+        etas (list of integer): List with values that eta should accept for the visualisation.
+        num_lams (integer):     Number of different values Lambda should take.
+        type (str, optional):   Type of the visaulisation: 'surface' or 'heatmap'. Defaults to 'heatmap'.
+    """
+    # Uniformly distributed selection of the lambda values for which the weight is to be determined.
+    lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams]
+    
+    # set the size of the figure
+    plt.figure(figsize=(len(etas), num_lams))
+
+    # Calculate the weights
+    z = __weight_values(dfa, etas, lams)
+
+    # create a surface plot
+    if type == 'surface':
+        x, y = np.meshgrid(etas, lams)
+        ax = plt.axes(projection ='3d')
+        ax.invert_xaxis()
+        ax.set_xlabel("eta")
+        ax.set_ylabel("lambda")
+        ax.set_zlabel('weight')
+        ax.plot_surface(x, y, z, cmap ='viridis', edgecolor ='green')
+
+    # create a heatmap
+    elif type == 'heatmap':
+        plt.style.use("seaborn")
+        ax = sns.heatmap(z, linewidth = 1 , annot = True, cbar_kws={'label': 'weight'}) 
+        ax.invert_yaxis()
+        ax.set_xticklabels(etas)
+        ax.set_yticklabels([round(i,2) for i in lams], rotation=0)
+        plt.xlabel("eta")
+        plt.ylabel("lambda")
+  
+    plt.show()
+
+def vis_diff(fa_a, fa_b, etas, num_lams, type = 'heatmap'):
+    """ Visualize the weight of the symmetric difference of two finite automata in a 3 dimensional figure with different values for eta and lambda.
+
+    Args:
+        fa_a (FiniteAutomata):  One of the two finite automaton on whose symmetric difference the weight is to be formed.
+        fa_b (FiniteAutomata):  One of the two finite automaton on whose symmetric difference the weight is to be formed.
+        etas (list of integer): List with values that eta should accept for the visualisation.
+        num_lams (integer):     Number of different values Lambda should take.
+        type (str, optional):   Type of the visaulisation: 'surface' or 'heatmap'. Defaults to 'heatmap'.
+    """
+    # Uniformly distributed selection of the lambda values for which the weight is to be determined.
+    lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams]
+
+    # set the size of the figure
+    plt.figure(figsize=(len(etas), num_lams))
+    
+    # create a surface plot
+    if type == 'surface':
+        # Determine the x, y and z values.
+        x, y = np.meshgrid(etas, lams)
+        z1, z2, z3 = __weight_sym_values(fa_a, fa_b, etas, lams)
+
+        # Labeling ansd settings of the axes. 
+        ax = plt.axes(projection ='3d')
+        ax.invert_yaxis()
+        ax.set_xlabel("eta")
+        ax.set_ylabel("lambda")
+        ax.set_zlabel('weight')
+
+        # Add the surfaces.
+        ax.plot_surface(x, y, z1, cmap ='Greens', edgecolor ='green')
+        ax.plot_surface(x, y, z2, cmap ='Oranges', edgecolor ='orange')
+        ax.plot_surface(x, y, z3, cmap ='Greys', edgecolor ='grey')
+
+        # Add the legend.
+        fake2Dline1 = mpl.lines.Line2D([0],[0], linestyle="none", c='grey', marker = 'o')
+        fake2Dline2 = mpl.lines.Line2D([0],[0], linestyle="none", c='green', marker = 'o')
+        fake2Dline3 = mpl.lines.Line2D([0],[0], linestyle="none", c='orange', marker = 'o')
+        ax.legend([fake2Dline1, fake2Dline2, fake2Dline3], ['Weight of symetrical difference', 'Weight of words only in FA a', 'Weight of words only in FA a'], numpoints = 1)
+
+    # create a heatmap
+    elif type == 'heatmap':
+        # Determinie the symetrical difference of the two finite automata
+        dfa = fa_a.symetrical_difference(fa_b)
+        
+        # Calculate the weights
+        z = __weight_values(dfa, etas, lams)
+
+        # Create the headmap
+        plt.style.use("seaborn")
+        ax = sns.heatmap(z, linewidth = 1 , annot = True, cbar_kws={'label': 'weight'})    
+        ax.invert_yaxis()
+        ax.set_xticklabels(etas)
+        ax.set_yticklabels([round(i,2) for i in lams], rotation=0)
+        plt.xlabel("eta")
+        plt.ylabel("lambda")
+        
+    plt.show()
+
+def __weight_values(dfa, etas, lams):
+    """ Determines the weight for all combinations of eta and lambda of a given determinite finite automaton.
+    !!!Important!!! The input of the parameter dfa must be a deterministic finite automaton.
+                    For not deterministic finite automaton it is not possible to determine the weight.
+
+    Args:
+        dfa (FiniteAutomata):   The deterministic finite automaton on which the weights of the language for different values is to be determined.
+        etas (list of integer): List with values that eta should accept for he calculation of weights.
+        lams (list of floats):  List of values that lambda should accept for the calculation of weights.
+
+    Returns:
+        numpy.array: A numpy array containing the weight for all lambda and eta combinations. 
+    """
+    res = []
+    for lam in lams:
+        i_res = []
+        for eta in etas:
+            i_res.append(weight(dfa, eta, lam))
+        res.append(i_res)
+    
+    return np.array(res)
+
+def __weight_sym_values(fa_a, fa_b, etas, lams):
+    """ Determines all weights of the symetric difference as well as the weights of the two disjoint subsets 
+    for the given values of eta and lambda.
+
+    Args:
+        fa_a (FiniteAutomata):  One of the two finite automaton on whose symmetric difference the weight is to be formed.
+        fa_b (FiniteAutomata):  One of the two finite automaton on whose symmetric difference the weight is to be formed.
+        etas (list of integer): List with values that eta should accept for he calculation of weights.
+        lams (list of floats):  List of values that lambda should accept for the calculation of weights.
+
+    Returns:
+        numpy.array, numpy.array, numpy.array: 1, 2, 3
+                                                1: The weights of the language containing the words contained only in fa_a and not in fa_b. 
+                                                2: The weights of the language containing the words contained only in fa_b and not in fa_a. 
+                                                3: The weights of the symmetrical difference.
+    """
+    res_a_sub_b = []
+    res_b_sub_a = []
+    res_w = []
+
+    for lam in lams:
+        i_res_a_sub_b = []
+        i_res_b_sub_a = []
+        i_res_w = []
+        for eta in etas:
+            w0, w1, w2 = weight_diff(fa_a, fa_b, eta, lam)
+            i_res_a_sub_b.append(w0)
+            i_res_b_sub_a.append(w1)
+            i_res_w.append(w2)
+  
+        res_a_sub_b.append(i_res_a_sub_b)
+        res_b_sub_a.append(i_res_b_sub_a)
+        res_w.append(i_res_w)
+
+    return np.array(res_a_sub_b), np.array(res_b_sub_a), np.array(res_w)
+
 
 class Matrix:
     """Class that contains the matrices needed to calculate the weight of a language and if needed determines the matrices for further word lengths.
