@@ -150,7 +150,7 @@ def vis_weight(dfa, etas, num_lams, type = 'heatmap'):
     plt.figure(figsize=(len(etas), num_lams))
 
     # Calculate the weights
-    z = __weight_values(dfa, etas, lams)
+    z = weight_values(dfa, etas, lams)
 
     # create a surface plot
     if type == 'surface':
@@ -220,7 +220,7 @@ def vis_diff(fa_a, fa_b, etas, num_lams, type = 'heatmap'):
         dfa = fa_a.symetrical_difference(fa_b)
         
         # Calculate the weights
-        z = __weight_values(dfa, etas, lams)
+        z = weight_values(dfa, etas, lams)
 
         # Create the headmap
         plt.style.use("seaborn")
@@ -233,7 +233,7 @@ def vis_diff(fa_a, fa_b, etas, num_lams, type = 'heatmap'):
         
     plt.show()
 
-def __weight_values(dfa, etas, lams):
+def weight_values(dfa, etas, lams):
     """ Determines the weight for all combinations of eta and lambda of a given determinite finite automaton.
     !!!Important!!! The input of the parameter dfa must be a deterministic finite automaton.
                     For not deterministic finite automaton it is not possible to determine the weight.

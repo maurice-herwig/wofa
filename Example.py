@@ -1,6 +1,7 @@
 from wofa import FiniteAutomata
-from wofa import weight_diff, weight, vis_weight, vis_diff
+from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values
 import numpy as np
+import matplotlib.pyplot as plt
 
 """ This file contains various examples that illustrate how the calculation of the weighting of a language works. 
     The various examples are briefly described at the point of implementation. 
@@ -202,8 +203,51 @@ def example_visaulisation_diff():
     vis_diff(sol, automaton3, np.arange(0, 11), 20, 'surface')
 
 def example_find_best_paramters():
-    #TODO
-    pass
+    """This example shows how the autoamts from example_sym_diff behave with different parameter values. 
+    This example can help to find the best parameters for the use case of evaluating student submissions.
+    """
+    print("Wait a moment please for creating the visualisation....")
+
+    # Setting the alphabet.
+    FiniteAutomata.set_alphabet({'a', 'b'})
+
+    # Create a solution object.
+    sol = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 1)], {1, 2, 3, 4})
+
+    # Loading of different finite automata over the same alphabet. 
+    automaton1 = FiniteAutomata({1}, [(1, 'a', 3), (1, 'b', 2), (2, 'a', 3), (2, 'b', 2), (3, 'a', 3), (3, 'b', 4), (4, 'a', 3), (4, 'b', 5),              (5, 'b', 3)], {1, 2, 3, 4, 5})
+    automaton2 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4),              (4, 'b', 5), (5, 'a', 2), (5, 'b', 5)], {1, 2, 3, 4, 5})
+    automaton3 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)                          ], {2, 3, 4})
+    automaton4 = FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3),              (3, 'b', 2)                                                    ], {1, 2, 3})
+    automaton5 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 1), (2, 'b', 3), (3, 'a', 1), (3, 'b', 4),              (4, 'b', 1)                          ] ,{1})
+    automaton6 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4), (4, 'a', 5), (4, 'b', 4), (5, 'a', 5), (5, 'b', 5)], {5})
+
+    # Determine the different parameters that eta and lambda should take.
+    etas = np.arange(0, 11)
+    lams = np.linspace(0.5, 1, 11)[:10]
+
+    # Set the size of the figure.
+    plt.figure(figsize=(len(etas), len(lams)))
+    
+    # Create the meschgird for x and y dimension.
+    x, y = np.meshgrid(etas, lams)
+    
+    # Labeling ansd settings of the axes.
+    ax = plt.axes(projection ='3d')
+    ax.invert_yaxis()
+    ax.set_xlabel("eta")
+    ax.set_ylabel("lambda")
+    ax.set_zlabel('weight')
+    
+    # Create the surfaces for the weights of the symetrical difference between the solution and the 6 different aumatas from students submissons.
+    ax.plot_surface(x, y, weight_values(sol.symetrical_difference(automaton1), etas, lams), cmap ='Greys', edgecolor ='grey')
+    ax.plot_surface(x, y, weight_values(sol.symetrical_difference(automaton2), etas, lams), cmap ='Purples', edgecolor ='purple')
+    ax.plot_surface(x, y, weight_values(sol.symetrical_difference(automaton3), etas, lams), cmap ='Greens', edgecolor ='green')
+    ax.plot_surface(x, y, weight_values(sol.symetrical_difference(automaton4), etas, lams), cmap ='Oranges', edgecolor ='orange')
+    ax.plot_surface(x, y, weight_values(sol.symetrical_difference(automaton5), etas, lams), cmap ='BuPu', edgecolor ='blue')
+    ax.plot_surface(x, y, weight_values(sol.symetrical_difference(automaton6), etas, lams), cmap ='BuGn', edgecolor ='green')
+
+    plt.show()
 
 if __name__=="__main__":
     """Here you can comment out which examples should be executed when executing this file.
@@ -214,4 +258,5 @@ if __name__=="__main__":
     #example_eta()
     #example_lamda()
     example_visualisation()
-    example_visaulisation_diff()
+    #example_visaulisation_diff()
+    #example_find_best_paramters()
