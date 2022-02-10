@@ -29,20 +29,20 @@ def example_sym_diff():
     lam = (1-x)**(1/eta)
 
     # Loading of different finite automata over the same alphabet. 
-    automat1 = FiniteAutomata({1}, [(1, 'a', 3), (1, 'b', 2), (2, 'a', 3), (2, 'b', 2), (3, 'a', 3), (3, 'b', 4), (4, 'a', 3), (4, 'b', 5),              (5, 'b', 3)], {1, 2, 3, 4, 5})
-    automat2 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4),              (4, 'b', 5), (5, 'a', 2), (5, 'b', 5)], {1, 2, 3, 4, 5})
-    automat3 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)                          ], {2, 3, 4})
-    automat4 = FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3),              (3, 'b', 2)                                                    ], {1, 2, 3})
-    automat5 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 1), (2, 'b', 3), (3, 'a', 1), (3, 'b', 4),              (4, 'b', 1)                          ] ,{1})
-    automat6 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4), (4, 'a', 5), (4, 'b', 4), (5, 'a', 5), (5, 'b', 5)], {5})
+    automaton1 = FiniteAutomata({1}, [(1, 'a', 3), (1, 'b', 2), (2, 'a', 3), (2, 'b', 2), (3, 'a', 3), (3, 'b', 4), (4, 'a', 3), (4, 'b', 5),              (5, 'b', 3)], {1, 2, 3, 4, 5})
+    automaton2 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4),              (4, 'b', 5), (5, 'a', 2), (5, 'b', 5)], {1, 2, 3, 4, 5})
+    automaton3 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)                          ], {2, 3, 4})
+    automaton4 = FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3),              (3, 'b', 2)                                                    ], {1, 2, 3})
+    automaton5 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 1), (2, 'b', 3), (3, 'a', 1), (3, 'b', 4),              (4, 'b', 1)                          ] ,{1})
+    automaton6 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4), (4, 'a', 5), (4, 'b', 4), (5, 'a', 5), (5, 'b', 5)], {5})
 
     # Determine the weight of the symmetrical difference and then print the result.
-    print(f'Weight diff. Automata 1 to Solution = {weight_diff(sol, automat1, eta, lam)[2]}')
-    print(f'Weight diff. Automata 2 to Solution = {weight_diff(sol, automat2, eta, lam)[2]}')
-    print(f'Weight diff. Automata 3 to Solution = {weight_diff(sol, automat3, eta, lam)[2]}')
-    print(f'Weight diff. Automata 4 to Solution = {weight_diff(sol, automat4, eta, lam)[2]}')
-    print(f'Weight diff. Automata 5 to Solution = {weight_diff(sol, automat5, eta, lam)[2]}')
-    print(f'Weight diff. Automata 6 to Solution = {weight_diff(sol, automat6, eta, lam)[2]}')
+    print(f'Weight diff. Automata 1 to Solution = {weight_diff(sol, automaton1, eta, lam)[2]}')
+    print(f'Weight diff. Automata 2 to Solution = {weight_diff(sol, automaton2, eta, lam)[2]}')
+    print(f'Weight diff. Automata 3 to Solution = {weight_diff(sol, automaton3, eta, lam)[2]}')
+    print(f'Weight diff. Automata 4 to Solution = {weight_diff(sol, automaton4, eta, lam)[2]}')
+    print(f'Weight diff. Automata 5 to Solution = {weight_diff(sol, automaton5, eta, lam)[2]}')
+    print(f'Weight diff. Automata 6 to Solution = {weight_diff(sol, automaton6, eta, lam)[2]}')
     print()
 
 def example_weight_lang():
@@ -60,22 +60,22 @@ def example_weight_lang():
     # solution
     automatas.append(FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 1)                                       ], {1, 2, 3, 4}))
     
-    # automat1
+    # automaton1
     automatas.append(FiniteAutomata({1}, [(1, 'a', 3), (1, 'b', 2), (2, 'a', 3), (2, 'b', 2), (3, 'a', 3), (3, 'b', 4), (4, 'a', 3), (4, 'b', 5),              (5, 'b', 3)], {1, 2, 3, 4, 5}))
     
-    # automat2
+    # automaton2
     automatas.append(FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4),              (4, 'b', 5), (5, 'a', 2), (5, 'b', 5)], {1, 2, 3, 4, 5}))
     
-    # automat3
+    # automaton3
     automatas.append(FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)                          ], {2, 3, 4}))
     
-    # automat4
+    # automaton4
     automatas.append(FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3),              (3, 'b', 2)                                                    ], {1, 2, 3}))
     
-    # automat5
+    # automaton5
     automatas.append(FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 1), (2, 'b', 3), (3, 'a', 1), (3, 'b', 4),              (4, 'b', 1)                          ] ,{1}))
     
-    # automat6
+    # automaton6
     automatas.append(FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4), (4, 'a', 5), (4, 'b', 4), (5, 'a', 5), (5, 'b', 5)], {5}))
     
     #x is the proportion of the weight to be allocated to the constant part.
@@ -154,63 +154,64 @@ def example_lamda():
     FiniteAutomata.set_alphabet({'a', 'b'})
 
     # Crate the automata object
-    automat = FiniteAutomata({0}, [(0, 'a', 2), (0, 'b', 0), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 1), (1, 'b', 0)], {0, 1, 2, 3}).determinize()
+    automaton = FiniteAutomata({0}, [(0, 'a', 2), (0, 'b', 0), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 1), (1, 'b', 0)], {0, 1, 2, 3}).determinize()
     
     # In this example, eta is set to a fixed value.
-    eta = automat.get_length_longest_run() +1
+    eta = automaton.get_length_longest_run() +1
 
     # Specify a set of lambdas for which the weight of the language should be determined.
     lam_values = [i/20 for i in range(1, 20)] + [0.96, 0.97, 0.98, 0.99]
     for lam in lam_values:
         s = f'Weight for lambda={lam}'.ljust(23)
-        s += f'= {weight(automat, eta, lam)}'
+        s += f'= {weight(automaton, eta, lam)}'
         print(s)
     print()
 
 def example_visualisation():
-    """ TODO
+    """ This method shows with a visualization how the weight is changed by the parameters. For the automaton used as a solution in the previous 
+    examples, the weight is calculated for different combinations of eta and lambda and displayed graphically. 
     """
-    
+    print("Wait a moment please for creating the visualisation....")
+
     # Setting the alphabet.
     FiniteAutomata.set_alphabet({'a', 'b'})
     
-    #
+    # Create a Automaton object.
     sol = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 1)], {1, 2, 3, 4})
     
-    #
+    # Visualsiation of the weigth for difference eta and lambda
     vis_weight(sol.determinize(), np.arange(0, 11) , 20, 'heatmap')
 
 def example_visaulisation_diff():
-    """ TODO
+    """ This method shows with a visualization how the weight is changed by the parameters. For the automaton used as solution in the 
+    previous examples and the automaton named automaton 3, the weight of the symmetric difference for the different combination of 
+    eta and lambda is calculated and displayed graphically. 
     """
+    print("Wait a moment please for creating the visualisation....")
 
     # Setting the alphabet.
     FiniteAutomata.set_alphabet({'a', 'b'})
     
-    #
+    # Create a solution object.
     sol = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 1)], {1, 2, 3, 4})
 
-    #
-    automat3 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)                          ], {2, 3, 4})
+    # Create a Atomaton Objeckt, for one false submisson.
+    automaton3 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)], {2, 3, 4})
 
-    automat6 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4), (4, 'a', 5), (4, 'b', 4), (5, 'a', 5), (5, 'b', 5)], {5})
+    # Visualsiation of the weigth for difference eta and lambda
+    vis_diff(sol, automaton3, np.arange(0, 11), 20, 'surface')
 
-    vis_diff(sol, automat6, np.arange(0, 11), 20, 'heatmap')
-
-
+def example_find_best_paramters():
+    #TODO
+    pass
 
 if __name__=="__main__":
     """Here you can comment out which examples should be executed when executing this file.
     """
-
-    """
     example_sym_diff()
     example_weight_lang()
     example_same_weight()
-    example_eta()
-    example_lamda()
-    """
-
-    #example_visualisation()
-
+    #example_eta()
+    #example_lamda()
+    example_visualisation()
     example_visaulisation_diff()
