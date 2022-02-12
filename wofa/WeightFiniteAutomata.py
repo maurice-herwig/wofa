@@ -339,8 +339,16 @@ def surface_to_tikz(dfa, etas, num_lams, path):
     
     # Write the begin of the tikzpicture definition in the file.
     f.write(r'\begin{tikzpicture}' + "\n" + "\n" +
-            r'\begin{axis}' + "\n" +
-            r'\addplot3[' +
+            r'\begin{axis}' + "[" + "\n" +
+            "\t" + "view = {25}{30}, %Here you can set the angles of the axes 1: orizontal angle 2: vertical angle" + "\n" +
+            "\t" + "colormap/jet, " + "\n" +
+            "\t" + "colorbar left," + "\n" +
+            "\t" + "xlabel={$\eta$}," + "\n" +
+            "\t" + "ylabel={$\lambda$}," + "\n" +
+            "\t" + "zlabel={weight}," + "\n" +
+            "\t" + "grid," + "\n" +
+            "]" + "\n" +
+            r'\addplot3[' + "\n" +
             "\t" + "mesh," + "\n" +
             "]" + "\n" +
             "coordinates {"
