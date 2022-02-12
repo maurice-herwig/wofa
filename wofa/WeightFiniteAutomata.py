@@ -1,3 +1,4 @@
+from os import close, write
 from wofa import FiniteAutomata
 from collections import defaultdict
 import numpy as np
@@ -315,6 +316,38 @@ def __weight_sym_values(fa_a, fa_b, etas, lams):
 
     return np.array(res_a_sub_b), np.array(res_b_sub_a), np.array(res_w)
 
+def surface_to_tikz(dfa, etas, num_lams, dir):
+    
+    # Uniformly distributed selection of the lambda values for which the weight is to be determined.
+    lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams]
+
+    # A new tex file under the given direction und file name.
+    f = open(f'{dir}.tex', 'w')
+    
+    # Write the beginn of the tikzpicture defination in the file.
+    f.write(r'\begin{tikzpicture}' + "\n" + "\n" +
+            r'\begin{axis}' + "\n" +
+            r'\addplot3[' +
+            "\t" + "mesh," + "\n" +
+            "]" + "\n" +
+            "coordinates {"
+            )
+
+    #
+    for eta in etas:
+        s = ""
+        for lam in lams:
+            w = weight(dfa, eta, lam)
+            s += f'({eta}, {lam}, {w})'
+        f.write(s + "\n \n" )
+
+    # Write the end of the tikzpicture defination in the file.
+    f.write("};" + "\n" +
+            r'\end{axis}' + "\n" +
+            r'\end{tikzpicture}')
+
+    # close the file
+    f.close()
 
 class Matrix:
     """Class that contains the matrices needed to calculate the weight of a language and if needed determines the
