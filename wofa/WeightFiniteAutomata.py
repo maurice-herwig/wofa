@@ -261,7 +261,7 @@ def weight_values(dfa, etas, lams):
 
     Args:
         dfa (FiniteAutomata):   The deterministic finite automaton on which the weights of the language for different
-        values is to be determined.
+                                values is to be determined.
         etas (list of integer): List with values that eta should accept for he calculation of weights.
         lams (list of floats):  List of values that lambda should accept for the calculation of weights.
 
@@ -316,15 +316,28 @@ def __weight_sym_values(fa_a, fa_b, etas, lams):
 
     return np.array(res_a_sub_b), np.array(res_b_sub_a), np.array(res_w)
 
-def surface_to_tikz(dfa, etas, num_lams, dir):
-    
+
+def surface_to_tikz(dfa, etas, num_lams, path):
+    """ Creates a tikzpicture in a separate file to include it in an existing LaTex project. This will create a 3
+    dimensional graph of the weighting of the given deterministic finite automaton for different values of
+    eta and lambda.
+    !!!Important!!! The input of the parameter dfa must be a deterministic finite automaton.
+                    For not deterministic finite automaton it is not possible to determine the weight.
+
+    Args:
+        dfa (FiniteAutomata):   The deterministic finite automaton on which the weights of the language for different
+                                values is to be determined.
+        etas (list of integer): List with values that eta should accept for he calculation of weights.
+        num_lams (integer):     Number of different values Lambda should take.
+        path (string):          Path of the file and the file name of the tex file. Example: "tmp/tikzpicture".
+    """
     # Uniformly distributed selection of the lambda values for which the weight is to be determined.
     lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams]
 
-    # A new tex file under the given direction und file name.
-    f = open(f'{dir}.tex', 'w')
+    # A new tex file under the given path and file name.
+    f = open(f'{path}.tex', 'w')
     
-    # Write the beginn of the tikzpicture defination in the file.
+    # Write the begin of the tikzpicture definition in the file.
     f.write(r'\begin{tikzpicture}' + "\n" + "\n" +
             r'\begin{axis}' + "\n" +
             r'\addplot3[' +
@@ -333,7 +346,7 @@ def surface_to_tikz(dfa, etas, num_lams, dir):
             "coordinates {"
             )
 
-    #
+    # Determine the coordinates.
     for eta in etas:
         s = ""
         for lam in lams:
@@ -341,13 +354,14 @@ def surface_to_tikz(dfa, etas, num_lams, dir):
             s += f'({eta}, {lam}, {w})'
         f.write(s + "\n \n" )
 
-    # Write the end of the tikzpicture defination in the file.
+    # Write the end of the tikzpicture definition in the file.
     f.write("};" + "\n" +
             r'\end{axis}' + "\n" +
             r'\end{tikzpicture}')
 
     # close the file
     f.close()
+
 
 class Matrix:
     """Class that contains the matrices needed to calculate the weight of a language and if needed determines the

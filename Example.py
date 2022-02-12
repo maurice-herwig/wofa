@@ -1,5 +1,5 @@
 from wofa import FiniteAutomata
-from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values
+from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values, surface_to_tikz
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
     At the end of this file you can comment out the corresponding methods which examples should be executed when running
     this program.
 """
-
 
 """The task was to specify a finite automaton that describes the language that does not contain the subword "abba". 
 The automaton 1 to 6 are different submissions of students for this task and sol represented a typically correct 
@@ -227,11 +226,21 @@ def example_find_best_parameters():
     plt.show()
 
 
+def example_tikz():
+    """This example shows how to create the graphical representation as surface from the previous examples
+    as tikz picture.
+    """
+    print("Please wait a moment the file will be created")
+    surface_to_tikz(sol.symmetric_difference(automaton4), np.arange(0, 15), 30, "assets/surface")
+    print("The file was created.")
+
+
 if __name__ == "__main__":
     # Setting the alphabet. Important all current examples have the alphabet {a, b}.
     FiniteAutomata.set_alphabet({'a', 'b'})
 
     """Here you can comment out which examples should be executed when executing this file.
+    """
     """
     example_sym_diff()
     example_weight_lang()
@@ -241,3 +250,5 @@ if __name__ == "__main__":
     example_visualisation()
     example_visualisation_diff()
     example_find_best_parameters()
+    """
+    example_tikz()
