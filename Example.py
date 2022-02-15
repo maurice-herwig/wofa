@@ -241,25 +241,14 @@ if __name__ == "__main__":
 
     """Here you can comment out which examples should be executed when executing this file.
     """
-
+    """
     example_sym_diff()
     example_weight_lang()
     example_same_weight()
     example_eta()
     example_lambda()
     example_visualisation()
-    #example_visualisation_diff()
+    example_visualisation_diff()
     example_find_best_parameters()
-    #example_tikz()
-
-    l = FiniteAutomata({0}, [(0, '0', 1), (0, '1', 3), (1, 'a', 4), (4, 'a', 1), (3, 'a', 2), (2, 'a', 3)], {1, 2})
-    FiniteAutomata.set_alphabet({'a', '0', '1'})
-    a8 = FiniteAutomata({0}, [(0, '0', 1), (1, 'a', 2), (2, 'a', 1), (0, '1', 3), (3, 'a', 4), (4, 'a', 3)], {1})
-
-    a7 = FiniteAutomata({0}, [(0, '0', 2), (0, '1', 3), (2, 'a', 4), (3, 'a', 1), (3, 'a', 5), (5, 'a', 4), (4, 'a', 1),
-                              (4, 'a', 5)], {1})
-
-    vis_diff(l, a7, np.arange(0, 7), 20, 'heatmap', 'wordLengths')
-    vis_diff(l, a8, np.arange(0, 7), 20, 'heatmap')
-
-    # surface_to_tikz(l.symmetric_difference(a7), np.arange(0, 15), 30, "assets/surfaceA7")
+    """
+    example_tikz()
