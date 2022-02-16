@@ -250,6 +250,28 @@ class FiniteAutomata:
         """
         return self.get_initials().intersection(self.get_finals()) != set()
 
+    def accepts_word(self, word):
+        """Check if the automaton accepts the given word.
+
+        Args:
+            word: word to be checked
+
+        Returns:
+            True if the automaton accepts the word and False otherwise.
+
+        """
+        states = self.get_initials()
+        for symbol in word:
+            next_states = []
+            for state in states:
+                for transition in self.get_transitions():
+                    if transition[0] == state and transition[1] == symbol:
+                        next_states.append(transition[2])
+            states = next_states
+        if len(set(states).intersection(self.finals)) > 0:
+            return True
+        return False
+
     def is_empty(self):
         """ Determines whether the language described by the automaton is the empty language.
 
