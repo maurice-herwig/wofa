@@ -8,6 +8,12 @@ import seaborn as sns
 import math
 
 
+"""=====================================================================================================================
+   Methods to determine the weight.
+   =====================================================================================================================
+"""
+
+
 def weight_diff(fa_a, fa_b, eta, lam, variant='words'):
     """Method determines the weight of the symmetric difference of two finite automata. 
     The result can be used as a value describing how far apart the languages of the automata are from each other.  
@@ -65,6 +71,12 @@ def weight(dfa, eta, lam, variant='words'):
     w -= __weight_with_matrix(dfa, 0, lam, eta + 1, variant=variant)
 
     return w
+
+
+"""=====================================================================================================================
+   Auxiliary methods for determining the weighting.
+   =====================================================================================================================
+"""
 
 
 def __explicit_solution(dfa, lam):
@@ -139,7 +151,8 @@ def __weight_with_matrix(dfa, eta, lam, up_to=0, variant='words'):
 
     if variant == 'words':
         # Determination of the number of words by means of the Geometric Series
-        max_words_in_c_p = (1 - len(FiniteAutomata.get_alphabet()) ** (eta + 1)) / (1 - len(FiniteAutomata.get_alphabet()))
+        max_words_in_c_p = (1 - len(FiniteAutomata.get_alphabet()) ** (eta + 1)) / (
+                1 - len(FiniteAutomata.get_alphabet()))
 
         w_of_one_word_c_p = sum_w_c_p / max_words_in_c_p
 
@@ -161,7 +174,7 @@ def __weight_with_matrix(dfa, eta, lam, up_to=0, variant='words'):
     else:
         print("Wrong variant for determining the weight")
         return
-        
+
     # Determination of the weight of the exponentially decaying part.
     for i in range(eta + 1, up_to):
         weight_ex_part += matrix.get_share(i) * (lam ** (i + 1))
@@ -171,6 +184,12 @@ def __weight_with_matrix(dfa, eta, lam, up_to=0, variant='words'):
     w += weight_ex_part
 
     return w
+
+
+"""=====================================================================================================================
+   Methods for visualization of various parameters evaluate.
+   =====================================================================================================================
+"""
 
 
 def vis_weight(dfa, etas, num_lams, vis_type='heatmap', variant='words'):
@@ -239,11 +258,11 @@ def vis_diff(fa_a, fa_b, etas, num_lams, vis_type='heatmap', variant='words'):
                                     Default value 'word'
     """
     # Uniformly distributed selection of the lambda values for which the weight is to be determined.
-    lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams] 
+    lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams]
 
     lams = np.append(lams, 0.99)
     lams = np.append(lams, 0.995)
-    num_lams +=2
+    num_lams += 2
 
     # set the size of the figure
     plt.figure(figsize=(len(etas), num_lams))
@@ -453,7 +472,7 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0,
                 w = math.log2(w + 1)
 
             s_labels += f'({eta}, {lam}, {w})'
-        f.write(s_labels + "\n \n" )
+        f.write(s_labels + "\n \n")
 
     # Write the end of the tikzpicture definition in the file.
     f.write("};" + "\n" +
@@ -462,6 +481,12 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0,
 
     # close the file
     f.close()
+
+
+"""=====================================================================================================================
+    Matrix class
+   =====================================================================================================================
+"""
 
 
 class Matrix:
