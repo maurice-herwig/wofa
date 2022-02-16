@@ -37,3 +37,22 @@ class TestWeightFiniteAutomata(unittest.TestCase):
         self.assertEqual(0.9181476622137406, weight(self.sol.determine(), eta, 0.5))
         self.assertEqual(0.7011357784543253, weight(self.sol.determine(), eta, 0.9))
 
+    def test_sym_diff(self):
+        # Assume
+        self.set_up()
+
+        # Assert
+        self.assertEqual((0.00011835019823658203, 0, 0.00011835019823658203),
+                         weight_diff(self.sol, self.automaton1, 0, 0.5))
+        self.assertEqual((0.9876543209876543, 0.007633587786259541, 0.9952879087739138),
+                         weight_diff(self.sol, self.automaton6, 0, 0.5))
+
+    def test_weight_other_variant(self):
+        # Assume
+        self.set_up()
+
+        # Assert
+        self.assertEqual(0.7236805319265476, weight(self.sol.determine(), 5, 0.9, 'wordLengths'))
+        self.assertRaises(ValueError, weight,  self.sol.determine(), 5, 0.9, 'word')
+
+

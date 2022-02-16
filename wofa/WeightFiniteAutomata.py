@@ -172,8 +172,7 @@ def __weight_with_matrix(dfa, eta, lam, up_to=0, variant='words'):
             w += matrix.get_share(i) * w_of_wl
 
     else:
-        print("Wrong variant for determining the weight")
-        return
+        raise ValueError("Wrong variant for determining the weight")
 
     # Determination of the weight of the exponentially decaying part.
     for i in range(eta + 1, up_to):
@@ -309,6 +308,9 @@ def vis_diff(fa_a, fa_b, etas, num_lams, vis_type='heatmap', variant='words'):
         ax.set_yticklabels([round(i, 3) for i in lams], rotation=0)
         plt.xlabel("eta")
         plt.ylabel("lambda")
+
+    else:
+        raise ValueError("False visualisation type.")
 
     plt.show()
 
