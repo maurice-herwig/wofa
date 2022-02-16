@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import seaborn as sns
+import math
 
 
 def weight_diff(fa_a, fa_b, eta, lam, variant='words'):
@@ -364,7 +365,7 @@ def __weight_sym_values(fa_a, fa_b, etas, lams, variant='words'):
     return np.array(res_a_sub_b), np.array(res_b_sub_a), np.array(res_w)
 
 
-def surface_to_tikz(dfa, etas, num_lams, path, variant='words'):
+def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0, labels=np.linspace(0, 1, 11)):
     """ Creates a tikzpicture in a separate file to include it in an existing LaTex project. This will create a 3
     dimensional graph of the weighting of the given deterministic finite automaton for different values of
     eta and lambda.
@@ -381,13 +382,17 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words'):
                                     'words' := All words in the constant part have the same weight.
                                     'wordLengths' := All word lengths in the constant part have the same weight.
                                     Default value 'word'
+        log_scale_fac(integer):     TODO
+        labels(list of floats):     TODO
+
     """
+
     # Uniformly distributed selection of the lambda values for which the weight is to be determined.
     lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams]
 
     # A new tex file under the given path and file name.
     f = open(f'{path}.tex', 'w')
-    
+
     # Write the begin of the tikzpicture definition in the file.
     f.write(r'\begin{tikzpicture}' + "\n" + "\n" +
             r'\begin{axis}' + "[" + "\n" +
@@ -397,6 +402,36 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words'):
             "\t" + "xlabel={$\eta$}," + "\n" +
             "\t" + "ylabel={$\lambda$}," + "\n" +
             "\t" + "zlabel={weight}," + "\n" +
+            "\t" + "zmin=0," + "\n")
+
+    # TODO
+    z_max = 1
+    for _ in range(log_scale_fac):
+        z_max = math.log2(z_max + 1)
+
+    f.write("\t" + f'zmax={z_max},' + "\n")
+
+    # TODO
+    s_labels = 'zticklabels={'
+    s_values = 'ztick={'
+    for i in range(len(labels)):
+        s_labels += str(labels[i])
+        w = labels[i]
+
+        for _ in range(log_scale_fac):
+            w = math.log2(w + 1)
+
+        s_values += str(w)
+
+        if (i + 1) < len(labels):
+            s_labels += ', '
+            s_values += ', '
+
+    s_labels += '},'
+    s_values += '},'
+
+    f.write("\t" + s_values + "\n" +
+            "\t" + s_labels + "\n" +
             "\t" + "grid," + "\n" +
             "]" + "\n" +
             r'\addplot3[' + "\n" +
@@ -407,11 +442,16 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words'):
 
     # Determine the coordinates.
     for eta in etas:
-        s = ""
+        s_labels = ""
         for lam in lams:
             w = weight(dfa, eta, lam, variant)
-            s += f'({eta}, {lam}, {w})'
-        f.write(s + "\n \n" )
+
+            # TODO
+            for _ in range(log_scale_fac):
+                w = math.log2(w + 1)
+
+            s_labels += f'({eta}, {lam}, {w})'
+        f.write(s_labels + "\n \n" )
 
     # Write the end of the tikzpicture definition in the file.
     f.write("};" + "\n" +

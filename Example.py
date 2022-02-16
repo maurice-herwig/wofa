@@ -271,7 +271,8 @@ def example_tikz(variant):
                             'wordLengths' := All word lengths in the constant part have the same weight.
     """
     print("Please wait a moment the file will be created")
-    surface_to_tikz(sol.symmetric_difference(automaton4), np.arange(0, 15), 30, "assets/surface", variant)
+    surface_to_tikz(sol.symmetric_difference(automaton6), etas=np.arange(0, 15), num_lams=30, path="assets/surfaceA6",
+                    variant=variant, log_scale_fac=4, labels=[0, 0.02, 0.05, 0.1, 0.2, 0.4, 0.7, 1])
     print("The file was created.")
 
 
@@ -282,6 +283,7 @@ if __name__ == "__main__":
     """Here you can comment out which examples should be executed when executing this file.
     """
 
+    """
     example_sym_diff('words')
     example_sym_diff('wordLengths')
 
@@ -307,3 +309,22 @@ if __name__ == "__main__":
 
     # example_tikz('words')
     # example_tikz('wordLengths')
+    """
+
+    """
+
+    l = FiniteAutomata({0}, [(0, '0', 1), (0, '1', 3), (1, 'a', 4), (4, 'a', 1), (3, 'a', 2), (2, 'a', 3)], {1, 2})
+    FiniteAutomata.set_alphabet({'a', '0', '1'})
+    a8 = FiniteAutomata({0}, [(0, '0', 1), (1, 'a', 2), (2, 'a', 1), (0, '1', 3), (3, 'a', 4), (4, 'a', 3)], {1})
+
+    a7 = FiniteAutomata({0}, [(0, '0', 2), (0, '1', 3), (2, 'a', 4), (3, 'a', 1), (3, 'a', 5), (5, 'a', 4), (4, 'a', 1),
+                              (4, 'a', 5)], {1})
+
+    vis_diff(l, a7, np.arange(0, 7), 20, 'heatmap', 'wordLengths')
+    vis_diff(l, a8, np.arange(0, 7), 20, 'heatmap', 'wordLengths')
+
+    # surface_to_tikz(l.symmetric_difference(a7), np.arange(0, 15), 30, "assets/surfaceA7")
+
+    """
+
+    example_tikz('words')
