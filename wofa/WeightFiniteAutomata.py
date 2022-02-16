@@ -382,8 +382,10 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0,
                                     'words' := All words in the constant part have the same weight.
                                     'wordLengths' := All word lengths in the constant part have the same weight.
                                     Default value 'word'
-        log_scale_fac(integer):     TODO
-        labels(list of floats):     TODO
+        log_scale_fac(integer):     Specifies how strong the logarithmic consumption of the z axis should be.
+                                    Default value 0 means that no consumption is made.
+        labels(list of floats):     Labels to be placed on the z axis.
+                                    Default value [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 
     """
 
@@ -404,14 +406,14 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0,
             "\t" + "zlabel={weight}," + "\n" +
             "\t" + "zmin=0," + "\n")
 
-    # TODO
+    # Determination of the maximum value after the logarithmic consumption.
     z_max = 1
     for _ in range(log_scale_fac):
         z_max = math.log2(z_max + 1)
 
     f.write("\t" + f'zmax={z_max},' + "\n")
 
-    # TODO
+    # Map the new values to the original label values.
     s_labels = 'zticklabels={'
     s_values = 'ztick={'
     for i in range(len(labels)):
@@ -446,7 +448,7 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0,
         for lam in lams:
             w = weight(dfa, eta, lam, variant)
 
-            # TODO
+            # Scaling the weight
             for _ in range(log_scale_fac):
                 w = math.log2(w + 1)
 
