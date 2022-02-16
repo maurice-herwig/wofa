@@ -16,10 +16,10 @@ class FiniteAutomata:
     @classmethod
     def set_minimization_engine(cls, engine):
         """ Set the method that can be used to minimize a finite automata object.
-        Currently BISIMU and SIMUEQ can be used.
+        Currently 1 = BISIMU and 0 = SIMUEQ can be used.
 
         Args:
-            engine (string): SIMUEQ or BISIMU
+            engine (integer): SIMUEQ or BISIMU
         """
         FiniteAutomata.minimization_engine = engine
 
