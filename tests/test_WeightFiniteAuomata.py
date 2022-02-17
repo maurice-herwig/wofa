@@ -1,7 +1,9 @@
 import unittest
 import numpy as np
+import os
+import pathlib
 
-from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values, surface_to_tikz
+from wofa import weight_diff, weight, vis_weight, vis_diff, surface_to_tikz
 from wofa import FiniteAutomata
 
 
@@ -37,7 +39,7 @@ class TestWeightFiniteAutomata(unittest.TestCase):
 
         # Assert
         self.assertEqual(0.15525569744318177, weight(fa_a.determine(), 5, 0.9, 'wordLengths'))
-        self.assertRaises(ValueError, weight,  fa_a.determine(), 5, 0.9, 'abc')
+        self.assertRaises(ValueError, weight, fa_a.determine(), 5, 0.9, 'abc')
 
     def test_visualisations(self):
         # Assume
@@ -59,7 +61,24 @@ class TestWeightFiniteAutomata(unittest.TestCase):
         self.assertRaises(ValueError, vis_weight, fa_a, np.arange(0, 3), 3, 'abc', 'words')
         self.assertRaises(ValueError, vis_diff, fa_a, fa_b, np.arange(0, 3), 3, 'abc', 'wordLengths')
 
+    def test_tikz(self):
+        # Assume
+        fa_a = FiniteAutomata.one_symbol_nfa('a').star().determine()
 
+        # Test
+        directory = 'tmp'
+        name = 'test'
+        surface_to_tikz(fa_a, etas=np.arange(0, 3), num_lams=3, directory=directory, file_name=name)
 
+        # Assert
+        path_test = os.path.join(pathlib.Path(__file__).parent.parent.resolve(), directory, name) + '.tex'
+        f_test = open(path_test, 'r')
 
+        path_excepted = os.path.join(pathlib.Path(__file__).parent.resolve(), 'excepted') + '.tex'
+        f_excepted = open(path_excepted, 'r')
+
+        self.assertEqual(f_excepted.read(), f_test.read())
+
+        f_test.close()
+        f_excepted.close()
 
