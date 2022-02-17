@@ -1,4 +1,5 @@
 import unittest
+import numpy as np
 
 from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values, surface_to_tikz
 from wofa import FiniteAutomata
@@ -6,53 +7,59 @@ from wofa import FiniteAutomata
 
 class TestWeightFiniteAutomata(unittest.TestCase):
 
-    def set_up(self):
+    def setUp(self):
         # Setting the alphabet
         FiniteAutomata.set_alphabet({'a', 'b'})
 
-        self.sol = FiniteAutomata({1},
-                                  [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4),
-                                   (4, 'b', 1)], {1, 2, 3, 4})
-
-        self.automaton1 = FiniteAutomata({1}, [(1, 'a', 3), (1, 'b', 2), (2, 'a', 3), (2, 'b', 2), (3, 'a', 3),
-                                               (3, 'b', 4), (4, 'a', 3), (4, 'b', 5), (5, 'b', 3)], {1, 2, 3, 4, 5})
-        self.automaton2 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2),
-                                               (3, 'b', 4), (4, 'b', 5), (5, 'a', 2), (5, 'b', 5)], {1, 2, 3, 4, 5})
-        self.automaton3 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2),
-                                               (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)], {2, 3, 4})
-        self.automaton4 = FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3), (3, 'b', 2)],
-                                         {1, 2, 3})
-        self.automaton5 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 1), (2, 'b', 3), (3, 'a', 1),
-                                               (3, 'b', 4), (4, 'b', 1)], {1})
-        self.automaton6 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3),
-                                               (3, 'b', 4), (4, 'a', 5), (4, 'b', 4), (5, 'a', 5), (5, 'b', 5)], {5})
-
     def test_weight(self):
         # Assume
-        self.set_up()
-        eta = self.sol.get_length_longest_run() + 1
+        fa = FiniteAutomata.one_symbol_nfa('a').star()
 
         # Assert for different values
-        self.assertEqual(0.9923664122137406, weight(self.sol.determine(), 0, 0.5))
-        self.assertEqual(0.9181476622137406, weight(self.sol.determine(), eta, 0.5))
-        self.assertEqual(0.7011357784543253, weight(self.sol.determine(), eta, 0.9))
+        self.assertEqual(0.6666666666666665, weight(fa.determine(), 0, 0.5))
+        self.assertEqual(0.09391276041666663, weight(fa.determine(), 5, 0.5))
+        self.assertEqual(0.18181818181818177, weight(fa.determine(), 0, 0.9))
 
     def test_sym_diff(self):
         # Assume
-        self.set_up()
+        fa_a = FiniteAutomata.one_symbol_nfa('a').star()
+        fa_b = FiniteAutomata.one_symbol_nfa('b').star()
 
         # Assert
-        self.assertEqual((0.00011835019823658203, 0, 0.00011835019823658203),
-                         weight_diff(self.sol, self.automaton1, 0, 0.5))
-        self.assertEqual((0.9876543209876543, 0.007633587786259541, 0.9952879087739138),
-                         weight_diff(self.sol, self.automaton6, 0, 0.5))
+        self.assertEqual((0, 0, 0),
+                         weight_diff(fa_a, fa_a, 0, 0.5))
+        self.assertEqual((0.16666666666666666, 0.16666666666666666, 0.3333333333333333),
+                         weight_diff(fa_a, fa_b, 0, 0.5))
 
     def test_weight_other_variant(self):
         # Assume
-        self.set_up()
+        fa_a = FiniteAutomata.one_symbol_nfa('a').star()
 
         # Assert
-        self.assertEqual(0.7236805319265476, weight(self.sol.determine(), 5, 0.9, 'wordLengths'))
-        self.assertRaises(ValueError, weight,  self.sol.determine(), 5, 0.9, 'word')
+        self.assertEqual(0.15525569744318177, weight(fa_a.determine(), 5, 0.9, 'wordLengths'))
+        self.assertRaises(ValueError, weight,  fa_a.determine(), 5, 0.9, 'abc')
+
+    def test_visualisations(self):
+        # Assume
+        fa_a = FiniteAutomata.one_symbol_nfa('a').star().determine()
+        fa_b = FiniteAutomata.one_symbol_nfa('b').star()
+
+        # Currently only control if the graphics are created without errors not if they are correct.
+        vis_weight(fa_a, np.arange(0, 3), 3, 'heatmap', 'words')
+        vis_weight(fa_a, np.arange(0, 3), 3, 'surface', 'words')
+        vis_diff(fa_a, fa_b, np.arange(0, 3), 3, 'heatmap', 'wordLengths')
+        vis_diff(fa_a, fa_b, np.arange(0, 3), 3, 'surface', 'wordLengths')
+
+    def test_false_vis_type(self):
+        # Assume
+        fa_a = FiniteAutomata.one_symbol_nfa('a').star().determine()
+        fa_b = FiniteAutomata.one_symbol_nfa('b').star()
+
+        # Assert
+        self.assertRaises(ValueError, vis_weight, fa_a, np.arange(0, 3), 3, 'abc', 'words')
+        self.assertRaises(ValueError, vis_diff, fa_a, fa_b, np.arange(0, 3), 3, 'abc', 'wordLengths')
+
+
+
 
 

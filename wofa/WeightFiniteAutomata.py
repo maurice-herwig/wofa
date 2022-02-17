@@ -236,6 +236,9 @@ def vis_weight(dfa, etas, num_lams, vis_type='heatmap', variant='words'):
         plt.xlabel("eta")
         plt.ylabel("lambda")
 
+    else:
+        raise ValueError("False visualisation type.")
+
     plt.show()
 
 

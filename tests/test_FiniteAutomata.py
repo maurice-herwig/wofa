@@ -83,7 +83,7 @@ class TestFiniteAutomata(unittest.TestCase):
         fa_union = FiniteAutomata.univ_symbol_nfa()
         FiniteAutomata.set_minimization_engine(1)
 
-        # Asset
+        # Assert
         self.assertTrue(fa_a.union(fa_b).equivalence_test(fa_union)[0])
 
     def test_symmetric_difference(self):
@@ -93,6 +93,12 @@ class TestFiniteAutomata(unittest.TestCase):
         fa_diff = FiniteAutomata.univ_symbol_nfa()
         FiniteAutomata.set_minimization_engine(1)
 
-        # Asset
+        # Assert
         self.assertTrue(fa_a.union(fa_b).equivalence_test(fa_diff)[0])
-        
+
+    def test_longest_run(self):
+        # Assume
+        fa = FiniteAutomata({0}, [(0, 'a', 1), (1, 'a', 2), (2, 'a', 1), (2, 'a', 0)], {2})
+
+        # Assert
+        self.assertEqual(3, fa.get_length_longest_run())
