@@ -16,10 +16,10 @@ class FiniteAutomata:
     @classmethod
     def set_minimization_engine(cls, engine):
         """ Set the method that can be used to minimize a finite automata object.
-        Currently BISIMU and SIMUEQ can be used.
+        Currently 1 = BISIMU and 0 = SIMUEQ can be used.
 
         Args:
-            engine (string): SIMUEQ or BISIMU
+            engine (integer): SIMUEQ or BISIMU
         """
         FiniteAutomata.minimization_engine = engine
 
@@ -249,6 +249,28 @@ class FiniteAutomata:
             bool: Is the empty word in the language.
         """
         return self.get_initials().intersection(self.get_finals()) != set()
+
+    def accepts_word(self, word):
+        """Check if the automaton accepts the given word.
+
+        Args:
+            word: word to be checked
+
+        Returns:
+            True if the automaton accepts the word and False otherwise.
+
+        """
+        states = self.get_initials()
+        for symbol in word:
+            next_states = []
+            for state in states:
+                for transition in self.get_transitions():
+                    if transition[0] == state and transition[1] == symbol:
+                        next_states.append(transition[2])
+            states = next_states
+        if len(set(states).intersection(self.finals)) > 0:
+            return True
+        return False
 
     def is_empty(self):
         """ Determines whether the language described by the automaton is the empty language.

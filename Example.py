@@ -1,3 +1,4 @@
+import wofa
 from wofa import FiniteAutomata
 from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values, surface_to_tikz
 import numpy as np
@@ -271,8 +272,9 @@ def example_tikz(variant):
                             'wordLengths' := All word lengths in the constant part have the same weight.
     """
     print("Please wait a moment the file will be created")
-    surface_to_tikz(sol.symmetric_difference(automaton4), etas=np.arange(0, 15), num_lams=30, path="assets/surfaceA4",
-                    variant=variant, log_scale_fac=4, labels=[0, 0.02, 0.05, 0.1, 0.2, 0.4, 0.7, 1])
+    surface_to_tikz(sol.symmetric_difference(automaton4), etas=np.arange(0, 15), num_lams=30, directory="tmp",
+                    file_name='example', variant=variant, log_scale_fac=4,
+                    labels=[0, 0.02, 0.05, 0.1, 0.2, 0.4, 0.7, 1])
     print("The file was created.")
 
 
@@ -306,5 +308,5 @@ if __name__ == "__main__":
     example_find_best_parameters('words')
     # example_find_best_parameters('wordLengths')
 
-    # example_tikz('words')
+    example_tikz('words')
     # example_tikz('wordLengths')

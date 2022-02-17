@@ -1,4 +1,3 @@
-from os import close, write
 from wofa import FiniteAutomata
 from collections import defaultdict
 import numpy as np
@@ -6,6 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import seaborn as sns
 import math
+import os
+import pathlib
 
 
 """=====================================================================================================================
@@ -172,8 +173,7 @@ def __weight_with_matrix(dfa, eta, lam, up_to=0, variant='words'):
             w += matrix.get_share(i) * w_of_wl
 
     else:
-        print("Wrong variant for determining the weight")
-        return
+        raise ValueError("Wrong variant for determining the weight")
 
     # Determination of the weight of the exponentially decaying part.
     for i in range(eta + 1, up_to):
@@ -236,6 +236,9 @@ def vis_weight(dfa, etas, num_lams, vis_type='heatmap', variant='words'):
         ax.set_yticklabels([round(i, 2) for i in lams], rotation=0)
         plt.xlabel("eta")
         plt.ylabel("lambda")
+
+    else:
+        raise ValueError("False visualisation type.")
 
     plt.show()
 
@@ -309,6 +312,9 @@ def vis_diff(fa_a, fa_b, etas, num_lams, vis_type='heatmap', variant='words'):
         ax.set_yticklabels([round(i, 3) for i in lams], rotation=0)
         plt.xlabel("eta")
         plt.ylabel("lambda")
+
+    else:
+        raise ValueError("False visualisation type.")
 
     plt.show()
 
@@ -384,7 +390,7 @@ def __weight_sym_values(fa_a, fa_b, etas, lams, variant='words'):
     return np.array(res_a_sub_b), np.array(res_b_sub_a), np.array(res_w)
 
 
-def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0, labels=np.linspace(0, 1, 11)):
+def surface_to_tikz(dfa, etas, num_lams, directory, file_name, variant='words', log_scale_fac=0, labels=np.linspace(0, 1, 11)):
     """ Creates a tikzpicture in a separate file to include it in an existing LaTex project. This will create a 3
     dimensional graph of the weighting of the given deterministic finite automaton for different values of
     eta and lambda.
@@ -396,7 +402,8 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0,
                                     different values is to be determined.
         etas (list of integer):     List with values that eta should accept for he calculation of weights.
         num_lams (integer):         Number of different values Lambda should take.
-        path (string):              Path of the file and the file name of the tex file. Example: "tmp/tikzpicture".
+        directory (string):         Directory in which the file should be written.
+        file_name (string):         Name of the .tex File.
         variant (string, optional): Determines the variant of how the words in the constant part are redistributed.
                                     'words' := All words in the constant part have the same weight.
                                     'wordLengths' := All word lengths in the constant part have the same weight.
@@ -411,8 +418,14 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0,
     # Uniformly distributed selection of the lambda values for which the weight is to be determined.
     lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams]
 
-    # A new tex file under the given path and file name.
-    f = open(f'{path}.tex', 'w')
+    # Create the directory if it does not exist.
+    path_dir = os.path.join(pathlib.Path(__file__).parent.parent.resolve(), directory)
+    if not os.path.exists(path_dir):
+        os.mkdir(path_dir)
+
+    # Crate a new .tex file.
+    path_file = os.path.join(path_dir, file_name)
+    f = open(f'{path_file}.tex', 'w')
 
     # Write the begin of the tikzpicture definition in the file.
     f.write(r'\begin{tikzpicture}' + "\n" + "\n" +
@@ -423,14 +436,8 @@ def surface_to_tikz(dfa, etas, num_lams, path, variant='words', log_scale_fac=0,
             "\t" + "xlabel={$\eta$}," + "\n" +
             "\t" + "ylabel={$\lambda$}," + "\n" +
             "\t" + "zlabel={weight}," + "\n" +
-            "\t" + "zmin=0," + "\n")
-
-    # Determination of the maximum value after the logarithmic consumption.
-    z_max = 1
-    for _ in range(log_scale_fac):
-        z_max = math.log2(z_max + 1)
-
-    f.write("\t" + f'zmax={z_max},' + "\n")
+            "\t" + "zmin=0," + "\n" +
+            "\t" + f'zmax=1.0,' + "\n")
 
     # Map the new values to the original label values.
     s_labels = 'zticklabels={'
