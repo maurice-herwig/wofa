@@ -414,10 +414,10 @@ class FiniteAutomata:
         return self
 
     def __simulation_pairs(self):
-        """ TODO
+        """ Calculates the set of simulation equivalent states.
 
         Returns:
-            set of pairs of integer: { (p,q) | p ~< q } TODO 
+            set of pairs of integer: { (p,q) | p ~< q }
         """
         n = self.get_number_of_states()
         fs = self.get_finals()
@@ -452,19 +452,19 @@ class FiniteAutomata:
         return sim
 
     def simulation_equivalence_pairs(self):
-        """ TODO
+        """ Calculates the set of simulation equivalent states where in case of two-way simulation only one tuple is 
+        returned.
 
         Returns:
-            set of pairs of integer: { (p,q) | p ~~ q and p < q } TODO
+            set of pairs of integer: { (p,q) | p ~~ q and p < q } 
         """
         simulated_by = self.__simulation_pairs()
         return {(p, q) for (p, q) in simulated_by if p < q and (q, p) in simulated_by}
 
     def bi_simulation_pairs(self):
-        """ TODO
-
+        """ Calculates the set of bisimulation states..
         Returns:
-            set of pairs of integer: { (p,q) | p ~ q and p < q } TODO
+            set of pairs of integer: { (p,q) | p ~ q and p < q }
         """
         n = self.get_number_of_states()
         fs = self.get_finals()
@@ -625,12 +625,12 @@ class FiniteAutomata:
         codes = {}
         n = 0
 
-        def code(ps):
+        def code(p_s):
             nonlocal n
-            if ps in codes:
-                return codes[ps]
+            if p_s in codes:
+                return codes[p_s]
             else:
-                codes[ps] = n
+                codes[p_s] = n
                 n += 1
                 return n - 1
 
@@ -687,9 +687,9 @@ class FiniteAutomata:
         complement.__minimize()
         return complement
 
-    """ =======================================================================================================================
+    """ ================================================================================================================
         Operations between two finite automata like: union, intersect, ...
-        =======================================================================================================================
+        ================================================================================================================
     """
 
     def union(self, other):
@@ -714,7 +714,7 @@ class FiniteAutomata:
                     self.__add_transition(s, a, q + s + 1)
 
         # make the new state final if any of the initial states was final
-        for q in self.get_initials().intersection(self.get_finals()).union(
+        for _ in self.get_initials().intersection(self.get_finals()).union(
                 other.get_initials().intersection(other.get_finals())):
             self.__make_final(s)
             break
@@ -900,14 +900,14 @@ class FiniteAutomata:
         non_final_other = states_other.difference(other.get_finals())
 
         # determine all (fin_self x{non_fin_other})
-        for l in self.get_finals():
+        for fin_self in self.get_finals():
 
             # Check for the empty word
-            if l in self.get_initials() and other.get_initials().issubset(non_final_other):
+            if fin_self in self.get_initials() and other.get_initials().issubset(non_final_other):
                 return False, "empty Word"
 
-            q[l] = [non_final_other]
-            queue.append((l, non_final_other, " "))
+            q[fin_self] = [non_final_other]
+            queue.append((fin_self, non_final_other, " "))
 
         # Dictionary that maps each letter of the alphabet to a number.
         letters = dict()
@@ -927,7 +927,7 @@ class FiniteAutomata:
             (l_, s_, word) = queue.pop()
 
             # Iterate over all predecessor states with the respective letter.   
-            for (l, a) in self.get_all_predecessors_with_letter(l_):
+            for (fin_self, a) in self.get_all_predecessors_with_letter(l_):
 
                 s = set()
                 for i in range(other.get_number_of_states()):
@@ -942,16 +942,16 @@ class FiniteAutomata:
                         if result.issubset(s_):
                             s.add(i)
                     else:
-                        if posts[pos].issubset(s_):
+                        if type(posts[pos]) == set and posts[pos].issubset(s_):
                             s.add(i)
 
                 # Check if there is a set a tuple (init_self x {init_other}), in this case the inclusion is not correct. 
-                if l in self.get_initials() and other.get_initials().issubset(s):
+                if fin_self in self.get_initials() and other.get_initials().issubset(s):
                     return False, a + word
 
                 # Otherwise, include (l, {s}) in q and check if it must also be included in the queue.
-                if l in q.keys():
-                    q_l = q[l]
+                if fin_self in q.keys():
+                    q_l = q[fin_self]
                     add = True
                     for sets in q_l.copy():
                         if s.issubset(sets):
@@ -961,11 +961,11 @@ class FiniteAutomata:
 
                     if add:
                         q_l.append(s)
-                        q[l] = q_l
-                        queue.append((l, s, a + word))
+                        q[fin_self] = q_l
+                        queue.append((fin_self, s, a + word))
 
                 else:
-                    q[l] = [s]
-                    queue.append((l, s, a + word))
+                    q[fin_self] = [s]
+                    queue.append((fin_self, s, a + word))
 
         return True, None

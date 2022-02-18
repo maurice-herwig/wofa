@@ -8,7 +8,6 @@ import math
 import os
 import pathlib
 
-
 """=====================================================================================================================
    Methods to determine the weight.
    =====================================================================================================================
@@ -198,15 +197,15 @@ def vis_weight(dfa, etas, num_lams, vis_type='heatmap', variant='words'):
                     For not deterministic finite automaton it is not possible to determine the weight.
 
     Args:
-        dfa (FiniteAutomata):       The deterministic finite automaton on which the weights of the language for
-                                    different values is to be determined.
-        etas (list of integer):     List with values that eta should accept for the visualisation.
-        num_lams (integer):         Number of different values Lambda should take.
-        vis_type (str, optional):   Type of the visualisation: 'surface' or 'heatmap'. Defaults to 'heatmap'.
-        variant (string, optional): Determines the variant of how the words in the constant part are redistributed.
-                                    'words' := All words in the constant part have the same weight.
-                                    'wordLengths' := All word lengths in the constant part have the same weight.
-                                    Default value 'word'
+        dfa (FiniteAutomata):           The deterministic finite automaton on which the weights of the language for
+                                        different values is to be determined.
+        etas (ndarray of integer):      List with values that eta should accept for the visualisation.
+        num_lams (integer):             Number of different values Lambda should take.
+        vis_type (str, optional):       Type of the visualisation: 'surface' or 'heatmap'. Defaults to 'heatmap'.
+        variant (string, optional):     Determines the variant of how the words in the constant part are redistributed.
+                                        'words' := All words in the constant part have the same weight.
+                                        'wordLengths' := All word lengths in the constant part have the same weight.
+                                        Default value 'word'
     """
     # Uniformly distributed selection of the lambda values for which the weight is to be determined.
     lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams]
@@ -248,17 +247,17 @@ def vis_diff(fa_a, fa_b, etas, num_lams, vis_type='heatmap', variant='words'):
     values for eta and lambda.
 
     Args:
-        fa_a (FiniteAutomata):      One of the two finite automaton on whose symmetric difference the weight is
-                                    to be formed.
-        fa_b (FiniteAutomata):      One of the two finite automaton on whose symmetric difference the weight is
-                                    to be formed.
-        etas (list of integer):     List with values that eta should accept for the visualisation.
-        num_lams (integer):         Number of different values Lambda should take.
-        vis_type (str, optional):   Type of the visualisation: 'surface' or 'heatmap'. Defaults to 'heatmap'.
-        variant (string, optional): Determines the variant of how the words in the constant part are redistributed.
-                                    'words' := All words in the constant part have the same weight.
-                                    'wordLengths' := All word lengths in the constant part have the same weight.
-                                    Default value 'word'
+        fa_a (FiniteAutomata):          One of the two finite automaton on whose symmetric difference the weight is
+                                        to be formed.
+        fa_b (FiniteAutomata):          One of the two finite automaton on whose symmetric difference the weight is
+                                        to be formed.
+        etas (ndarray of integer):      List with values that eta should accept for the visualisation.
+        num_lams (integer):             Number of different values Lambda should take.
+        vis_type (str, optional):       Type of the visualisation: 'surface' or 'heatmap'. Defaults to 'heatmap'.
+        variant (string, optional):     Determines the variant of how the words in the constant part are redistributed.
+                                        'words' := All words in the constant part have the same weight.
+                                        'wordLengths' := All word lengths in the constant part have the same weight.
+                                        Default value 'word'
     """
     # Uniformly distributed selection of the lambda values for which the weight is to be determined.
     lams = np.linspace(0.5, 1, num_lams + 1)[:num_lams]
@@ -325,14 +324,14 @@ def weight_values(dfa, etas, lams, variant='words'):
                     For not deterministic finite automaton it is not possible to determine the weight.
 
     Args:
-        dfa (FiniteAutomata):       The deterministic finite automaton on which the weights of the language for
-                                    different values is to be determined.
-        etas (list of integer):     List with values that eta should accept for he calculation of weights.
-        lams (list of floats):      List of values that lambda should accept for the calculation of weights.
-        variant (string, optional): Determines the variant of how the words in the constant part are redistributed.
-                                    'words' := All words in the constant part have the same weight.
-                                    'wordLengths' := All word lengths in the constant part have the same weight.
-                                    Default value 'word'
+        dfa (FiniteAutomata):           The deterministic finite automaton on which the weights of the language for
+                                        different values is to be determined.
+        etas (ndarray of integer):      List with values that eta should accept for he calculation of weights.
+        lams (ndarray of floats):       List of values that lambda should accept for the calculation of weights.
+        variant (string, optional):     Determines the variant of how the words in the constant part are redistributed.
+                                        'words' := All words in the constant part have the same weight.
+                                        'wordLengths' := All word lengths in the constant part have the same weight.
+                                        Default value 'word'
 
     Returns:
         numpy.array: A numpy array containing the weight for all lambda and eta combinations. 
@@ -352,16 +351,16 @@ def __weight_sym_values(fa_a, fa_b, etas, lams, variant='words'):
     for the given values of eta and lambda.
 
     Args:
-        fa_a (FiniteAutomata):      One of the two finite automaton on whose symmetric difference the weight is
-                                    to be formed.
-        fa_b (FiniteAutomata):      One of the two finite automaton on whose symmetric difference the weight is
-                                    to be formed.
-        etas (list of integer):     List with values that eta should accept for he calculation of weights.
-        lams (list of floats):      List of values that lambda should accept for the calculation of weights.
-        variant (string, optional): Determines the variant of how the words in the constant part are redistributed.
-                                    'words' := All words in the constant part have the same weight.
-                                    'wordLengths' := All word lengths in the constant part have the same weight.
-                                    Default value 'word'
+        fa_a (FiniteAutomata):          One of the two finite automaton on whose symmetric difference the weight is
+                                        to be formed.
+        fa_b (FiniteAutomata):          One of the two finite automaton on whose symmetric difference the weight is
+                                        to be formed.
+        etas (ndarray of integer):     List with values that eta should accept for he calculation of weights.
+        lams (ndarray of floats):      List of values that lambda should accept for the calculation of weights.
+        variant (string, optional):     Determines the variant of how the words in the constant part are redistributed.
+                                        'words' := All words in the constant part have the same weight.
+                                        'wordLengths' := All word lengths in the constant part have the same weight.
+                                        Default value 'word'
 
     Returns:
         numpy.array, numpy.array, numpy.array: 1, 2, 3
@@ -390,7 +389,8 @@ def __weight_sym_values(fa_a, fa_b, etas, lams, variant='words'):
     return np.array(res_a_sub_b), np.array(res_b_sub_a), np.array(res_w)
 
 
-def surface_to_tikz(dfa, etas, num_lams, directory, file_name, variant='words', log_scale_fac=0, labels=np.linspace(0, 1, 11)):
+def surface_to_tikz(dfa, etas, num_lams, directory, file_name, variant='words', log_scale_fac=0,
+                    labels=np.linspace(0, 1, 11)):
     """ Creates a tikzpicture in a separate file to include it in an existing LaTex project. This will create a 3
     dimensional graph of the weighting of the given deterministic finite automaton for different values of
     eta and lambda.
@@ -398,20 +398,20 @@ def surface_to_tikz(dfa, etas, num_lams, directory, file_name, variant='words', 
                     For not deterministic finite automaton it is not possible to determine the weight.
 
     Args:
-        dfa (FiniteAutomata):       The deterministic finite automaton on which the weights of the language for
-                                    different values is to be determined.
-        etas (list of integer):     List with values that eta should accept for he calculation of weights.
-        num_lams (integer):         Number of different values Lambda should take.
-        directory (string):         Directory in which the file should be written.
-        file_name (string):         Name of the .tex File.
-        variant (string, optional): Determines the variant of how the words in the constant part are redistributed.
-                                    'words' := All words in the constant part have the same weight.
-                                    'wordLengths' := All word lengths in the constant part have the same weight.
-                                    Default value 'word'
-        log_scale_fac(integer):     Specifies how strong the logarithmic consumption of the z axis should be.
-                                    Default value 0 means that no consumption is made.
-        labels(list of floats):     Labels to be placed on the z axis.
-                                    Default value [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+        dfa (FiniteAutomata):           The deterministic finite automaton on which the weights of the language for
+                                        different values is to be determined.
+        etas (ndarray of integer):      List with values that eta should accept for he calculation of weights.
+        num_lams (integer):             Number of different values Lambda should take.
+        directory (string):             Directory in which the file should be written.
+        file_name (string):             Name of the .tex File.
+        variant (string, optional):     Determines the variant of how the words in the constant part are redistributed.
+                                        'words' := All words in the constant part have the same weight.
+                                        'wordLengths' := All word lengths in the constant part have the same weight.
+                                        Default value 'word'
+        log_scale_fac(integer):         Specifies how strong the logarithmic consumption of the z axis should be.
+                                        Default value 0 means that no consumption is made.
+        labels(list of floats):         Labels to be placed on the z axis.
+                                        Default value [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 
     """
 
@@ -428,13 +428,15 @@ def surface_to_tikz(dfa, etas, num_lams, directory, file_name, variant='words', 
     f = open(f'{path_file}.tex', 'w')
 
     # Write the begin of the tikzpicture definition in the file.
-    f.write(r'\begin{tikzpicture}' + "\n" + "\n" +
+    f.write("%This file was created automatically." + "\n" +
+            r'\begin{tikzpicture}' + "\n" + "\n" +
             r'\begin{axis}' + "[" + "\n" +
-            "\t" + "view = {25}{30}, %Here you can set the angles of the axes 1: orizontal angle 2: vertical angle" + "\n" +
+            "\t" + "view = {25}{30},"
+                   " %Here you can set the angles of the axes 1: orizontal angle 2: vertical angle" + "\n" +
             "\t" + "colormap/jet, " + "\n" +
             "\t" + "colorbar left," + "\n" +
-            "\t" + "xlabel={$\eta$}," + "\n" +
-            "\t" + "ylabel={$\lambda$}," + "\n" +
+            "\t" + r'xlabel={$\eta$},' + "\n" +
+            "\t" + r'ylabel={$\lambda$},' + "\n" +
             "\t" + "zlabel={weight}," + "\n" +
             "\t" + "zmin=0," + "\n" +
             "\t" + f'zmax=1.0,' + "\n")

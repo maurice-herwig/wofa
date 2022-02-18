@@ -81,4 +81,3 @@ class TestWeightFiniteAutomata(unittest.TestCase):
 
         f_test.close()
         f_excepted.close()
-
