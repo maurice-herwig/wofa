@@ -18,17 +18,19 @@ This installs the current master version as a package.
 
 ## Usage
 
-To use it, one or two [```FiniteAutomata```](./wofa/FiniteAutomata.py) objects must be created. The constructor of [```FiniteAutomata(initials, transitions, finals)```](./wofa/FiniteAutomata.py)  needs the set of initial states, the transitions and the set of final states. With [```weight(dfa, eta, lam)```](./wofa/WeightFiniteAutomata.py) the weight of the language of a deterministic finite automaton (DFA) can be determined and with [```weight_diff(fa_a, fa_b, eta, lam)```](./wofa/WeightFiniteAutomata.py) the weight of the difference of two finite automata can be determined. 
+To use it, one or two [```FiniteAutomata```](./wofa/FiniteAutomata.py) objects must be created. The constructor of [```FiniteAutomata(initials, transitions, finals)```](./wofa/FiniteAutomata.py)  needs the set of initial states, the transitions and the set of final states. With [```weight(dfa, eta, lam, variant)```](./wofa/WeightFiniteAutomata.py) the weight of the language of a deterministic finite automaton (DFA) can be determined and with [```weight_diff(fa_a, fa_b, eta, lam, variant)```](./wofa/WeightFiniteAutomata.py) the weight of the difference of two finite automata can be determined. 
 
-The parameters eta and lambda have the following meaning:
+The parameters' eta, lambda and variant have the following meaning:
 - eta: Threshold value up to which all words are constantly included in the weighting.
 
-- lambda: decay rate, which describes how strongly the weighting decreases for increasing word lengths. 
+- lambda: Decay rate, which describes how strongly the weighting decreases for increasing word lengths. 
 
-The following example illustrates the use of this libary with a concrete example.
+- variant: 'words' | 'wordLengths' Specifies whether all words or all word lengths in the constant part are assigned the same weight.
+
+The following example illustrates the use of this library with a concrete example.
 
 ## Example
-Here is an example of how the weighting of a language can be used for teaching. The task was to specify a finite automaton which describes the language of the words above the alphabet {a, b} which do not contain the subword "abba".A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automata 1 A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automat 1 is a better submission than the submission of automat 2, even if both submissions are not submissions that describe the required language. This is expressed by weighting the symmetric difference of the languages of these two automata to the sample solution by a metric value. Which significantly simplifies the evaluation of these deliveries. 
+Here is an example of how the weighting of a language can be used for teaching. The task was to specify a finite automaton which describes the language of the words above the alphabet {a, b} which do not contain the subword "abba".A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automaton 1 A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automaton 1 is a better submission than the submission of automaton 2, even if both submissions are not submissions that describe the required language. This is expressed by weighting the symmetric difference of the languages of these two automata to the sample solution by a metric value. Which significantly simplifies the evaluation of these deliveries. 
 
 ![](./assets/ExampleAutomatas.jpg)
 
@@ -48,20 +50,26 @@ eta = sol.get_length_longest_run() + 1
 lam = (1-x)**(1/eta)
 
 # Loading of different finite automata over the same alphabet.
-automat1 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)], {2, 3, 4}))
-automat2 = FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3),              (3, 'b', 2)                          ], {1, 2, 3}))
+automaton1 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 4), (4, 'b', 2)], {2, 3, 4}))
+automaton2 = FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3),              (3, 'b', 2)                          ], {1, 2, 3}))
 
 # Determine the weight of the symmetrical difference and then print the result.
-print(f'Weight diff. Automata 1 to Solution = {weight_diff(sol, automat1, eta, lam)[2]}')
-print(f'Weight diff. Automata 2 to Solution = {weight_diff(sol, automat2, eta, lam)[2]}')
+print(f'Weight diff. Automaton 1 to Solution = {weight_diff(sol, automaton1, eta, lam, "words")[2]}')
+print(f'Weight diff. Automaton 2 to Solution = {weight_diff(sol, automaton2, eta, lam, "words")[2]}')
 
 ```
 
 Console Output: 
 ```
-Weight diff. Automata 1 to Solution = 0.05534231111710203
-Weight diff. Automata 2 to Solution = 0.145111985762509
+Weight diff. Automaton 1 to Solution = 0.05534231111710203
+Weight diff. Automaton 2 to Solution = 0.145111985762509
 ```
+In the previous example we used default values for the two parameters eta and lambda. Therefore, we determine experimentally good parameter values for the symmetric difference between automaton 1 and the sample solution by means of a graph.
+```python   
+surface_to_tikz(sol.symmetric_difference(automaton2), etas=np.arange(0, 15), num_lams=30, directory="assets", file_name='SurfaceExample', variant='words', log_scale_fac=4, labels=[0, 0.02, 0.05, 0.1, 0.2, 0.4, 0.7, 1]
+```
+This creates the file [SurfaceExample.tex](./assets/SurfaceExample.tex). Which represents the following tikzpicture.
+![](./assets/SurfaceExample.jpg)
 
 More examples can be found in the [Example.py](./Example.py) file.
 
@@ -69,6 +77,8 @@ More examples can be found in the [Example.py](./Example.py) file.
 - [assets](./assets)
 
 - [docs](./docs)
+
+- [tests](./tests)
 
 - [wofa](./wofa)
 
