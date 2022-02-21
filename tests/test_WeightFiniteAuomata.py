@@ -66,7 +66,7 @@ class TestWeightFiniteAutomata(unittest.TestCase):
         fa_a = FiniteAutomata.one_symbol_nfa('a').star().determine()
 
         # Test
-        directory = 'tmp'
+        directory = 'tmp_test'
         name = 'test'
         surface_to_tikz(fa_a, etas=np.arange(0, 3), num_lams=3, directory=directory, file_name=name)
 
@@ -81,3 +81,8 @@ class TestWeightFiniteAutomata(unittest.TestCase):
 
         f_test.close()
         f_excepted.close()
+
+        # Clean up
+        path_dir = os.path.join(pathlib.Path(__file__).parent.parent.resolve(), directory)
+        os.remove(path_test)
+        os.rmdir(path_dir)
