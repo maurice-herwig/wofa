@@ -1,5 +1,5 @@
 # WoFA
-Weight of finite automata (WoFA) is a project to determine the weight of a regular language represented by a finite automaton. Besides the weight of a language, a measure of how far 2 regular languages are from each other can be determined by determining the weight of the symetric difference. 
+Weight of finite automata (WoFA) is a project to determine the weight of a regular language represented by a finite automaton. Besides the weight of a language, a measure of how far 2 regular languages are from each other can be determined by determining the weight of the symmetric difference. 
 
 ## Installation
 
@@ -18,7 +18,7 @@ This installs the current master version as a package.
 
 ## Usage
 
-To use it, one or two [```FiniteAutomata```](./wofa/FiniteAutomata.py) objects must be created. The constructor of [```FiniteAutomata(initials, transitions, finals)```](./wofa/FiniteAutomata.py)  needs the set of initial states, the transitions and the set of final states. With [```weight(dfa, eta, lam, variant)```](./wofa/WeightFiniteAutomata.py) the weight of the language of a deterministic finite automaton (DFA) can be determined and with [```weight_diff(fa_a, fa_b, eta, lam, variant)```](./wofa/WeightFiniteAutomata.py) the weight of the difference of two finite automata can be determined. 
+To use it, one or two [```FiniteAutomata```](./wofa/FiniteAutomata.py) objects have to be created. The constructor of [```FiniteAutomata(initials, transitions, finals)```](./wofa/FiniteAutomata.py)  needs the set of initial states, the transitions and the set of final states. With [```weight(dfa, eta, lam, variant)```](./wofa/WeightFiniteAutomata.py) the weight of the language of a deterministic finite automaton (DFA) can be determined and with [```weight_diff(fa_a, fa_b, eta, lam, variant)```](./wofa/WeightFiniteAutomata.py) the weight of the difference of two finite automata can be determined. 
 
 The parameters' eta, lambda and variant have the following meaning:
 - eta: Threshold value up to which all words are constantly included in the weighting.
@@ -30,7 +30,7 @@ The parameters' eta, lambda and variant have the following meaning:
 The following example illustrates the use of this library with a concrete example.
 
 ## Example
-Here is an example of how the weighting of a language can be used for teaching. The task was to specify a finite automaton which describes the language of the words above the alphabet {a, b} which do not contain the subword "abba".A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automaton 1 A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automaton 1 is a better submission than the submission of automaton 2, even if both submissions are not submissions that describe the required language. This is expressed by weighting the symmetric difference of the languages of these two automata to the sample solution by a metric value. Which significantly simplifies the evaluation of these deliveries. 
+Here is an example of how the weighting of a language can be used for teaching. The task was to specify a finite automaton which describes the language of the words above the alphabet {a, b} which do not contain the subword "abba". A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automaton 1 is a better submission than the submission of automaton 2, even if both submissions are not submissions that describe the required language. This is expressed by weighting the symmetric difference of the languages of these two automata to the sample solution by a metric value. Which significantly simplifies the evaluation of these deliveries. 
 
 ![](./assets/ExampleAutomatas.jpg)
 
@@ -85,7 +85,7 @@ More examples can be found in the [Example.py](./Example.py) file.
   Contains the source code.
     - [FiniteAutomata.py](./wofa/FiniteAutomata.py)
 
-      Finite automata can be used to create finite automata objects on which various operations such as minimization, determinization, complement formation, determination of the symmetric difference and many more can be performed. 
+      Finite automata can be used to create FiniteAutomata objects on which various operations such as minimization, determinization, complement formation, determination of the symmetric difference and many more can be performed. 
 
   - [WeightFiniteAutomata.py](./wofa/WeightFiniteAutomata.py)
 
