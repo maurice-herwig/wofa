@@ -1,0 +1,83 @@
+input_alphabet = a,b
+
+start_states = q_0
+
+transitions =   q_0, a  -> q_01
+                q_0, b  -> q_0
+
+                q_01, a -> q_012
+                q_01, b -> q_02
+
+                q_012, a -> q_0123
+                q_012, b -> q_023
+
+                q_0123, a -> q_01234
+                q_0123, b -> q_0234
+
+                q_01234, a -> q_01234
+                q_01234, b -> q_0234acc
+
+                q_0234acc, a -> q_0234acc
+                q_0234acc, b -> q_0234acc
+
+                q_0234, a -> q_0134
+                q_0234, b -> q_034acc
+
+                q_034acc, a -> q_034acc
+                q_034acc, b -> q_034acc
+
+                q_0134, a -> q_0124
+                q_0134, b -> q_024acc
+
+                q_024acc, a -> q_024acc
+                q_024acc, b -> q_024acc
+
+                q_0124, a -> q_0123
+                q_0124, b -> q_023acc
+
+                q_023acc, a -> q_023acc
+                q_023acc, b -> q_023acc
+
+                q_023, a -> q_0134
+                q_023, b -> q_034
+
+                q_034, a -> q_014
+                q_034, b -> q_04acc
+
+                q_04acc, a -> q_04acc
+                q_04acc, b -> q_04acc
+
+                q_014, a -> q_012
+                q_014, b -> q_02acc
+
+                q_02acc, a -> q_02acc
+                q_02acc, b -> q_02acc
+
+                q_02, a -> q_013
+                q_02, b -> q_03
+
+                q_013, a -> q_0124
+                q_013, b -> q_024
+
+                q_0124, a -> q_0123
+                q_0124, b -> q_023acc
+
+                q_024, a -> q_013
+                q_024, b -> q_03acc
+
+                q_03acc, a -> q_03acc
+                q_03acc, b -> q_03acc
+
+                q_03, a -> q_014
+                q_03, b -> q_04
+
+                q_04, a -> q_01
+                q_04, b -> q_0acc
+
+                q_0acc, a -> q_0acc
+                q_0acc, b -> q_0acc
+
+
+acc_states = q_0234acc, q_034acc, q_024acc, q_023acc, q_04acc, q_02acc, q_03acc, q_0acc
+
+

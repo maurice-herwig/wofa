@@ -1,0 +1,91 @@
+input_alphabet = a, b
+
+start_states = q_u1
+
+transitions = 	q_u1, 	a	-> q_u1q_u20
+		q_u1, 	b	-> q_u1
+  
+  		q_u1q_u20, 	a	-> q_u1q_u20q_u21
+		q_u1q_u20, 	b	-> q_u1q_u21
+  
+  		q_u1q_u20q_u21, 	a	-> q_u1q_u20q_u21q_u22
+		q_u1q_u20q_u21, 	b	-> q_u1q_u21q_u22	
+
+		q_u1q_u20q_u21q_u22, 	a	-> q_u1q_u20q_u21q_u22q_u23
+		q_u1q_u20q_u21q_u22, 	b	-> q_u1q_u21q_u22q_u23	
+
+		q_u1q_u20q_u21q_u22q_u23, 	a	-> q_u1q_u20q_u21q_u22q_u23
+		q_u1q_u20q_u21q_u22q_u23, 	b	-> q_u3
+
+		q_u1q_u21q_u22q_u23, 	a	-> q_u1q_u20q_u21q_u22q_u23
+		q_u1q_u21q_u22q_u23, 	b	-> q_u3
+
+		q_u1q_u21q_u22, 	a	-> q_u1q_u20q_u22q_u23
+		q_u1q_u21q_u22, 	b	-> q_u1q_u22q_u23
+
+		q_u1q_u20q_u22q_u23, 	a	-> q_u1q_u20q_u21q_u23
+		q_u1q_u20q_u22q_u23, 	b	-> q_u3	
+
+		q_u1q_u20q_u21q_u23, 	a	-> q_u1q_u20q_u21q_u22
+		q_u1q_u20q_u21q_u23, 	b	-> q_u3	
+
+		q_u1q_u22q_u23, 	a	-> q_u1q_u20q_u23
+		q_u1q_u22q_u23, 	b	-> q_u3
+
+		q_u1q_u20q_u23, 	a	-> q_u1q_u20q_u21
+		q_u1q_u20q_u23, 	b	-> q_u3
+
+		q_u1q_u21, 	a	-> q_u1q_u20q_u22
+		q_u1q_u21, 	b	-> q_u1q_u22
+
+		q_u1q_u20q_u22, 	a	-> q_u1q_u20q_u21q_u23
+		q_u1q_u20q_u22, 	b	-> q_u1q_u21q_u23
+
+		q_u1q_u21q_u23, 	a	-> q_u1q_u20q_u22
+		q_u1q_u21q_u23, 	b	-> q_u3
+
+		q_u1q_u22, 	a	-> q_u1q_u20q_u23
+		q_u1q_u22, 	b	-> q_u1q_u23
+
+		q_u1q_u23, 	a	-> q_u1q_u20
+		q_u1q_u23, 	b	-> q_u3
+  
+
+acc_states = q_u3
+
+# NFA A :
+#	start: 		q_u1
+#	transitionen:
+#			q_u1,	a -> q_u1; q_u20
+#			q_u1,	b -> q_u1
+#
+#			q_u20,	a -> q_u21
+#			q_u20,	b -> q_u21
+#			
+#			q_u21,	a -> q_u22
+#			q_u21,	b -> q_u22
+#
+#			q_u22,	a -> q_u23
+#			q_u22,	b -> q_u23
+#
+#			q_u23,	b -> q_u3
+#
+#			q_u3,	a -> q_u3
+#			q_u3,	b -> q_u3
+#
+#	ende: q_u3
+#
+# Der angegebene DFA ist durch Potenzmengenkonstruktion aus dem NFA entstanden.
+# Die einzige Änderung die ich vorgenommen habe ist das ich alle Endzustände des DFAs
+# gleichgesetzt und q_u3 gennant. Dies ist möglich, da der NFA so konstruiert ist, dass nach der
+# Potenzmengenkonstruktion ein Zustand, welcher Endzustand ist auch immer Endzustand bleiben wird 
+# (durch die beiden letzten Regeln).
+#
+# Das der NFA die Sprache L3 erkennt ist recht offensichtlich.
+# Der Zustand q_u1 erkennt ein beliebiges Wort und kann nur bei, lesen eines a in die Erkennung des zweiten
+# Wortes (q_u20 - q_u23, erkennt genau drei Zeichen) springen. Zur Erkennung des dritten Wortes kommt der
+# Automat nach lesen eines b also ist u2 und u3 wie gewünscht "getrennt". q_u3 erkennt dann wieder ein beliebiges Wort.
+#
+# Da der DFA aus dem NFA entstanden ist erkennt er also auch L3.
+
+

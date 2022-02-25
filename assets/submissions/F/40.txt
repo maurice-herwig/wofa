@@ -1,0 +1,106 @@
+input_alphabet = a, b
+
+start_states = S
+
+transitions = 	S, a	-> SA
+		S, b	-> S
+
+		SA, a	-> SAL
+		SA, b	-> SL
+
+		SAL, a	-> SALM
+		SAL, b	-> SLM
+
+		SL, a	-> SAM
+		SL, b	-> SM
+
+		SALM, a	-> SALMN
+		SALM, b	-> SLMN
+
+		SLM, a	-> SAMN
+		SLM, b	-> SMN
+
+		SAM, a	-> SALN
+		SAM, b	-> SLN
+
+		SM, a	-> SAN
+		SM, b	-> SN
+
+		SALMN, a	-> SALMN
+		SALMN, b	-> SLMNE
+
+		SLMN, a	-> SAMN
+		SLMN, b	-> SMNE
+
+		SAMN, a	-> SALN
+		SAMN, b	-> SLNE
+
+		SMN, a	-> SAN
+		SMN, b	-> SNE
+
+		SAN, a	-> SAL
+		SAN, b	-> SLE
+
+		SN, a	-> SA
+		SN, b	-> SE
+
+		SALN, a	-> SALM
+		SALN, b	-> SLME
+
+		SLN, a	-> SAM
+		SLN, b	-> SME
+
+		SLMNE, a	-> SAMNE
+		SLMNE, b	-> SMNE
+
+		SAMNE, a	-> SALNE
+		SAMNE, b	-> SLNE
+
+		SMNE, a	-> SANE
+		SMNE, b	-> SNE
+
+		SAME, a	-> SALNE
+		SAME, b	-> SLNE
+
+		SME, a	-> SANE
+		SME, b	-> SNE
+
+		SALNE, a	-> SALME
+		SALNE, b	-> SLME
+		
+		SLNE, a	-> SAME
+		SLNE, b	-> SME
+
+		SANE, a	-> SALE
+		SANE, b	-> SLE
+
+		SNE, a	-> SAE
+		SNE, b	-> SE
+
+		SALE, a	-> SALME
+		SALE, b	-> SLME
+
+		SLE, a	-> SAME
+		SLE, b	-> SME
+		
+		SAE, a	-> SALE
+		SAE, b	-> SLE
+
+		SE, a	-> SAE
+		SE, b	-> SE
+		
+		SALME, a	-> SALMNE
+		SALME, b	-> SLMNE
+
+		SLME, a	-> SAMNE
+		SLME, b	-> SMNE
+
+		SALMNE, a	-> SALMNE
+		SALMNE, b	-> SLMNE
+  
+  
+  
+  
+acc_states = SLMNE, SAMNE, SMNE, SALNE, SLNE, SAME, SME, SANE, SNE, SALE, SLE, SAE, SE, SALME, SLME, SALMNE
+
+

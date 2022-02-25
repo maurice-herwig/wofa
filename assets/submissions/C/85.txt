@@ -1,0 +1,52 @@
+input_alphabet = a,b,c,d
+
+start_states = q_start
+
+transitions = q_start,a->q_start;q_1
+		q_start,b->q_start;q_2
+		q_start,c->q_start;q_3
+		q_start,d->q_start
+  		q_1,a->q_1
+		q_1,b->q_1;q_11
+		q_1,c->q_1;q_12
+		q_1,d->q_1
+  		q_11,a->q_11
+		q_11,b->q_11
+		q_11,c->q_11;q_end
+		q_11,d->q_11
+    		q_12,a->q_12
+		q_12,b->q_12;q_end
+		q_12,c->q_12
+		q_12,d->q_12
+		q_2,a->q_2;q_21
+		q_2,b->q_2
+		q_2,c->q_2;q_22
+		q_2,d->q_2
+		q_21,a->q_21
+		q_21,b->q_21
+		q_21,c->q_21;q_end
+		q_21,d->q_21
+		q_22,a->q_22;q_end
+		q_22,b->q_22
+		q_22,c->q_22
+		q_22,d->q_22
+		q_3,a->q_3;q_31
+		q_3,b->q_3;q_32
+		q_3,c->q_3
+		q_3,d->q_3
+		q_31,a->q_31
+		q_31,b->q_31;q_end
+		q_31,c->q_31
+		q_31,d->q_31
+		q_32,a->q_32;q_end
+		q_32,b->q_32
+		q_32,c->q_32
+		q_32,d->q_32
+		q_end,a->q_end
+		q_end,b->q_end
+		q_end,c->q_end
+		q_end,d->q_end
+  
+acc_states =q_end
+
+

@@ -1,0 +1,15 @@
+input_alphabet = a, b, 0, 1
+
+start_states = Start
+
+transitions = Start, 0 -> Even
+			  Start, 1 -> Odd_h
+			  Even, a -> Even_h
+			  Even_h, a -> Even
+			  Odd, a -> Odd_h
+			  Odd_h, a -> Odd
+  
+  
+acc_states = Even, Odd
+
+

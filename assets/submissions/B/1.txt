@@ -1,0 +1,12 @@
+input_alphabet = a,b
+
+start_states = ok
+
+transitions = ok, a        -> ok
+              ok, b        -> careful
+              careful, a   -> ok
+              careful, b   -> prevent
+              prevent, b   -> ok
+              
+	        
+acc_states = ok,careful,prevent

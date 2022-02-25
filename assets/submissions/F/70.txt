@@ -1,0 +1,36 @@
+input_alphabet = a,b
+
+start_states = q_0
+
+transitions =	q_0, a      -> q_1
+                q_0, b      -> q_1
+                
+                q_1, a      -> q_2
+                q_1, b      -> q_9
+                
+                q_2, a      -> q_3
+                q_2, b      -> q_3
+                
+                q_3, a      -> q_4
+                q_3, b      -> q_4
+                
+                q_4, a      -> q_5
+                q_4, b      -> q_5
+                
+                q_5, b      -> q_6
+                q_5, a      -> q_9
+
+                q_6, a      -> q_7
+                q_6, b      -> q_7
+                
+                q_7, a      -> q_9
+                q_7, b      -> q_9
+                
+                q_9, a      -> q_9
+                q_9, b      -> q_9
+
+acc_states = q_7
+
+# Begründung: Der DFA erkennt die Sprache, weil die Gesamtlänge der Wörter definiert ist, 
+# genauso wie die Belegungen der jeweiligen Positionen. 
+# Hierdurch kann zwischen "Index-Zeichen" und anderen Zeichen des Alphabets unterschieden werden.

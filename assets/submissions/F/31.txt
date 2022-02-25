@@ -1,0 +1,58 @@
+input_alphabet = a, b
+
+start_states = q_0
+
+transitions =   q_0, a -> q_a
+                q_0, b -> q_0
+
+                q_a, a -> q_aa
+                q_a, b -> q_abaa
+  
+                q_aa, a -> q_aaa
+                q_aa, b -> q_aab
+  
+                q_ab, a -> q_aba
+                q_ab, b -> q_abb
+
+                q_aaa, a -> q_aaaa
+                q_aaa, b -> q_aaab
+  
+                q_aab, a -> q_aaba
+                q_aab, b -> q_aabb
+  
+                q_aba, a -> q_abaa
+                q_aba, b -> q_abab
+
+                q_abb, a -> q_abba
+                q_abb, b -> q_abbb
+
+                q_aaaa, a -> q_aaaa
+                q_aaaa, b -> accept
+  
+                q_aaba, a -> q_abaa
+                q_aaba, b -> accept
+  
+                q_abaa, a -> q_aaa
+                q_abaa, b -> accept
+
+                q_abba, a -> q_aa
+                q_abba, b -> accept
+
+                q_aaab, a -> q_aaba
+                q_aaab, b -> accept
+  
+                q_aabb, a -> q_abba
+                q_aabb, b -> accept
+  
+                q_abab, a -> q_aba
+                q_abab, b -> accept
+
+                q_abbb, a -> q_a
+                q_abbb, b -> accept
+
+                accept, a -> accept
+                accept, b -> accept
+
+acc_states = accept
+
+

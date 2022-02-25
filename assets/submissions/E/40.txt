@@ -1,0 +1,19 @@
+input_alphabet = a, b
+
+start_states = S
+
+transitions = 	S,  	-> S
+		S, a	-> A
+		A, a	-> A
+		A, b	-> B
+		B, b	-> B
+		B, a	-> C
+		C, a	-> B
+		C, b	-> S; A
+  
+  
+  
+  
+acc_states = S
+
+

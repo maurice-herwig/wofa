@@ -1,0 +1,22 @@
+input_alphabet = a, b
+
+start_states = p_0
+
+transitions =   p_0, a -> p_0; p_1
+		p_0, b -> p_0
+		p_1, a -> p_2
+		p_1, b -> p_2
+		p_2, a -> p_3
+		p_2, b -> p_3
+		p_3, a -> p_4
+		p_3, b -> p_4
+		p_4, b -> end
+		end, a -> end
+		ned, b -> end
+	
+  
+  
+  
+  
+acc_states = end
+

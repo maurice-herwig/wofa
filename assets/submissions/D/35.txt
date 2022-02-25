@@ -1,0 +1,14 @@
+input_alphabet = a,b
+
+start_states = start
+
+transitions = start, , a -> start
+              start, , b -> more
+              more, b -> more
+              more, , a -> one
+              one, a -> two
+              one, b -> start
+              two, a -> two; done
+              two, b -> two; done
+	        
+acc_states = start, done

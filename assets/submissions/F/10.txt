@@ -1,0 +1,68 @@
+input_alphabet = a, b
+
+start_states = u1
+
+transitions = u1, b -> u1
+              u1, a -> u1_u2n0
+
+              u1_u2n0, a -> u1_u2n0_u2n1
+              u1_u2n0, b -> u1_u2n1
+
+              u1_u2n0_u2n1, b -> u1_u2n1_u2n2
+              u1_u2n0_u2n1, a -> u1_u2n0_u2n1_u2n2
+
+              u1_u2n0_u2n1_u2n2, a -> u1_u2b_u2n0_u2n1_u2n2
+              u1_u2n0_u2n1_u2n2, b -> u1_u2b_u2n1_u2n2
+
+              u1_u2b_u2n0_u2n1_u2n2, a -> u1_u2b_u2n0_u2n1_u2n2
+              u1_u2b_u2n0_u2n1_u2n2, b -> u1_u2b_u2n1_u2n2_u3 
+
+              u1_u2b_u2n1_u2n2, a -> u1_u2b_u2n0_u2n2
+              u1_u2b_u2n1_u2n2, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0_u2n2, a -> u1_u2b_u2n0_u2n1
+              u1_u2b_u2n0_u2n2, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0_u2n1, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2n1_u2n2, a -> u1_u2b_u2n0_u2n2
+              u1_u2n1_u2n2, b -> u1_u2b_u2n2
+
+              u1_u2b_u2n2, a -> u1_u2b_u2n0
+              u1_u2b_u2n2, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2n1, a -> u1_u2n0_u2n2
+              u1_u2n1, b -> u1_u2n2
+
+              u1_u2n0_u2n2, a -> u1_u2b_u2n0_u2n1
+              u1_u2n0_u2n2, b -> u1_u2b_u2n1
+
+              u1_u2b_u2n1, a -> u1_u2n0_u2n2
+              u1_u2b_u2n1, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2n2, a -> u1_u2b_u2n0
+              u1_u2n2, b -> u1_u2b
+
+              u1_u2b, a -> u1_u2n0
+              u1_u2b, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n1_u2n2_u3, a -> u1_u2b_u2n0_u2n2_u3
+              u1_u2b_u2n1_u2n2_u3, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0_u2n2_u3, a -> u1_u2b_u2n0_u2n1_u3
+              u1_u2b_u2n0_u2n2_u3, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0_u2n1_u3, a -> u1_u2b_u2n0_u2n1_u3
+              u1_u2b_u2n0_u2n1_u3, b -> u1_u2b_u2n1_u2n2_u3
+              
+              
+              
+  
+  
+  
+  
+acc_states = u1_u2b_u2n1_u2n2_u3, u1_u2b_u2n0_u2n2_u3, u1_u2b_u2n0_u2n1_u3
+
+

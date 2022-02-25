@@ -1,0 +1,43 @@
+input_alphabet = a, b
+
+start_states = S
+
+transitions = S, b -> S
+              S, a -> YS
+              YS, a -> 1YS
+              YS, b -> 1S
+              1S, a -> 2YS
+              1S, b -> 2S
+              2S, a -> 3YS
+              2S, b -> 3S
+              3S, a -> YS
+              3S, b -> Z321S
+              1YS, a -> 21YS
+              1YS, b -> 21S
+              21YS, a -> 321YS
+              21YS, b -> 321S
+              321YS, a -> 321YS
+              321YS, b -> Z321S
+              3YS, a -> 1YS
+              3YS, b -> Z321S
+              32S, a -> 3YS
+              32S, b -> Z321S
+              31S, a -> 2YS
+              31S, b -> Z321S
+              2YS, a -> 31YS
+              2YS, b -> 31S
+              21S, a -> 32YS
+              21S, b -> 32S
+              321S, a -> 32YS
+              321S, b -> Z321S
+              31YS, a -> 21YS
+              31YS, b -> Z321S
+              32YS, a -> 31YS
+              32YS, b -> Z321S
+              Z321S, a -> Z321S
+              Z321S, b -> Z321S
+
+
+
+
+acc_states = Z321S

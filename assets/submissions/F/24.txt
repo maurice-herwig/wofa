@@ -1,0 +1,76 @@
+input_alphabet = a, b
+
+start_states = start
+
+transitions = start, a -> _a
+	start, b -> start
+	
+	_b , b -> _bb
+	_b , a -> _ba
+	_a , b -> _ab
+	_a , a -> _aa
+	_bb , b -> _bbb
+	_bb , a -> _bba
+	_ab , b -> _abb
+	_ab , a -> _aba
+	_ba , b -> _bab
+	_ba , a -> _baa
+	_aa , b -> _aab
+	_aa , a -> _aaa
+	_bbb , b -> _bbbb
+	_bbb , a -> _bbba
+	_abb , b -> _abbb
+	_abb , a -> _abba
+	_bab , b -> _babb
+	_bab , a -> _baba
+	_aab , b -> _aabb
+	_aab , a -> _aaba
+	_bba , b -> _bbab
+	_bba , a -> _bbaa
+	_aba , b -> _abab
+	_aba , a -> _abaa
+	_baa , b -> _baab
+	_baa , a -> _baaa
+	_aaa , b -> _aaab
+	_aaa , a -> _aaaa
+	_bbbb , b -> _bbbb
+	_bbbb , a -> _bbba
+	_abbb , b -> _valid
+	_abbb , a -> _bbba
+	_babb , b -> _abbb
+	_babb , a -> _abba
+	_aabb , b -> _valid
+	_aabb , a -> _abba
+	_bbab , b -> _babb
+	_bbab , a -> _baba
+	_abab , b -> _valid
+	_abab , a -> _baba
+	_baab , b -> _aabb
+	_baab , a -> _aaba
+	_aaab , b -> _valid
+	_aaab , a -> _aaba
+	_bbba , b -> _bbab
+	_bbba , a -> _bbaa
+	_abba , b -> _valid
+	_abba , a -> _bbaa
+	_baba , b -> _abab
+	_baba , a -> _abaa
+	_aaba , b -> _valid
+	_aaba , a -> _abaa
+	_bbaa , b -> _baab
+	_bbaa , a -> _baaa
+	_abaa , b -> _valid
+	_abaa , a -> _baaa
+	_baaa , b -> _aaab
+	_baaa , a -> _aaaa
+	_aaaa , b -> _valid
+	_aaaa , a -> _aaaa
+
+	
+	_valid, a -> _valid
+	_valid, b -> _valid
+  
+
+acc_states = _valid
+
+

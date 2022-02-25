@@ -1,0 +1,18 @@
+input_alphabet = a,b
+
+start_states = start
+
+transitions = 	start,b -> start
+				start,a -> abba_first
+				
+				abba_first,a -> start
+				abba_first,b -> abba_second
+  
+ 				abba_second,a -> start
+				abba_second,b -> abba_third
+				
+				abba_third,b -> start
+  
+acc_states = start,abba_second,abba_third
+
+

@@ -1,0 +1,67 @@
+input_alphabet = a, b
+
+start_states = S
+
+transitions = 	S, a -> Sq1
+		S, b -> S
+
+		Sq1, a -> Sq1q2
+		Sq1, b -> Sq2
+	
+		Sq2, a -> Sq1q3
+		Sq2, b -> Sq3
+
+		Sq1q3, a -> Sq1q2q4
+		Sq1q3, b -> Sq2q4
+
+		Sq3, a -> Sq1q4
+		Sq3, b -> Sq4
+
+		Sq2q4, a -> Sq1q3
+		Sq2q4, b -> Sq2q3q4q5
+
+		Sq4, a -> Sq1
+		Sq4, b -> Sq2q3q4q5
+
+		Sq1q4, a -> Sq1q2
+		Sq1q4, b -> Sq2q3q4q5
+		
+		Sq1q2, a -> Sq1q2q3
+		Sq1q2, b -> Sq2q3
+
+		Sq2q3, a -> Sq1q3q4
+		Sq2q3, b -> Sq3q4
+	
+		Sq3q4, a -> Sq1q4
+		Sq3q4, b -> Sq2q3q4q5
+
+		Sq1q2q3, a -> Sq1q2q3q4
+		Sq1q2q3, b -> Sq2q3q4
+	
+		Sq2q3q4, a -> Sq1q3q4
+		Sq2q3q4, b -> Sq2q3q4q5
+
+		Sq1q3q4, a -> Sq1q2q4
+		Sq1q3q4, b -> Sq2q3q4q5
+
+		Sq1q2q4, a -> Sq1q2q3
+		Sq1q2q4, b -> Sq2q3q4q5
+
+		Sq1q2q3q4, a -> Sq1q2q3q4
+		Sq1q2q3q4, b -> Sq2q3q4q5
+
+		Sq2q3q4q5, a -> Sq1q3q4q5
+		Sq2q3q4q5, b -> Sq2q3q4q5
+
+		Sq1q3q4q5, a -> Sq1q2q4q5
+		Sq1q3q4q5, b -> Sq2q3q4q5
+
+		Sq1q2q4q5, a -> Sq1q2q4q5
+		Sq1q2q4q5, b -> Sq2q3q4q5
+  
+  
+  
+  
+acc_states = Sq2q3q4q5, Sq1q3q4q5, Sq1q2q4q5
+
+

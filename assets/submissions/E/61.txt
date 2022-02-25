@@ -1,0 +1,24 @@
+input_alphabet = a,b
+
+start_states = q_S
+
+transitions =   q_S,a       ->  q_A
+                
+                q_A,a       ->  q_A
+                q_A,b       ->  q_B
+                
+                q_B,b       ->  q_B
+                q_B,a       ->  q_C
+
+                q_C,a       ->  q_B
+                q_C,b       ->  q_A;q_Exit
+
+                q_Exit,a    ->  q_dustbin
+                q_Exit,b    ->  q_dustbin
+
+                q_dustbin,a ->  q_dustbin
+                q_dustbin,b ->  q_dustbin
+
+acc_states = q_Exit, q_S
+
+

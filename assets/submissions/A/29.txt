@@ -1,0 +1,8 @@
+input_alphabet = a
+
+start_states = 0
+
+transitions = 0,a	-> 1
+	      1,a	-> 0
+	        
+acc_states = 0,1

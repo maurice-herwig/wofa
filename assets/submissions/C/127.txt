@@ -1,0 +1,40 @@
+input_alphabet = a, b, c, d
+
+start_states = q_0
+
+transitions = q_0, a -> a
+              q_0, b -> b
+              q_0, c -> c
+              q_0, d -> q_0
+              a, a -> a
+              a, b -> ab
+              a, c -> ac
+              a, d -> a
+              b, a -> ab
+              b, b -> b
+              b, c -> bc
+              b, d -> b
+              c, a -> ac
+              c, b -> bc
+              c, c -> c
+              c, d -> c
+              ab, a -> ab
+              ab, b -> ab
+              ab, c -> f
+              ab, d -> ab
+              ac, a -> ac
+              ac, b -> f
+              ac, c -> ac
+              ac, d -> ac
+              bc, a -> f
+              bc, b -> bc
+              bc, c -> bc
+              bc, d -> bc
+              f, a -> f
+              f, b -> f
+              f, c -> f
+              f, d -> f
+
+
+
+acc_states = f

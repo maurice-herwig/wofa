@@ -1,0 +1,10 @@
+input_alphabet = 0,1,a
+
+start_states = gerade,ungerade
+
+transitions = gerade, 0     -> final
+              ungerade, 1   -> more
+              final, a      -> more
+              more, a       -> final
+	        
+acc_states = final
