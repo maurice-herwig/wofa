@@ -1,8 +1,9 @@
-import wofa
 from wofa import FiniteAutomata
 from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values, surface_to_tikz
+from wofa import get_submission, get_solution
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 
 """ This file contains various examples that illustrate how the calculation of the weighting of a language works. 
     The various examples are briefly described at the point of implementation. 
@@ -278,6 +279,18 @@ def example_tikz(variant):
     print("The file was created.")
 
 
+def example_parser():
+    """ So far, we have always explicitly determined our automata in this example file. However, we can also use an
+    already collected dataset of student submissions. The dataset is explained in ./assets/README.
+    """
+    print("Example of the use of the parser")
+    # Outputs the solution on the console
+    print(get_solution('B'))
+
+    # Outputs a random submission to the console for this task.
+    print(get_submission('B', str(random.randint(1, 174))))
+
+
 if __name__ == "__main__":
     # Setting the alphabet. Important all current examples have the alphabet {a, b}.
     FiniteAutomata.set_alphabet({'a', 'b'})
@@ -310,3 +323,6 @@ if __name__ == "__main__":
 
     example_tikz('words')
     # example_tikz('wordLengths')
+
+    example_parser()
+
