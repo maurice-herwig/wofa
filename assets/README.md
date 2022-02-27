@@ -1,7 +1,7 @@
 For the following taks, a solution exists in the [solutions](./solutions) folder just as various student submissions 
 to these assignments exist in the [submissions](./submissions) folder. Both can be parsed into a 
 [FiniteAutomata](../wofa/FiniteAutomata.py) object by the [Parser](../wofa/Parser.py).
-![](./tasks.jpg)
+![](./Tasks.jpg)
 
 The following example shows how we can determine the weight for any submission of task A.
 
@@ -17,5 +17,5 @@ solution = get_solution('A')
 submission = get_submission('A', str(random.randint(1, 174)))
 
 # Calc the weight
-weight = weight_diff(solution, submission, 0, 0.5)
+weight = weight_diff(solution, submission, eta, lam)
 ```

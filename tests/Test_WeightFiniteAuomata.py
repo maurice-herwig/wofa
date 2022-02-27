@@ -74,7 +74,7 @@ class TestWeightFiniteAutomata(unittest.TestCase):
         path_test = os.path.join(pathlib.Path(__file__).parent.parent.resolve(), directory, name) + '.tex'
         f_test = open(path_test, 'r')
 
-        path_excepted = os.path.join(pathlib.Path(__file__).parent.resolve(), 'excepted') + '.tex'
+        path_excepted = os.path.join(pathlib.Path(__file__).parent.resolve(), 'Excepted') + '.tex'
         f_excepted = open(path_excepted, 'r')
 
         self.assertEqual(f_excepted.read(), f_test.read())
