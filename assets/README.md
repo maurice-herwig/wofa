@@ -1,24 +1,21 @@
-```math
-\begin{align*} 
-    A) \ \ & \Sigma = \{a, 0, 1\} \text{ and } L = \{ \text{ if } n \text{ even: } x = 0 \text{ else: } x = 1\}.\\
-    B) \ \ & \{w \in \{a, b\}^* \mid w \text{ not contains the subword } abba\}.\\
-    C) \ \ & L = \{w \in \{a, b, c, d\}^* \mid |w|_a \geq 1 \text{ and } |w|_b \geq 1 \text{ and } |w|_c \geq 1\}.\\
-    D) \ \ & \text{regular grammar} \ \  G= (\{S,\,A,\,B,\,C\}, \{a,\,b\},\, P,\, S) \text{ with }\\
-    & \hspace*{30mm} \mathcla{
-        \begin{align*}
-            P = \{ S & \rightarrow \epsilon \mid aS \mid bB \mid B\\
-            B & \rightarrow bB \mid aA \mid A \\
-            A & \rightarrow bS \mid aC \\
-            C & \rightarrow aC \mid bC \mid a \mid b\}.\\
-        \end{align*}}\\
-    E) \ \ & \text{regular grammar} \ \  G= (\{S,\,A,\,B,\,C\}, \{a,\,b\},\, P,\, S) \text{ with }\\
-    & \hspace*{30mm} \mathcla{
-        \begin{align*}
-           P = \{  S & \rightarrow \epsilon \mid aA\\
-           A & \rightarrow aA \mid bB\\
-           B & \rightarrow bB \mid aC\\
-           C & \rightarrow bA \mid aB \mid b\}.
-        \end{align*}}\\
-    F) \ \  & \Sigma = \{a, 0, 1\} \text{ and } L = \{ w \in \Sigma^* \mid \text{ there are } u_1, u_2, u_3 \in \Gamma^* \text{ with } \vert u_2 \vert = 3, \text{ so that } w= u_1 a u_2 b u_3  \}
-\end{align*}
+For the following taks, a solution exists in the [solutions](./solutions) folder just as various student submissions 
+to these assignments exist in the [submissions](./submissions) folder. Both can be parsed into a 
+[FiniteAutomata](../wofa/FiniteAutomata.py) object by the [Parser](../wofa/Parser.py).
+![](./tasks.jpg)
+
+The following example shows how we can determine the weight for any submission of task A.
+
+```python 
+import random
+from wofa import FiniteAutomata, get_solution, get_submission, weight_diff
+
+# Setting the alphabet. Important all current examples have the alphabet {a, b}.
+FiniteAutomata.set_alphabet({'a', '0', '1'})
+
+# Get autoamats objects
+solution = get_solution('A')
+submission = get_submission('A', str(random.randint(1, 174)))
+
+# Calc the weight
+weight = weight_diff(solution, submission, 0, 0.5)
 ```
