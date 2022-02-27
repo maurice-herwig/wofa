@@ -1,4 +1,4 @@
-$\Sigma$
+$$\Sigma$$
 
 ```math
 \Sigma
