@@ -18,7 +18,7 @@ DESCRIPTION = 'weight of finite automata is a project to determine the weight of
 URL = ''
 EMAIL = 'maurice.herwig@uni-kassel.de'
 AUTHOR = 'Maurice Herwig'
-REQUIRES_PYTHON = '>=3.6.0'
+REQUIRES_PYTHON = '>=3.9.0'
 VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
