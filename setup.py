@@ -23,7 +23,7 @@ VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'numpy~=1.22.4',
+    'numpy~=1.20.3',
     'matplotlib~=3.5.1',
     'setuptools~=57.0.0',
     'seaborn~=0.11.2'
