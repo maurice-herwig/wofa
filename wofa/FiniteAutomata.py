@@ -278,7 +278,7 @@ class FiniteAutomata:
         Returns:
             bool: Is the language the empty language.
         """
-        if len(self.__productive()) == 0:
+        if len(self.productive()) == 0:
             return True
         return False
 
@@ -330,12 +330,20 @@ class FiniteAutomata:
             return 1
         return max(res)
 
+    def calc_and_get_alphabet(self):
+        """ Determine the alphabet used in the transitions.
+        """
+        alphabet = set()
+        for t in self.get_transitions():
+            alphabet.add(t[1])
+        return alphabet
+
     """ ================================================================================================================
         Methods for the minimization of finite automata.
         ================================================================================================================
     """
 
-    def __reachable(self):
+    def reachable(self):
         """ Calculates the set of reachable states of the finite automaton.
         Returns:
             set() of integer: Set of reachable states.
@@ -353,7 +361,7 @@ class FiniteAutomata:
 
         return reachable
 
-    def __productive(self):
+    def productive(self):
         """ Calculates the set of productive states of the finite automaton. 
         A productive state is a state from which at least one run to a final state exists.  
 
@@ -413,7 +421,7 @@ class FiniteAutomata:
 
         return self
 
-    def __simulation_pairs(self):
+    def simulation_pairs(self):
         """ Calculates the set of simulation equivalent states.
 
         Returns:
@@ -458,7 +466,7 @@ class FiniteAutomata:
         Returns:
             set of pairs of integer: { (p,q) | p ~~ q and p < q } 
         """
-        simulated_by = self.__simulation_pairs()
+        simulated_by = self.simulation_pairs()
         return {(p, q) for (p, q) in simulated_by if p < q and (q, p) in simulated_by}
 
     def bi_simulation_pairs(self):
@@ -530,7 +538,7 @@ class FiniteAutomata:
                 self.__add_transition(p1, a, q1)
         return self
 
-    def __minimize(self):
+    def minimize(self):
         """ Minimisation via some simulation-based equivalence quotient. 
         Merge pairs of equivalent states, using smallest state as representative of equivalence class.   
 
@@ -558,7 +566,7 @@ class FiniteAutomata:
         for s in new_initials:
             self.__make_initial(s)
 
-        self.__shrink_to(self.__reachable())
+        self.__shrink_to(self.reachable())
         return self
 
     """ ================================================================================================================
@@ -613,7 +621,7 @@ class FiniteAutomata:
                     self.__make_initial(n)
                     self.__make_final(n)
 
-        self.__minimize()
+        self.minimize()
         return self
 
     def __power_set_construction(self):
@@ -669,8 +677,8 @@ class FiniteAutomata:
             FiniteAutomata: A deterministic finite automaton describing the same language.
         """
         dfa = self.__power_set_construction()
-        dfa.__shrink_to(dfa.__productive())
-        dfa.__minimize()
+        dfa.__shrink_to(dfa.productive())
+        dfa.minimize()
         return dfa
 
     def complement(self):
@@ -683,8 +691,8 @@ class FiniteAutomata:
             else:
                 complement.__make_final(p)
 
-        complement.__shrink_to(complement.__productive())
-        complement.__minimize()
+        complement.__shrink_to(complement.productive())
+        complement.minimize()
         return complement
 
     """ ================================================================================================================
@@ -731,8 +739,8 @@ class FiniteAutomata:
             self.__make_final(q + s + 1)
 
         # union construction can create unreachable states, remove these now
-        self.__shrink_to(self.__reachable())
-        self.__minimize()
+        self.__shrink_to(self.reachable())
+        self.minimize()
         return self
 
     def concatenate(self, other):
@@ -764,8 +772,8 @@ class FiniteAutomata:
         for q in other.get_finals():
             self.__make_final(q + s)
 
-        self.__shrink_to(self.__reachable())
-        self.__minimize()
+        self.__shrink_to(self.reachable())
+        self.minimize()
         return self
 
     def intersect(self, other):
@@ -817,8 +825,8 @@ class FiniteAutomata:
                     result.__make_final(c)
 
         result.num_states = n
-        result.__shrink_to(result.__productive())
-        result.__minimize()
+        result.__shrink_to(result.productive())
+        result.minimize()
         return result
 
     def symmetric_difference(self, other):
@@ -852,8 +860,8 @@ class FiniteAutomata:
                                                 located that were only in the language of the other and not in the
                                                 language of self.
         """
-        self.__minimize()
-        other.__minimize()
+        self.minimize()
+        other.minimize()
 
         s_sub_o = self.determine().intersect(other.complement())
         o_sub_s = other.determine().intersect(self.complement())
@@ -969,3 +977,32 @@ class FiniteAutomata:
                     queue.append((fin_self, s, a + word))
 
         return True, None
+
+    def check_nfa(self):
+        """ Checks if the automaton satisfies all properties of a finite automaton. 
+                - No transitions to non-existent states.
+                - Transitions without characters.
+                - Character of a transition not in alphabet.
+                - Epsilon transitions.
+
+        Returns:
+            bool: whether this finite automaton satisfies all these properties. 
+        """
+        for t in self.get_transitions():
+            if not isinstance(t[0], int):
+                print("Faulty state")
+                return False
+            if not isinstance(t[2], int):
+                print("Faulty state")
+                return False
+            if not isinstance(t[1], str):
+                print("No character as transition")
+                return False
+            if len(t[1]) != 1:
+                print("Epsilon or more than one character as transition")
+                return False
+            if t[1] not in self.get_alphabet():
+                print("Character not in alphabet")
+                return False
+        return True
+

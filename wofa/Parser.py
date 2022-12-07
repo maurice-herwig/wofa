@@ -17,8 +17,11 @@ def get_submission(directory, name):
     """
     path = os.path.join(pathlib.Path(__file__).parent.parent, 'assets', 'submissions', directory, name) + '.txt'
 
+    if not os.path.exists(path):
+        raise Exception('File not Found')
+
     try:
-        return __parse(__get_lines(path))
+        return parse(__get_lines(path))
     except Exception:
         return None
 
@@ -34,7 +37,7 @@ def get_solution(exercise):
     """
     path = os.path.join(pathlib.Path(__file__).parent.parent, 'assets', 'solutions', exercise) + '.txt'
     try:
-        return __parse(__get_lines(path))
+        return parse(__get_lines(path))
     except Exception:
         return None
 
@@ -46,7 +49,7 @@ def __get_lines(path):
         path (string): path of the file.
 
     Raises:
-        Exception: File Not Found, if the file doesnt exist.
+        Exception: File Not Found, if the file doesn't exist.
 
     Returns:
         list: List of the lines.
@@ -62,7 +65,7 @@ def __get_lines(path):
     return lines
 
 
-def __parse(lines):
+def parse(lines):
     """Parses the stored automata and then creates the corresponding automaton object.
 
     Args:

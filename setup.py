@@ -23,10 +23,12 @@ VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'numpy~=1.20.3',
+    'numpy~=1.22.4',
     'matplotlib~=3.5.1',
     'setuptools~=57.0.0',
-    'seaborn~=0.11.2'
+    'seaborn~=0.11.2',
+    'tikzplotlib~=0.10.1',
+    'scikit-learn~=1.1.2'
 ]
 
 # What packages are optional?

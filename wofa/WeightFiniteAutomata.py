@@ -151,8 +151,13 @@ def __weight_with_matrix(dfa, eta, lam, up_to=0, variant='words'):
 
     if variant == 'words':
         # Determination of the number of words by means of the Geometric Series
-        max_words_in_c_p = (1 - len(FiniteAutomata.get_alphabet()) ** (eta + 1)) / (
-                1 - len(FiniteAutomata.get_alphabet()))
+        if len(FiniteAutomata.get_alphabet()) == 0:
+            max_words_in_c_p = 1
+        elif len(FiniteAutomata.get_alphabet()) == 1:
+            max_words_in_c_p = eta
+        else:
+            max_words_in_c_p = (1 - len(FiniteAutomata.get_alphabet()) ** (eta + 1)) / (
+                    1 - len(FiniteAutomata.get_alphabet()))
 
         w_of_one_word_c_p = sum_w_c_p / max_words_in_c_p
 

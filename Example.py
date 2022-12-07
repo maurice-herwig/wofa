@@ -1,9 +1,12 @@
-from wofa import FiniteAutomata
-from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values, surface_to_tikz
-from wofa import get_submission, get_solution
-import numpy as np
-import matplotlib.pyplot as plt
 import random
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+from wofa import FiniteAutomata
+from wofa import get_submission, get_solution
+from wofa import grading_weight, grading_subsets, grading_test_words
+from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values, surface_to_tikz
 
 """ This file contains various examples that illustrate how the calculation of the weighting of a language works. 
     The various examples are briefly described at the point of implementation. 
@@ -261,6 +264,7 @@ def example_find_best_parameters(variant):
                     edgecolor='green')
 
     plt.show()
+    print()
 
 
 def example_tikz(variant):
@@ -277,6 +281,7 @@ def example_tikz(variant):
                     file_name='example', variant=variant, log_scale_fac=4,
                     labels=[0, 0.02, 0.05, 0.1, 0.2, 0.4, 0.7, 1])
     print("The file was created.")
+    print()
 
 
 def example_parser():
@@ -288,7 +293,97 @@ def example_parser():
     print(get_solution('B'))
 
     # Outputs a random submission to the console for this task.
-    print(get_submission('B', str(random.randint(1, 174))))
+    print(get_submission('B', str(random.randint(0, 165))))
+    print()
+
+
+def example_grading_weight(variant):
+    """  For the evaluation of student assignments, it can be useful that you do not get a weight as a result but a
+    concrete score that this submission should receive. We use the grading schemata from ./docs/gradingsSchemes.
+    """
+    print("Example to use the weighting for concrete gradings with a point schemata based on the weight of the "
+          "symmetrical difference.")
+
+    # Determine the parameters. x is the proportion of the weight to be allocated to the constant part.
+    x = 0.5
+    eta = sol.get_length_longest_run() + 1
+    lam = (1 - x) ** (1 / eta)
+
+    # Set the maximum number of points and the linear displacement.
+    max_po = 5
+    lin_dis = 5
+
+    # Determination of the scores
+    print(f'With {float(max_po)} possible points, a suggested score for automaton1 would be: '
+          f'{grading_weight(sol, automaton1, eta, lam, max_po, lin_dis, variant)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton2 would be: '
+          f'{grading_weight(sol, automaton2, eta, lam, max_po, lin_dis, variant)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton3 would be: '
+          f'{grading_weight(sol, automaton3, eta, lam, max_po, lin_dis, variant)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton4 would be: '
+          f'{grading_weight(sol, automaton4, eta, lam, max_po, lin_dis, variant)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton5 would be: '
+          f'{grading_weight(sol, automaton5, eta, lam, max_po, lin_dis, variant)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton5 would be: '
+          f'{grading_weight(sol, automaton6, eta, lam, max_po, lin_dis, variant)}')
+    print()
+
+
+def example_grading_subsets():
+    """ Another trivial approach to evaluating student solutions is to consider the subset relationships between the
+    language of the sample solution and a student submission. Half of the points are awarded for each correct inclusion
+    direction. This variant has the disadvantage, for example, the trivial deliveries of the full language or the empty
+    language, so already half of the points are assigned.
+    """
+    print("Example around student submissions using the subset relationships between the submitted language and "
+          "a sample solution. ")
+
+    # Set the maximum number of points
+    max_po = 2
+
+    # Determination of the scores
+    print(f'With {float(max_po)} possible points, a suggested score for automaton1 would be: '
+          f'{grading_subsets(sol, automaton1, max_po)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton2 would be: '
+          f'{grading_subsets(sol, automaton2, max_po)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton3 would be: '
+          f'{grading_subsets(sol, automaton3, max_po)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton4 would be: '
+          f'{grading_subsets(sol, automaton4, max_po)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton5 would be: '
+          f'{grading_subsets(sol, automaton5, max_po)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton6 would be: '
+          f'{grading_subsets(sol, automaton6, max_po)}')
+    print()
+
+
+def example_grading_test_words():
+    """ The third approach to evaluating student submissions is that we determine for a set of test words whether they
+    are categorized (accepted/rejected) in correctly by the submission.
+    """
+    # set the test words
+    containing_words = ['a', 'ab', 'abbba', 'abbbbbb', 'aaaaabbbbbb', '']
+    not_included_words = ['abba', 'ababba', 'abbabb', 'bbaabbabb']
+
+    print(f'For example, by testing test words, we use the test words that should not be in the language: '
+          f'{not_included_words} respectively that should be in the language: {containing_words}.')
+
+    # Set the maximum number of points
+    max_po = 10
+
+    print(f'With {float(max_po)} possible points, a suggested score for automaton1 would be: '
+          f'{grading_test_words(automaton1, max_po, containing_words, not_included_words)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton2 would be: '
+          f'{grading_test_words(automaton2, max_po, containing_words, not_included_words)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton3 would be: '
+          f'{grading_test_words(automaton3, max_po, containing_words, not_included_words)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton4 would be: '
+          f'{grading_test_words(automaton4, max_po, containing_words, not_included_words)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton5 would be: '
+          f'{grading_test_words(automaton5, max_po, containing_words, not_included_words)}')
+    print(f'With {float(max_po)} possible points, a suggested score for automaton6 would be: '
+          f'{grading_test_words(automaton6, max_po, containing_words, not_included_words)}')
+    print()
 
 
 if __name__ == "__main__":
@@ -326,3 +421,8 @@ if __name__ == "__main__":
 
     example_parser()
 
+    example_grading_weight('words')
+    # example_grading('wordLengths')
+
+    example_grading_subsets()
+    example_grading_test_words()
