@@ -154,7 +154,7 @@ def __weight_with_matrix(dfa, eta, lam, up_to=0, variant='words'):
         if len(FiniteAutomata.get_alphabet()) == 0:
             max_words_in_c_p = 1
         elif len(FiniteAutomata.get_alphabet()) == 1:
-            max_words_in_c_p = eta
+            max_words_in_c_p = eta + 1
         else:
             max_words_in_c_p = (1 - len(FiniteAutomata.get_alphabet()) ** (eta + 1)) / (
                     1 - len(FiniteAutomata.get_alphabet()))
