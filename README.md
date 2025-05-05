@@ -14,7 +14,7 @@ pip install -r requirements.txt
 If you want to import this library into another project use:
 
 ````bash
-pip install git+https://github.com/maurice-herwig/wofa
+pip install git+https://cumbernauld.tifm.cs.uni-kassel.de/mherwig/wofa
 ````
 This installs the current master version as a package.
 

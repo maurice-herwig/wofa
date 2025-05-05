@@ -240,7 +240,32 @@ class FiniteAutomata:
 
     def unpack(self):
         return FiniteAutomata.alphabet, set(range(self.get_number_of_states())), self.successors, self.get_initials(), \
-               self.get_finals()
+            self.get_finals()
+
+    def is_deterministic(self):
+        """ Check if the automaton finite automaton object a deterministic finite automaton.
+        !!! Important, by using the minimise methods you can destroy the properties of and DFA and get an NFA.
+        So if you have a DFA, don't call the minimise methods unless you want to change your DFA to an NFA!!!!
+
+        Returns:
+            bool: if the automaton a deterministic one.
+
+        """
+
+        # Check that we have only one start state
+        if len(self.initials) != 1:
+            return False
+
+        for letter in FiniteAutomata.alphabet:
+            for state in range(self.num_states):
+
+                if not (state, letter) in self.successors:
+                    return False
+
+                if not len(self.successors[(state, letter)]) == 1:
+                    return False
+
+        return True
 
     def accepts_empty_word(self):
         """ Determines whether the empty word is in the language described by the machine.
@@ -292,7 +317,7 @@ class FiniteAutomata:
                 f'transitions: {self.get_transitions()}\n')
 
     def get_length_longest_run(self):
-        """ Determines the length of the longest run on the machine without visiting a state twice. 
+        """ Determines the length of the longest run on the machine without visiting a state twice.
         This is useful because incrementing this value by 1 in most cases gives the pumping constant of the language of
         the automaton.
 
@@ -362,8 +387,8 @@ class FiniteAutomata:
         return reachable
 
     def productive(self):
-        """ Calculates the set of productive states of the finite automaton. 
-        A productive state is a state from which at least one run to a final state exists.  
+        """ Calculates the set of productive states of the finite automaton.
+        A productive state is a state from which at least one run to a final state exists.
 
         Returns:
             set() of integer:  Set of productive states.
@@ -421,6 +446,12 @@ class FiniteAutomata:
 
         return self
 
+    def remove_unproductive_states(self):
+        """
+        Remove all non-productive states from the automation. 
+        """
+        return self.__shrink_to(remaining=self.productive())
+
     def simulation_pairs(self):
         """ Calculates the set of simulation equivalent states.
 
@@ -429,7 +460,7 @@ class FiniteAutomata:
         """
         n = self.get_number_of_states()
         fs = self.get_finals()
-        sim = {(p, q) for p in range(n) for q in range(n) if p != q and (p not in fs or q in fs)}
+        sim = {(p, q) for p in range(n) for q in range(n) if p != q and (bool(p not in fs) ^ bool(q in fs))}
         old_sim = set()
 
         # turn sim into largest is-simulated-by relation by successively removing pairs (p,q) such that p is not
@@ -460,11 +491,11 @@ class FiniteAutomata:
         return sim
 
     def simulation_equivalence_pairs(self):
-        """ Calculates the set of simulation equivalent states where in case of two-way simulation only one tuple is 
+        """ Calculates the set of simulation equivalent states where in case of two-way simulation only one tuple is
         returned.
 
         Returns:
-            set of pairs of integer: { (p,q) | p ~~ q and p < q } 
+            set of pairs of integer: { (p,q) | p ~~ q and p < q }
         """
         simulated_by = self.simulation_pairs()
         return {(p, q) for (p, q) in simulated_by if p < q and (q, p) in simulated_by}
@@ -520,12 +551,12 @@ class FiniteAutomata:
         return sim
 
     def __merge_states(self, replacements):
-        """ Merges the states of the automaton q and p exactly when the dictionary (replacement) maps from q to p. 
-        For example, simulation-equivalent states can be combined into one state to minimize the automaton. 
+        """ Merges the states of the automaton q and p exactly when the dictionary (replacement) maps from q to p.
+        For example, simulation-equivalent states can be combined into one state to minimize the automaton.
 
         Args:
-            replacements (dict of int: int): Describes the replacements where the state from the key is replaced by the 
-            state from the value. 
+            replacements (dict of int: int): Describes the replacements where the state from the key is replaced by the
+            state from the value.
 
         Returns:
             self: Returns the finite automaton object with the substitutions/merges of states.
@@ -539,8 +570,8 @@ class FiniteAutomata:
         return self
 
     def minimize(self):
-        """ Minimisation via some simulation-based equivalence quotient. 
-        Merge pairs of equivalent states, using smallest state as representative of equivalence class.   
+        """ Minimisation via some simulation-based equivalence quotient.
+        Merge pairs of equivalent states, using smallest state as representative of equivalence class.
 
         Returns:
             self: Returns the minimized automaton.
@@ -576,7 +607,7 @@ class FiniteAutomata:
 
     def star(self):
         """ Surround the set of words in the language with the star operation.
-        For example, if the automaton describes the language "aa", the language of the automaton 
+        For example, if the automaton describes the language "aa", the language of the automaton
         after this operation is "(aa)^*".
 
         Returns:
@@ -628,7 +659,7 @@ class FiniteAutomata:
         """ Power sets construction of the finite automaton.
 
         Returns:
-            FiniteAutomata: The deterministic finite automaton resulting from the power set construction. 
+            FiniteAutomata: The deterministic finite automaton resulting from the power set construction.
         """
         codes = {}
         n = 0
@@ -671,7 +702,7 @@ class FiniteAutomata:
         return res
 
     def determine(self):
-        """ Method to determine a finite automaton to obtain a deterministic finite automaton. 
+        """ Method to determine a finite automaton to obtain a deterministic finite automaton.
 
         Returns:
             FiniteAutomata: A deterministic finite automaton describing the same language.
@@ -833,7 +864,7 @@ class FiniteAutomata:
         """ Determines the symmetric difference between the languages described by 2 finite automata.
 
         Args:
-            other (FiniteAutomata:): The finite automaton with which the symmetric difference is to be formed. 
+            other (FiniteAutomata:): The finite automaton with which the symmetric difference is to be formed.
 
         Returns:
             FiniteAutomata: The finite automaton that describing the union of the languages of the 2 finite automata.
@@ -869,7 +900,7 @@ class FiniteAutomata:
         return s_sub_o, o_sub_s
 
     def equivalence_test(self, other):
-        """ Tests whether two finite automata objects describe the same language. 
+        """ Tests whether two finite automata objects describe the same language.
 
         Args:
              other (FiniteAutomata:): The finite automaton for which you want to check if it is equivalent to the
@@ -878,15 +909,7 @@ class FiniteAutomata:
         Returns:
             bool, str: The result of the test, if the test is wrong one wrong word as a representative.
         """
-        s_sub_o, false_word = self.inclusion(other)
-        if not s_sub_o:
-            return False, false_word
-
-        o_sub_s, false_word = other.inclusion(self)
-        if not o_sub_s:
-            return False, false_word
-
-        return True, None
+        return self.complement().intersect(other).is_empty() and other.complement().intersect(self).is_empty()
 
     def inclusion(self, other):
         """ Checks if the language of the current automaton is a subset of language of the other automaton. For this
@@ -934,7 +957,7 @@ class FiniteAutomata:
 
             (l_, s_, word) = queue.pop()
 
-            # Iterate over all predecessor states with the respective letter.   
+            # Iterate over all predecessor states with the respective letter.
             for (fin_self, a) in self.get_all_predecessors_with_letter(l_):
 
                 s = set()
@@ -953,7 +976,7 @@ class FiniteAutomata:
                         if type(posts[pos]) == set and posts[pos].issubset(s_):
                             s.add(i)
 
-                # Check if there is a set a tuple (init_self x {init_other}), in this case the inclusion is not correct. 
+                # Check if there is a set a tuple (init_self x {init_other}), in this case the inclusion is not correct.
                 if fin_self in self.get_initials() and other.get_initials().issubset(s):
                     return False, a + word
 
@@ -979,14 +1002,14 @@ class FiniteAutomata:
         return True, None
 
     def check_nfa(self):
-        """ Checks if the automaton satisfies all properties of a finite automaton. 
+        """ Checks if the automaton satisfies all properties of a finite automaton.
                 - No transitions to non-existent states.
                 - Transitions without characters.
                 - Character of a transition not in alphabet.
                 - Epsilon transitions.
 
         Returns:
-            bool: whether this finite automaton satisfies all these properties. 
+            bool: whether this finite automaton satisfies all these properties.
         """
         for t in self.get_transitions():
             if not isinstance(t[0], int):
@@ -1005,4 +1028,3 @@ class FiniteAutomata:
                 print("Character not in alphabet")
                 return False
         return True
-

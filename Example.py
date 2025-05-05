@@ -18,21 +18,21 @@ from wofa import weight_diff, weight, vis_weight, vis_diff, weight_values, surfa
 The automaton 1 to 6 are different submissions of students for this task and sol represented a typically correct 
 solution (In docs/ExampleAutomates.pdf are graphical representations of these finite automata). 
 """
-sol = FiniteAutomata({1},
-                     [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4), (4, 'b', 1)],
-                     {1, 2, 3, 4})
+sol = FiniteAutomata({0},
+                     [(0, 'a', 1), (0, 'b', 0), (1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3), (3, 'b', 0)],
+                     {0, 1, 2, 3})
 
-automaton1 = FiniteAutomata({1}, [(1, 'a', 3), (1, 'b', 2), (2, 'a', 3), (2, 'b', 2), (3, 'a', 3), (3, 'b', 4),
-                                  (4, 'a', 3), (4, 'b', 5), (5, 'b', 3)], {1, 2, 3, 4, 5})
-automaton2 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 2), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4),
-                                  (4, 'b', 5), (5, 'a', 2), (5, 'b', 5)], {1, 2, 3, 4, 5})
-automaton3 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 2), (3, 'b', 4),
-                                  (4, 'b', 4), (4, 'b', 2)], {2, 3, 4})
-automaton4 = FiniteAutomata({1}, [(1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3), (3, 'b', 2)], {1, 2, 3})
-automaton5 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 1), (2, 'b', 3), (3, 'a', 1), (3, 'b', 4),
-                                  (4, 'b', 1)], {1})
-automaton6 = FiniteAutomata({1}, [(1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3), (3, 'a', 3), (3, 'b', 4),
-                                  (4, 'a', 5), (4, 'b', 4), (5, 'a', 5), (5, 'b', 5)], {5})
+automaton1 = FiniteAutomata({0}, [(0, 'a', 2), (0, 'b', 1), (1, 'a', 2), (1, 'b', 1), (2, 'a', 2), (2, 'b', 3),
+                                  (3, 'a', 2), (3, 'b', 4), (4, 'b', 2)], {0, 1, 2, 3, 4})
+automaton2 = FiniteAutomata({0}, [(0, 'a', 1), (0, 'b', 1), (1, 'a', 1), (1, 'b', 2), (2, 'a', 3), (2, 'b', 3),
+                                  (3, 'b', 4), (4, 'a', 1), (4, 'b', 4)], {0,1, 2, 3, 4})
+automaton3 = FiniteAutomata({0}, [(0, 'a', 1), (0, 'b', 0), (1, 'a', 1), (1, 'b', 2), (2, 'a', 1), (2, 'b', 3),
+                                  (3, 'b', 3), (3, 'b', 1)], {1, 2, 3})
+automaton4 = FiniteAutomata({0}, [(0, 'a', 0), (0, 'b', 1), (1, 'a', 0), (1, 'b', 2), (2, 'b', 1)], {0, 1, 2})
+automaton5 = FiniteAutomata({0}, [(0, 'a', 1), (0, 'b', 0), (1, 'a', 0), (1, 'b', 2), (2, 'a', 0), (2, 'b', 3),
+                                  (3, 'b', 0)], {0})
+automaton6 = FiniteAutomata({0}, [(0, 'a', 1), (0, 'b', 0), (1, 'a', 1), (1, 'b', 2), (2, 'a', 2), (2, 'b', 3),
+                                  (3, 'a', 4), (3, 'b', 4), (4, 'a', 4), (4, 'b', 4)], {4})
 
 
 def example_sym_diff(variant):

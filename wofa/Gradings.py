@@ -78,7 +78,7 @@ def grading_weight(solution, test_obj, eta, lam, max_po, lin_dis, variant=Consta
         return 0
 
     # Return the points as integer rounded to whole points.
-    return int(round(points, 0))
+    return int(points)
 
 
 def grading_subsets(solution, test_obj, max_po):

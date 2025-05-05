@@ -17,13 +17,13 @@ def get_submission(directory, name):
     """
     path = os.path.join(pathlib.Path(__file__).parent.parent, 'assets', 'submissions', directory, name) + '.txt'
 
-    if not os.path.exists(path):
-        raise Exception('File not Found')
-
     try:
         return parse(__get_lines(path))
-    except Exception:
+    except FileNotFoundError:
+        raise FileNotFoundError(f'It exists for the task {directory} no submission {name}')
+    except Exception as _:
         return None
+
 
 
 def get_solution(exercise):
@@ -57,7 +57,7 @@ def __get_lines(path):
     try:
         file = open(path, 'r')
     except FileNotFoundError:
-        raise Exception("Error: File Not Found")
+        raise FileNotFoundError("Error: File Not Found")
 
     lines = file.readlines()
     file.close()
