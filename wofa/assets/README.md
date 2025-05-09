@@ -1,7 +1,7 @@
-For the following taks, a solution exists in the [solutions](./solutions) folder just as various student submissions 
-to these assignments exist in the [submissions](./submissions) folder. Both can be parsed into a 
-[FiniteAutomata](../wofa/FiniteAutomata.py) object by the [Parser](../wofa/Parser.py).
-![](./Tasks.jpg)
+For the following taks, a solution exists in the [solutions](solutions) folder just as various student submissions 
+to these assignments exist in the [submissions](submissions) folder. Both can be parsed into a 
+[FiniteAutomata](../FiniteAutomata.py) object by the [Parser](../Parser.py).
+![](Tasks.jpg)
 
 The following example shows how we can determine the weight for any submission of task A.
 

@@ -34,7 +34,7 @@ The following example illustrates the use of this library with a concrete exampl
 ## Example
 Here is an example of how the weighting of a language can be used for teaching. The task was to specify a finite automaton which describes the language of the words above the alphabet {a, b} which do not contain the subword "abba". A sample solution for this is given in the following graphic. In addition, two submissions of students are given. Here you can see that automaton 1 is a better submission than the submission of automaton 2, even if both submissions are not submissions that describe the required language. This is expressed by weighting the symmetric difference of the languages of these two automata to the sample solution by a metric value. Which significantly simplifies the evaluation of these deliveries.
 
-![](./assets/ExampleAutomatas.jpg)
+![](wofa/assets/ExampleAutomatas.jpg)
 
 ```python   
 from wofa import FiniteAutomata
@@ -70,13 +70,13 @@ In the previous example we used default values for the two parameters eta and la
 ```python   
 surface_to_tikz(sol.symmetric_difference(automaton2), etas=np.arange(0, 15), num_lams=30, directory="assets", file_name='SurfaceExample', variant='words', log_scale_fac=4, labels=[0, 0.02, 0.05, 0.1, 0.2, 0.4, 0.7, 1]
 ```
-This creates the file [SurfaceExample.tex](./assets/SurfaceExample.tex). Which represents the following tikzpicture.
-![](./assets/SurfaceExample.jpg)
+This creates the file [SurfaceExample.tex](wofa/assets/SurfaceExample.tex). Which represents the following tikzpicture.
+![](wofa/assets/SurfaceExample.jpg)
 
 More examples can be found in the [Example.py](./Example.py) file.
 
 ## Project structure
-- [assets](./assets)
+- [assets](wofa/assets)
 
   Among other things, over 750 submissions of student submissions are deposited here. This data set makes it possible to perform various tests on a large set of machines.
 
@@ -97,7 +97,7 @@ More examples can be found in the [Example.py](./Example.py) file.
 
   - [Parser.py](./wofa/Parser.py)
 
-    With the help of this parser, the automata stored in the [assets](./assets) can be used as a [FiniteAutomata](./wofa/FiniteAutomata.py) object.
+    With the help of this parser, the automata stored in the [assets](wofa/assets) can be used as a [FiniteAutomata](./wofa/FiniteAutomata.py) object.
 
 
 

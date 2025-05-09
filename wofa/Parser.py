@@ -15,7 +15,7 @@ def get_submission(directory, name):
     Returns:
         FiniteAutomata:     The generated FiniteAutomata Object
     """
-    path = os.path.join(pathlib.Path(__file__).parent.parent, 'assets', 'submissions', directory, name) + '.txt'
+    path = os.path.join(pathlib.Path(__file__).parent, 'assets', 'submissions', directory, name) + '.txt'
 
     try:
         return parse(__get_lines(path))
@@ -35,7 +35,7 @@ def get_solution(exercise):
     Returns:
         FiniteAutomata: The solution Object
     """
-    path = os.path.join(pathlib.Path(__file__).parent.parent, 'assets', 'solutions', exercise) + '.txt'
+    path = os.path.join(pathlib.Path(__file__).parent, 'assets', 'solutions', exercise) + '.txt'
     try:
         return parse(__get_lines(path))
     except Exception:
