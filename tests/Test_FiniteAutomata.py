@@ -64,9 +64,9 @@ class TestFiniteAutomata(unittest.TestCase):
         fa_c = FiniteAutomata.full_nfa()
 
         # Assert
-        self.assertTrue(fa_a.equivalence_test(fa_a)[0])
-        self.assertFalse(fa_a.equivalence_test(fa_b)[0])
-        self.assertTrue(fa_b.equivalence_test(fa_c)[0])
+        self.assertTrue(fa_a.equivalence_test(fa_a))
+        self.assertFalse(fa_a.equivalence_test(fa_b))
+        self.assertTrue(fa_b.equivalence_test(fa_c))
 
     def test_concatenation(self):
         # Assume
@@ -84,7 +84,7 @@ class TestFiniteAutomata(unittest.TestCase):
         FiniteAutomata.set_minimization_engine(1)
 
         # Assert
-        self.assertTrue(fa_a.union(fa_b).equivalence_test(fa_union)[0])
+        self.assertTrue(fa_a.union(fa_b).equivalence_test(fa_union))
 
     def test_symmetric_difference(self):
         # Assume
@@ -94,7 +94,7 @@ class TestFiniteAutomata(unittest.TestCase):
         FiniteAutomata.set_minimization_engine(1)
 
         # Assert
-        self.assertTrue(fa_a.union(fa_b).equivalence_test(fa_diff)[0])
+        self.assertTrue(fa_a.union(fa_b).equivalence_test(fa_diff))
 
     def test_longest_run(self):
         # Assume

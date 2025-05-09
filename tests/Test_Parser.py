@@ -42,4 +42,4 @@ class TestParser(unittest.TestCase):
     def test_file_not_found(self):
         # Assert
         self.assertRaises(Exception, get_solution('Z'))
-        self.assertRaises(Exception, get_submission('A', str(100000)))
+        self.assertRaises(FileNotFoundError, get_submission, 'A', str(100000))
