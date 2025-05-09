@@ -1,3 +1,7 @@
+import os
+from wofa.Constants import *
+
+
 class FiniteAutomata:
     """ Finite Automata is a class to create objects from NFAs and DFAs. On which various operations implemented below
     can be performed.
@@ -315,6 +319,42 @@ class FiniteAutomata:
                 f'starting:    {self.get_initials()}\n'
                 f'accepting:   {self.get_finals()}\n'
                 f'transitions: {self.get_transitions()}\n')
+
+    def save_as_txt(self, directory_path: str, name):
+        """
+        Save the automaton aus a parsable txt file.
+
+        Args:
+            directory_path: The directory path of the file.
+            name: THe name of the .txt file.
+
+        Returns: None
+        """
+        # Check if the given path exists if not, then create a directory for the path.
+        if not os.path.exists(path=directory_path):
+            os.makedirs(directory_path)
+
+        # Create txt parst for alphabet, start states, transitions and accepting states
+        alphabet_txt = ', '.join(str(letter) for letter in self.get_alphabet())
+        start_state_txt = ', '.join(str(state) for state in self.initials)
+        transitions_txt = '\n '.join(f'{str(predecessor)},{str(letter)} -> {successor}'
+                                     for predecessor, letter, successor in self.get_transitions())
+        accepting_stats_txt = ', '.join(str(state) for state in self.finals)
+
+        # Create the text of the txt file
+        text = f'{INPUT_ALPHABET} = {alphabet_txt} \n \n' \
+               f'{START_STATES} = {start_state_txt} \n \n' \
+               f'{TRANSITIONS} = {transitions_txt} \n \n' \
+               f'{ACC_STATES} = {accepting_stats_txt}'
+
+        if not name.endswith('.txt'):
+            name += '.txt'
+
+        path = os.path.join(directory_path, name)
+        print(path)
+        # Write the text to the file
+        with open(path, 'w') as file:
+            file.write(text)
 
     def get_length_longest_run(self):
         """ Determines the length of the longest run on the machine without visiting a state twice.
