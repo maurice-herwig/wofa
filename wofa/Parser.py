@@ -2,6 +2,7 @@ import re
 import os
 import pathlib
 from wofa import FiniteAutomata
+from wofa.Constants import *
 
 
 def get_submission(directory, name):
@@ -23,7 +24,6 @@ def get_submission(directory, name):
         raise FileNotFoundError(f'It exists for the task {directory} no submission {name}')
     except Exception as _:
         return None
-
 
 
 def get_solution(exercise):
@@ -77,12 +77,6 @@ def parse(lines):
     Returns:
         FiniteAutomata: The parsed object.
     """
-    # Define constants
-    const_state_name = r'\w+$'
-    const_input_alphabet = "input_alphabet"
-    const_start_states = "start_states"
-    const_transitions = "transitions"
-    const_acc_states = "acc_states"
 
     state_dict = dict()
     state_counter = 0
@@ -99,10 +93,10 @@ def parse(lines):
     third = purged[2]
     last = purged[len(purged) - 1]
 
-    if not (first.startswith(const_input_alphabet)
-            and second.startswith(const_start_states)
-            and third.startswith(const_transitions)
-            and last.startswith(const_acc_states)):
+    if not (first.startswith(INPUT_ALPHABET)
+            and second.startswith(START_STATES)
+            and third.startswith(TRANSITIONS)
+            and last.startswith(ACC_STATES)):
         raise Exception(
             "Error: Key words input_alphabet, start_states, transitions and acc_states must occur in exactly in "
             "this order")
@@ -128,7 +122,7 @@ def parse(lines):
     initials = set()
     for state in candidates:
         state = state.strip()
-        if re.match(const_state_name, state):
+        if re.match(STATE_NAME, state):
             if state.strip() not in state_dict:
                 state_dict[state.strip()] = state_counter
                 state_counter += 1
@@ -146,7 +140,7 @@ def parse(lines):
     finials = set()
     for state in candidates:
         state = state.strip()
-        if re.match(const_state_name, state):
+        if re.match(STATE_NAME, state):
             if state.strip() not in state_dict:
                 state_dict[state.strip()] = state_counter
                 state_counter += 1
@@ -172,7 +166,7 @@ def parse(lines):
         value = set()
         for state in right_side:
             state = state.strip()
-            if re.match(const_state_name, state):
+            if re.match(STATE_NAME, state):
                 value.add(state.strip())
             else:
                 raise Exception(f'Error: Unexpected symbol in state identifier. ({state})')
