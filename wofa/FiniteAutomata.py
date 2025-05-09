@@ -351,7 +351,7 @@ class FiniteAutomata:
             name += '.txt'
 
         path = os.path.join(directory_path, name)
-        print(path)
+
         # Write the text to the file
         with open(path, 'w') as file:
             file.write(text)
