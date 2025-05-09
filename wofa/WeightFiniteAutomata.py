@@ -1,3 +1,5 @@
+import matplotlib
+
 from wofa import FiniteAutomata
 from collections import defaultdict
 import numpy as np
@@ -7,6 +9,8 @@ import seaborn as sns
 import math
 import os
 import pathlib
+
+matplotlib.use('TkAgg')
 
 """=====================================================================================================================
    Methods to determine the weight.
@@ -233,7 +237,7 @@ def vis_weight(dfa, etas, num_lams, vis_type='heatmap', variant='words'):
 
     # create a heatmap
     elif vis_type == 'heatmap':
-        plt.style.use("seaborn")
+        plt.style.use("seaborn-v0_8")
         ax = sns.heatmap(z, linewidth=1, annot=True, cbar_kws={'label': 'weight'})
         ax.invert_yaxis()
         ax.set_xticklabels(etas)
@@ -309,7 +313,7 @@ def vis_diff(fa_a, fa_b, etas, num_lams, vis_type='heatmap', variant='words'):
         z = weight_values(dfa, etas, lams, variant)
 
         # Create the heatmap
-        plt.style.use("seaborn")
+        plt.style.use("seaborn-v0_8")
         ax = sns.heatmap(z, linewidth=1, annot=True, cbar_kws={'label': 'weight'})
         ax.invert_yaxis()
         ax.set_xticklabels(etas)
