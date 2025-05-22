@@ -555,6 +555,14 @@ class FiniteAutomata:
         """
         return self.__shrink_to(remaining=self.productive())
 
+    def remove_non_alphabet_transitions(self):
+        """
+        Remove all  transitions with letter that are currently not in the alphabet.
+        """
+        for p, a, q in self.get_transitions():
+            if a not in self.alphabet:
+                self.__remove_transition(p, a, q)
+
     def simulation_pairs(self):
         """ Calculates the set of simulation equivalent states.
 
