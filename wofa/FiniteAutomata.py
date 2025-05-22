@@ -179,6 +179,32 @@ class FiniteAutomata:
     def get_transitions(self):
         return [(p, a, q) for (p, a), successor in self.successors.items() for q in successor]
 
+    def get_order_transitions(self, alphabet_order: list) -> list:
+        import copy
+        next_states = list(self.get_initials())
+        next_states.sort()
+        seen_states = copy.copy(next_states)
+
+        ordered_trans = []
+
+        while next_states:
+
+            new_next_states = []
+
+            for letter in alphabet_order:
+                for predecessor in next_states:
+                    for successors in self.get_successors(s=predecessor, a=letter):
+                        ordered_trans.append((predecessor, letter, successors))
+
+                        if successors not in seen_states:
+                            seen_states.append(successors)
+                            new_next_states.append(successors)
+
+            new_next_states.sort()
+            next_states = new_next_states
+
+        return ordered_trans
+
     def __add_state(self, p):
         if p >= self.num_states:
             self.num_states = p + 1
@@ -311,14 +337,31 @@ class FiniteAutomata:
             return True
         return False
 
-    def __str__(self):
+    def __str__(self, ordered=False, alphabet_order=None):
         """ Overwrite the standard console output.
         """
-        return (f'alphabet:    {self.get_alphabet()}\n'
-                f'states:      {self.__get_all_states()}\n'
-                f'starting:    {self.get_initials()}\n'
-                f'accepting:   {self.get_finals()}\n'
-                f'transitions: {self.get_transitions()}\n')
+        if alphabet_order is None:
+            alphabet_order = list(self.get_alphabet())
+            alphabet_order.sort()
+
+        if ordered:
+            states = list(self.__get_all_states())
+            states.sort()
+            initials = list(self.get_initials())
+            initials.sort()
+            finals = list(self.get_finals())
+            finals.sort()
+        else:
+            states = self.__get_all_states()
+            initials = self.get_initials()
+            finals = self.get_finals()
+
+        return (f'alphabet:    {alphabet_order if ordered else self.get_alphabet()}\n'
+                f'states:      {states}\n'
+                f'starting:    {initials}\n'
+                f'accepting:   {finals}\n'
+                f'transitions: '
+                f'{self.get_order_transitions(alphabet_order=alphabet_order) if ordered else self.get_transitions()}\n')
 
     def save_as_txt(self, directory_path: str, name):
         """
