@@ -363,13 +363,15 @@ class FiniteAutomata:
                 f'transitions: '
                 f'{self.get_order_transitions(alphabet_order=alphabet_order) if ordered else self.get_transitions()}\n')
 
-    def save_as_txt(self, directory_path: str, name):
+    def save_as_txt(self, directory_path: str, name, ordered=False, alphabet_order=None):
         """
         Save the automaton aus a parsable txt file.
 
         Args:
             directory_path: The directory path of the file.
             name: THe name of the .txt file.
+            ordered: If a state and transition ordered version should be saved.
+            alphabet_order: The used order on the alphabet.
 
         Returns: None
         """
@@ -377,12 +379,30 @@ class FiniteAutomata:
         if not os.path.exists(path=directory_path):
             os.makedirs(directory_path)
 
+        if ordered:
+            initials = list(self.get_initials())
+            initials.sort()
+            finals = list(self.get_finals())
+            finals.sort()
+
+            if alphabet_order is None:
+                alphabet_order = list(self.get_alphabet())
+                alphabet_order.sort()
+
+            alphabet = alphabet_order
+            transitions = self.get_order_transitions(alphabet_order=alphabet_order)
+        else:
+            initials = self.get_initials()
+            finals = self.get_finals()
+            transitions = self.get_transitions()
+            alphabet = self.get_alphabet()
+
         # Create txt parst for alphabet, start states, transitions and accepting states
-        alphabet_txt = ', '.join(str(letter) for letter in self.get_alphabet())
-        start_state_txt = ', '.join(str(state) for state in self.initials)
+        alphabet_txt = ', '.join(str(letter) for letter in alphabet)
+        start_state_txt = ', '.join(str(state) for state in initials)
         transitions_txt = '\n '.join(f'{str(predecessor)},{str(letter)} -> {successor}'
-                                     for predecessor, letter, successor in self.get_transitions())
-        accepting_stats_txt = ', '.join(str(state) for state in self.finals)
+                                     for predecessor, letter, successor in transitions)
+        accepting_stats_txt = ', '.join(str(state) for state in finals)
 
         # Create the text of the txt file
         text = f'{INPUT_ALPHABET} = {alphabet_txt} \n \n' \
