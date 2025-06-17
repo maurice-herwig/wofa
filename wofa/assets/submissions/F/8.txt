@@ -1,26 +1,66 @@
-input_alphabet = a, b	
+input_alphabet = a, b
 
-start_states = 	q_0
+start_states = u1
 
-transitions =	q_0, a	-> q_1
-		q_0, b	-> q_0
+transitions = u1, b -> u1
+              u1, a -> u1_u2n0
 
-		q_1, a	-> q_2
-		q_1, b	-> q_2
+              u1_u2n0, a -> u1_u2n0_u2n1
+              u1_u2n0, b -> u1_u2n1
 
-		q_2, a	-> q_3
-		q_2, b	-> q_3
+              u1_u2n0_u2n1, b -> u1_u2n1_u2n2
+              u1_u2n0_u2n1, a -> u1_u2n0_u2n1_u2n2
 
-		q_3, a	-> q_4
-		q_3, b	-> q_4
+              u1_u2n0_u2n1_u2n2, a -> u1_u2b_u2n0_u2n1_u2n2
+              u1_u2n0_u2n1_u2n2, b -> u1_u2b_u2n1_u2n2
 
-		q_4, a	-> q_4
-		q_4, b	-> q_5
+              u1_u2b_u2n0_u2n1_u2n2, a -> u1_u2b_u2n0_u2n1_u2n2
+              u1_u2b_u2n0_u2n1_u2n2, b -> u1_u2b_u2n1_u2n2_u3 
 
-		q_5, a	-> q_5
-		q_5, b	-> q_5
+              u1_u2b_u2n1_u2n2, a -> u1_u2b_u2n0_u2n2
+              u1_u2b_u2n1_u2n2, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0_u2n2, a -> u1_u2b_u2n0_u2n1
+              u1_u2b_u2n0_u2n2, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0_u2n1, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2n1_u2n2, a -> u1_u2b_u2n0_u2n2
+              u1_u2n1_u2n2, b -> u1_u2b_u2n2
+
+              u1_u2b_u2n2, a -> u1_u2b_u2n0
+              u1_u2b_u2n2, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2n1, a -> u1_u2n0_u2n2
+              u1_u2n1, b -> u1_u2n2
+
+              u1_u2n0_u2n2, a -> u1_u2b_u2n0_u2n1
+              u1_u2n0_u2n2, b -> u1_u2b_u2n1
+
+              u1_u2b_u2n1, a -> u1_u2n0_u2n2
+              u1_u2b_u2n1, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2n2, a -> u1_u2b_u2n0
+              u1_u2n2, b -> u1_u2b
+
+              u1_u2b, a -> u1_u2n0
+              u1_u2b, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n1_u2n2_u3, a -> u1_u2b_u2n0_u2n2_u3
+              u1_u2b_u2n1_u2n2_u3, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0_u2n2_u3, a -> u1_u2b_u2n0_u2n1_u3
+              u1_u2b_u2n0_u2n2_u3, b -> u1_u2b_u2n1_u2n2_u3
+
+              u1_u2b_u2n0_u2n1_u3, a -> u1_u2b_u2n0_u2n1_u3
+              u1_u2b_u2n0_u2n1_u3, b -> u1_u2b_u2n1_u2n2_u3
+              
+              
+              
   
   
-acc_states = q_5
-
-
+  
+  
+acc_states = u1_u2b_u2n1_u2n2_u3, u1_u2b_u2n0_u2n2_u3, u1_u2b_u2n0_u2n1_u3

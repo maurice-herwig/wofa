@@ -1,47 +1,50 @@
-input_alphabet = a, b, c, d
+input_alphabet = a,b,c,d
 
-start_states = q0
+start_states = q_0
 
-transitions =   q0, a -> q1a
-                q0, b -> q1b
-                q0, c -> q1c
-                q0, d -> q0
-
-                q1a, a -> q1a
-                q1a, b -> q2ab
-                q1a, c -> q2ac
-                q1a, d -> q1a
-
-                q1b, a -> q2ab
-                q1b, b -> q1b
-                q1b, c -> q2bc
-                q1b, d -> q1b
-
-                q1c, a -> q2ac
-                q1c, b -> q2bc
-                q1c, c -> q1c
-                q1c, d -> q1c
-
-                q2ab, a -> q2ab
-                q2ab, b -> q2ab
-                q2ab, c -> q3abc
-                q2ab, d -> q2ab
-
-                q2ac, a -> q2ac
-                q2ac, b -> q3abc
-                q2ac, c -> q2ac
-                q2ac, d -> q2ac
-
-                q2bc, a -> q3abc
-                q2bc, b -> q2bc
-                q2bc, c -> q2bc
-                q2bc, d -> q2bc
-
-                q3abc, a -> q3abc
-                q3abc, b -> q3abc
-                q3abc, c -> q3abc
-                q3abc, d -> q3abc
-
-acc_states = q3abc
-
-
+transitions = q_0, d	-> q_0
+	      q_0, a	-> q_1
+	      q_1, d	-> q_1
+	      q_1, a	-> q_1
+	      q_1, b	-> q_2
+	      q_1, c	-> q_3
+	      q_2, d	-> q_2
+	      q_2, a	-> q_2
+	      q_2, b	-> q_2
+	      q_2, c	-> q_10
+	      q_3, d	-> q_3
+	      q_3, a	-> q_3
+	      q_3, c	-> q_3 
+	      q_3, b	-> q_10
+	      q_0, b	-> q_4
+	      q_4, d	-> q_4
+	      q_4, b	-> q_4
+	      q_4, a	-> q_5
+	      q_4, c	-> q_6
+	      q_5, d	-> q_5
+	      q_5, b	-> q_5
+	      q_5, a	-> q_5
+	      q_5, c	-> q_10
+	      q_6, d	-> q_6
+	      q_6, b	-> q_6
+	      q_6, c	-> q_6
+	      q_6, a	-> q_10
+	      q_0, c	-> q_7
+	      q_7, d	-> q_7
+	      q_7, c	-> q_7
+	      q_7, a	-> q_8
+	      q_7, b	-> q_9
+	      q_8, d	-> q_8
+	      q_8, c	-> q_8
+	      q_8, a	-> q_8
+	      q_8, b	-> q_10
+	      q_9, d	-> q_9
+	      q_9, c	-> q_9
+	      q_9, b	-> q_9
+	      q_9, a	-> q_10 
+	      q_10, a	-> q_10
+	      q_10, b	-> q_10
+	      q_10, c	-> q_10
+	      q_10, d	-> q_10 	      
+	        
+acc_states = q_10

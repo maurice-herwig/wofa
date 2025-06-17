@@ -16,5 +16,3 @@ C,b->A; C
   
   
 acc_states = C
-
-

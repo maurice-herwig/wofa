@@ -2,30 +2,80 @@ input_alphabet = a, b
 
 start_states = q_0
 
-transitions = q_0, a  -> q_1
-              q_0, b  -> q_0
+transitions = 	q_0 , a -> q_1
+		q_0 , b -> q_0
+		q_1 , a -> q_3
+		q_1 , b -> q_2
+		q_2 , a -> q_5
+		q_2 , b -> q_4
+		q_3 , a -> q_7
+		q_3 , b -> q_6
+		q_4 , a -> q_9
+		q_4 , b -> q_8
+		q_5 , a -> q_11
+		q_5 , b -> q_10
+		q_6 , a -> q_13
+		q_6 , b -> q_12
+		q_7 , a -> q_15
+		q_7 , b -> q_14
+		q_8 , a -> q_1
+		q_8 , b -> q_16
+		q_9 , a -> q_3
+		q_9 , b -> q_17
+		q_10 , a -> q_5
+		q_10 , b -> q_18
+		q_11 , a -> q_7
+		q_11 , b -> q_19
+		q_12 , a -> q_9
+		q_12 , b -> q_20
+		q_13 , a -> q_11
+		q_13 , b -> q_21
+		q_14 , a -> q_13
+		q_14 , b -> q_22
+		q_15 , a -> q_15
+		q_15 , b -> q_23
+		q_16 , a -> q_24
+		q_16 , b -> q_16
+		q_17 , a -> q_25
+		q_17 , b -> q_18
+		q_18 , a -> q_26
+		q_18 , b -> q_20
+		q_19 , a -> q_27
+		q_19 , b -> q_22
+		q_20 , a -> q_24
+		q_20 , b -> q_16
+		q_21 , a -> q_25
+		q_21 , b -> q_18
+		q_22 , a -> q_26
+		q_22 , b -> q_20
+		q_23 , a -> q_27
+		q_23 , b -> q_22
+		q_24 , a -> q_28
+		q_24 , b -> q_17
+		q_25 , a -> q_29
+		q_25 , b -> q_21
+		q_26 , a -> q_28
+		q_26 , b -> q_17
+		q_27 , a -> q_29
+		q_27 , b -> q_21
+		q_28 , a -> q_30
+		q_28 , b -> q_19
+		q_29 , a -> q_30
+		q_29 , b -> q_19
+		q_30 , a -> q_31
+		q_30 , b -> q_23
+		q_31 , a -> q_31
+		q_31 , b -> q_23
 
-              q_1, a  -> q_2
-              q_1, b  -> q_2
 
-              q_2, a  -> q_3
-              q_2, b  -> q_3
+  
+  
+  
+  
+acc_states = q_16, q_17, q_18, q_19, q_20, q_21, q_22, q_23, q_24, q_25, q_26, q_27, q_28, q_29, q_30, q_31, q_32
 
-              q_3, a  -> q_4
-              q_3, b  -> q_4
-
-              q_4, a  -> q_1
-              q_4, b  -> q_5
-
-              q_5, a  -> q_5
-              q_5, b  -> q_5
-
-acc_states = q_5
-
-# Begründung:
+# Der automat basiert uf einem von mir Konstruierten NFA welcher für die Regeln eines DFA umkonstruiert wurde aber dennoch alle produktionregeln des NFA erfüllt 
+# Damit die ausschlusskriterien eines DFA vermiedenwerden konnten wurde für jeden ausschluassfall ein weiterer seperater pfad angelget welches das exponezielle wachstum der zustände erlärt.
+# Zudem lässt sich mit externen Tools (z.b JFlap) solche automaten überprüfen und erzeugen.
+# Grundlegen gilt zu sagen das der automat die sprache erkennt weil er auf dem NFA basiert und diese regeln übernimmt.
 #
-# Die Wörter der Sprache Ln haben mindestens n+2 zeichen. Also für n=3 hat L3 5 Zeichen (a u2 b) falls u1 und u2 das leere Wort sind.
-# Der DFA erkennt die Sprache, da er im Zustand q_1 jede Eingabe als mögliches u2 erkennt.
-# Die Eingaben von q_1 -> q_2 -> q_3 -> q_4 sind egal da sie nur dazu dienen die Länge von u2 fest zulegen und nicht den Inhalt.
-# In q_4 entscheidet sich ob das mögliche u2 tatsächlich ein u2 ist. Für eine Eingabe von b in q_4 geht der DFA in den Endzustand q_5 und alle weiteren Zeichen gehören zu u3.
-# Für die Eingabe von a n q_4 springt der DFA zurück in q_1 und die bisherige Eingabe bis auf das letzte a wird zu u1 hinzugefügt.

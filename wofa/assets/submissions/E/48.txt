@@ -1,17 +1,13 @@
-input_alphabet = a,b
+input_alphabet = a, b
 
-start_states = s_0
-# für die Automat A = q_0 und B p_0
-transitions = s_0, a -> q_0
-	      q_0, a -> q_0
-	      q_0, b -> p_0
-	      p_0, b -> p_0
-	      p_0, a -> c_0
-              c_0, b -> q_0
-              c_0, a -> p_0
-              c_0, b -> q_f
+start_states = S
+
+transitions = S, a -> S
+            S, b -> B
+            B, b -> B
+            B, a -> A
+            A, a -> B
+            A, b -> S
+            A, b -> q_acc
   
-   
-acc_states = s_0, q_f
-
-
+acc_states = S, q_acc

@@ -1,107 +1,114 @@
-input_alphabet = a, b
+input_alphabet = a, b 
 
-start_states = q_0
+start_states = Q_0
 
-transitions = q_0, a -> q_01
-		q_0, b -> q_0
+transitions = Q_0, a -> Q_1
+	      Q_0, b -> Q_0
+	      Q_1, a -> Q_3
+	      Q_1, b -> Q_2
+	      Q_2, a -> Q_5
+	      Q_2, b -> Q_4
+	      Q_3, a -> Q_7
+	      Q_3, b -> Q_6
+	      Q_4, a -> Q_9
+	      Q_4, b -> Q_8
+	      Q_5, a -> Q_11
+	      Q_5, b -> Q_10
+	      Q_6, a -> Q_13
+	      Q_6, b -> Q_12
+	      Q_7, a -> Q_15
+	      Q_7, b -> Q_14
+	      Q_8, a -> Q_1
+	      Q_8, b -> Q_16
+	      Q_9, a -> Q_3
+	      Q_9, b -> Q_17
 
-		q_01, a -> q_012
-		q_01, b -> q_02
+	      Q_10, a -> Q_5
+	      Q_10, b -> Q_18
+	      Q_11, a -> Q_7
+	      Q_11, b -> Q_21
+	      Q_12, a -> Q_9
+	      Q_12, b -> Q_20
+	      Q_13, a -> Q_11
+	      Q_13, b -> Q_21
+	      Q_14, a -> Q_13
+	      Q_14, b -> Q_22
+	      Q_15, a -> Q_15
+	      Q_15, b -> Q_23
+	      Q_16, a -> Q_24
+	      Q_16, b -> Q_16
+	      Q_17, a -> Q_25
+	      Q_17, b -> Q_18
+	      Q_18, a -> Q_26
+	      Q_18, b -> Q_20
+	      Q_19, a -> Q_27
+	      Q_19, b -> Q_22
 
-		q_012, a -> q_0123
-		q_012, b -> q_023
+	      Q_20, a -> Q_24
+	      Q_20, b -> Q_16
+	      Q_21, a -> Q_25
+	      Q_21, b -> Q_18
+	      Q_22, a -> Q_26
+	      Q_22, b -> Q_20
+	      Q_23, a -> Q_27
+	      Q_23, b -> Q_22
+	      Q_24, a -> Q_28
+	      Q_24, b -> Q_17
+	      Q_25, a -> Q_29
+	      Q_25, b -> Q_21
+	      Q_26, a -> Q_28
+	      Q_26, b -> Q_17
+	      Q_27, a -> Q_29
+	      Q_27, b -> Q_21
+	      Q_28, a -> Q_30
+	      Q_28, b -> Q_19
+	      Q_29, a -> Q_30
+	      Q_29, b -> Q_19
 
-		q_0123, a -> q_01234
-		q_0123, b -> q_0234
-
-		q_01234, a -> q_01234
-		q_01234, b -> q_02345
-
-		q_01235, a -> q_01245
-		q_01235, b -> q_02345
-
-		q_0124, a -> q_0123
-		q_0124, b -> q_035
-
-		q_01245, a -> q_01235
-		q_01245, b -> q_02345
-
-		q_0125, a -> q_01235
-		q_0125, b -> q_0235
-
-		q_013, a -> q_0124
-		q_013, b -> q_024
-
-		q_0134, a -> q_0124
-		q_0134, b -> q_0245
-
-		q_01345, a -> q_01245
-		q_01345, b -> q_0245
-
-		q_0135, a -> q_0145
-		q_0135, b -> q_0245
-
-		q_014, a -> q_012
-		q_014, b -> q_025
-
-		q_0145, a -> q_0125
-		q_0145, b -> q_025
-
-		q_015, a -> q_0125
-		q_015, b -> q_025
-
-		q_02, a -> q_013
-		q_02, b -> q_03
-
-		q_023, a -> q_0134
-		q_023, b -> q_034
-
-		q_0234, a -> q_01345
-		q_0234, b -> q_0345
-
-		q_02345, a -> q_01345
-		q_02345, b -> q_0345
-
-		q_0235, a -> q_01345
-		q_0235, b -> q_0345
-
-		q_024, a -> q_013
-		q_024, b -> q_035
-
-		q_0245, a -> q_0135
-		q_0245, b -> q_035
-
-		q_025, a -> q_0135
-		q_025, b -> q_035
-
-		q_03, a -> q_014
-		q_03, b -> q_04
-
-		q_034, a -> q_014
-		q_034, b -> q_045
-
-		q_035, a -> q_0145
-		q_035, b -> q_045
-
-		q_0345, a -> q_0145
-		q_0345, b -> q_045
-
-		q_04, a -> q_01
-		q_04, b -> q_05
-
-		q_045, a -> q_015
-		q_045, b -> q_05
-
-		q_05, a -> q_015
-		q_05, b -> q_05
-
-		
-
-		
+	      Q_30, a -> Q_31
+	      Q_30, b -> Q_23
+	      Q_31, a -> Q_31
+	      Q_31, b -> Q_23
   
-  
-  
-  
-acc_states = q_02345, q_01345, q_01245, q_01235, q_02345, q_0345, q_0145, q_025, q_035, q_045, q_05, q_0125, q_0235, q_0135, q_015, q_0245
+acc_states = Q_16, Q_17, Q_18, Q_19, Q_20, Q_21, Q_22, Q_23, Q_24, Q_25, Q_26, Q_27, Q_28, Q_29, Q_30, Q_31 
 
 
+# Der DFA A erkennt die Sprache Ln, da er die Potenzmengenkonstruktion des NFA A' realisiert, welcher folgend definiert ist:
+# NFA A' mit Zust‰nden: Q_0, Q_1, Q_2, Q_3, Q_4, Q_5
+#	 mit Alhabet: a, b 
+# 	 mit Transitionen: Q_0, a -> Q_0; Q_1
+#			   Q_0, b -> Q_0
+#			   Q_1, a -> Q_2
+#			   Q_1, b -> Q_2
+#			   Q_2, a -> Q_3
+#			   Q_2, b -> Q_3
+#			   Q_3, a -> Q_4
+#			   Q_3, b -> Q_4
+#			   Q_4, b -> Q_5
+#			   Q_5, a -> Q_5
+#			   Q_5, b -> Q_5
+# 	mit Startzust‰nden: Q_0
+#	mit Zielzust‰nden: Q_5
+# Aus den Transitionen kann man dann die Grammaik L'=(N, Sigma, P, S) bilden, welche wie folgt definiert ist:
+# W‰hle als Nonterminals die Zustandsmenge, also N := Q.
+# W‰hle als Alpabet Sigma das Alphabet des Automaten. 
+# W‰hle als Startsymbol S := Q_0.
+# Definiere die Produktionsregeln P folgend:
+# 	P := {S -> aS | bS | aQ_1, 
+#	      Q_1 -> aQ_2 | bQ_2, 
+#	      Q_2 -> aQ_3 | bQ_3,
+#	      Q_3 -> aQ_4 | bQ_4,
+#	      Q_4 -> bQ_5,
+#	      Q_5 -> a | b | aQ_5 | bQ_5 }
+# Wie aus der Grammatik ersichtlich wird, erzeugen die Ableitungensregeln S -> aS und S -> bS
+# den Teil u1 des Wortes w, also jegliche Kombinationsmˆglichkeiten aus a's und b's. 
+# Die Ableitungsregel S -> aQ_1 realisiert das "a" zwischen dem u1 und u2 Teil in w.
+# Der u2 Teil behinhaltet die Ableitungsregeln Q_1 -> aQ_2 | bQ_2, Q_2 -> aQ_3 | bQ_3 und Q_3 -> aQ_4 | bQ_4, 
+# welche alle mˆglichen Kombinationsmˆgkichkeiten aus a's und b's der L‰nge n=3 erzeugen.
+# Die Ableitungsregel Q_4 -> bQ_5 realisiert das "b" zwischen dem u2 und u3 Teil in w.
+# Die Ableitungsregeln Q_5 -> aQ_5 und Q_5 -> bQ_5 erzeugen alle Kombinationsmˆglichkeiten von a's und b's.
+# Die Ableitungsregeln Q_5 -> a und Q_5 -> b ermˆglichen schlieﬂlich das Ableiten von Wˆrtern aus L(G').
+# Offensichtlich gilt, dass f¸r jedes Wort w element L3 eine Ableitung S =>* w in G' existiert.
+# Auﬂerdem gilt, dass alle w element von L(A') ebenfalls element von L3 sind.
+# Daraus folgt L(A') = L3.
+# Da A die Potenzmengenkonstruktion des Automaten A' realisiert, folgt L(A) = L3.

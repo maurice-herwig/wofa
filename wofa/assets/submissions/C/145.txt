@@ -1,43 +1,81 @@
-input_alphabet = a, b, c, d
+input_alphabet = a,b,c,d
 
-start_states = start
+start_states = A
 
-transitions = 	start, a	-> q_a; start
-	      		start, b	-> q_b; start
-	      		start, c	-> q_c; start
-	      		start, d	-> start
-	      		q_a, a		-> q_a
-	      		q_a, b		-> q_a; q_ab
-	      		q_a, c		-> q_a; q_ac
-	      		q_a, d		-> q_a
-	     		q_b, a		-> q_b; q_ab
-			    q_b, b		-> q_b
-	      		q_b, c		-> q_b; q_bc
-	      		q_b, d		-> q_b
-	      		q_c, a		-> q_c; q_ac
-	      		q_c, b		-> q_c; q_bc
-	      		q_c, c		-> q_c
-	      		q_c, d		-> q_c
-	      		q_ab, a		-> q_ab
-	      		q_ab, b		-> q_ab
-	      		q_ab, c		-> q_ab; end
-	      		q_ab, d		-> q_ab
-	     		q_bc, a		-> q_bc; end
-	      		q_bc, b		-> q_bc
-	      		q_bc, c		-> q_bc
-	      		q_bc, d		-> q_bc
-	      		q_ac, a		-> q_ac
-	     		q_ac, b		-> q_ac; end
-	     		q_ac, c		-> q_ac
-	      		q_ac, d		-> q_ac
-	      		end, a		-> end
-	      		end, b		-> end
-	      		end, c		-> end
-	      		end, d 		-> end
-  
-  
-  
-  
-acc_states = end
+transitions = A, a	-> A; B
+	      A, b	-> A; C
+	      A, c	-> A; D
+	      A, d	-> A
+	      A,  	-> A
 
+	      B, c	-> B; E
+	      B, b	-> B; F
+	      B, a	-> B
+	      B, d	-> B
+	      B,  	-> B
 
+	      C, a	-> C; G
+	      C, c	-> C; H
+	      C, b	-> C
+	      C, d	-> C
+	      C,  	-> C 
+
+	      D, b	-> D; I
+	      D, a	-> D; J
+	      D, c	-> D
+	      D, d	-> D
+	      D,  	-> D
+
+	      E, b	-> E; M
+	      E, a	-> E
+	      E, c	-> E
+	      E, d	-> E
+	      E,  	-> E
+
+	      F, c	-> F; K
+	      F, a	-> F
+	      F, b	-> F
+	      F, d	-> F
+	      F,  	-> F
+
+	      G, c	-> G; K
+	      G, a	-> G
+	      G, b	-> G
+	      G, d	-> G
+	      G,  	-> G
+
+	      H, a	-> H; L
+	      H, b	-> H
+	      H, c	-> H
+	      H, d	-> H
+	      H,  	-> H
+
+	      I, a	-> I; L
+	      I, b	-> I
+	      I, c	-> I
+	      I, d	-> I 
+	      I,  	-> I
+
+	      J, b	-> J; M
+	      J, a	-> J
+	      J, c	-> J
+	      J, d	-> J
+	      J,  	-> J 
+
+	      K, a	-> K
+	      K, b	-> K
+	      K, c	-> K
+	      K, d	-> K
+	      K,  	-> K
+	      L, a	-> L
+	      L, b	-> L
+	      L, c	-> L
+	      L, d	-> L
+	      L,  	-> L
+	      M, a	-> M
+	      M, b	-> M
+	      M, c	-> M
+	      M, d	-> M
+	      M,  	-> M
+              
+acc_states = K, L, M

@@ -1,63 +1,61 @@
-input_alphabet = a,b,c,d
+input_alphabet = a, b, c, d
 
-start_states = A,B,C
+start_states = q_0
 
-transitions = 	A, a -> A;D
-		A, b -> A
-		A, c -> A
-		A, d -> A
+transitions = 	q_0, a -> q_0; q_1
+				q_0, b -> q_0; q_2
+				q_0, c -> q_0; q_3
+				q_0, d -> q_0
 
+				q_1, a -> q_1 
+				q_1, b -> q_4
+				q_1, c -> q_5
+				q_1, d -> q_1
 
-		B, a -> B
-		B, b -> B;E
-		B, c -> B
-		B, d -> B
+				q_2, a -> q_6
+				q_2, b -> q_2 
+				q_2, c -> q_7
+				q_2, d -> q_2
 
-		C, a -> C
-		C, b -> C
-		C, c -> C;F
-		C, d -> C
+				q_3, a -> q_8
+				q_3, b -> q_9
+				q_3, c -> q_3
+				q_3, d -> q_3
 
-		D, a -> D
-		D, b -> D;G
-		D, c -> D;H
-		D, d -> D
+				q_4, a -> q_4
+				q_4, b -> q_4
+				q_4, c -> q_e
+				q_4, d -> q_4
 
-		E, a -> E;G
-		E, b -> E
-		E, c -> E;I
-		E, d -> E
+				q_5, a -> q_5
+				q_5, b -> q_e
+				q_5, c -> q_5
+				q_5, d -> q_5
 
-		F, a -> F;H
-		F, b -> F;I
-		F, c -> F
-		F, d -> F
+				q_6, a -> q_6
+				q_6, b -> q_6
+				q_6, c -> q_e
+				q_6, d -> q_6
 
-		G, a -> G
-		G, b -> G
-		G, c -> G;J
-		G, d -> G
+				q_7, a -> q_e
+				q_7, b -> q_7
+				q_7, c -> q_7
+				q_7, d -> q_7
 
-		H, a -> H
-		H, b -> H;J
-		H, c -> H
-		H, d -> H
+				q_8, a -> q_8
+				q_8, b -> q_e
+				q_8, c -> q_8
+				q_8, d -> q_8
 
-		I, a -> I;J
-		I, b -> I
-		I, c -> I
-		I, d -> I
-
-		J, a -> J
-		J, b -> J
-		J, c -> J
-		J, d -> J
-
-
-
-
-  
-  
-acc_states = J
-
-
+				q_9, a -> q_e
+				q_9, b -> q_9
+				q_9, c -> q_9
+				q_9, d -> q_9
+				
+				q_e, a -> q_e
+				q_e, b -> q_e
+				q_e, c -> q_e
+				q_e, d -> q_e
+				
+	        
+acc_states = q_e

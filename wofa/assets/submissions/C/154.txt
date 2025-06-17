@@ -1,60 +1,81 @@
 input_alphabet = a,b,c,d
 
-start_states = q_0
+start_states = A
 
-transitions =	q_0,	a	->	q_1
-		q_0,	b	->	q_2
-		q_0,	c	->	q_3
-		q_0,	d	->	q_0
+transitions = A, a	-> A; B
+	      A, b	-> A; C
+	      A, c	-> A; D
+	      A, d	-> A
+	      A,  	-> A
 
-		q_1,	a	->	q_1
-		q_1,	b	->	q_1
-		q_1,	c	->	q_3
-		q_1,	d	->	q_1
+	      B, c	-> B; E
+	      B, b	-> B; F
+	      B, a	-> B
+	      B, d	-> B
+	      B,  	-> B
 
-		q_2,	a	->	q_5
-		q_2,	b	->	q_2
-		q_2,	c	->	q_2
-		q_2,	d	->	q_2
+	      C, a	-> C; G
+	      C, c	-> C; H
+	      C, b	-> C
+	      C, d	-> C
+	      C,  	-> C 
 
-		q_3,	a	->	q_3
-		q_3,	b	->	q_6
-		q_3,	c	->	q_3
-		q_3,	d	->	q_3
+	      D, b	-> D; I
+	      D, a	-> D; J
+	      D, c	-> D
+	      D, d	-> D
+	      D,  	-> D
 
-		q_4,	a	->	q_4
-		q_4,	b	->	q_7
-		q_4,	c	->	q_4
-		q_4,	d	->	q_4
+	      E, b	-> E; M
+	      E, a	-> E
+	      E, c	-> E
+	      E, d	-> E
+	      E,  	-> E
 
-		q_5,	a	->	q_5
-		q_5,	b	->	q_5
-		q_5,	c	->	q_8
-		q_5,	d	->	q_5
+	      F, c	-> F; K
+	      F, a	-> F
+	      F, b	-> F
+	      F, d	-> F
+	      F,  	-> F
 
-		q_6,	a	->	q_9
-		q_6,	b	->	q_6
-		q_6,	c	->	q_6
-		q_6,	d	->	q_6
+	      G, c	-> G; K
+	      G, a	-> G
+	      G, b	-> G
+	      G, d	-> G
+	      G,  	-> G
 
-		q_7,	a	->	q_7
-		q_7,	b	->	q_7
-		q_7,	c	->	q_7
-		q_7,	d	->	q_7
+	      H, a	-> H; L
+	      H, b	-> H
+	      H, c	-> H
+	      H, d	-> H
+	      H,  	-> H
 
-		q_8,	a	->	q_8
-		q_8,	b	->	q_8
-		q_8,	c	->	q_8
-		q_8,	d	->	q_8
+	      I, a	-> I; L
+	      I, b	-> I
+	      I, c	-> I
+	      I, d	-> I 
+	      I,  	-> I
 
-		q_9,	a	->	q_9
-		q_9,	b	->	q_9
-		q_9,	c	->	q_9
-		q_9,	d	->	q_9
-  
-  
-  
-  
-acc_states = q_7, q_8, q_9
+	      J, b	-> J; M
+	      J, a	-> J
+	      J, c	-> J
+	      J, d	-> J
+	      J,  	-> J 
 
-
+	      K, a	-> K
+	      K, b	-> K
+	      K, c	-> K
+	      K, d	-> K
+	      K,  	-> K
+	      L, a	-> L
+	      L, b	-> L
+	      L, c	-> L
+	      L, d	-> L
+	      L,  	-> L
+	      M, a	-> M
+	      M, b	-> M
+	      M, c	-> M
+	      M, d	-> M
+	      M,  	-> M
+              
+acc_states = K, L, M

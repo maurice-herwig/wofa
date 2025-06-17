@@ -1,63 +1,72 @@
-input_alphabet = a, b, c, d
+input_alphabet = a,b,c
 
-start_states = q_0
+start_states = 1
 
-transitions = 	q_0, a -> q_1
-		q_0, b -> z_1
-		q_0, c -> t_1
-		q_0, d -> q_0
+transitions = 	1, a -> 2 
+				1, b -> 5 
+				1, c -> 8
+				
+				2, b -> 3 
+				2, c -> 4
+				
+				3, c -> E 
+				4, b -> E 
+	        
+				5, a -> 6
+				5, c -> 7 				
+				
+				6, c -> E 
+				7, a -> E
 
-		q_1, a -> q_1
-    		q_1, b -> q_2
-  		q_1, c -> q_3
-  		q_1, d -> q_1
-
-		q_2, a -> q_2
-		q_2, b -> q_2
-		q_2, c -> k
-		q_2, d -> q_2
-
-		q_3, a -> q_3
-		q_3, b -> k
-		q_3, c -> q_3
-		q_3, d -> q_3
-
-		z_1, a -> z_2
-		z_1, b -> z_1		
-		z_1, c -> z_3
-		z_1, d -> z_1
-
-		z_2, a -> z_2
-		z_2, b -> z_2
-		z_2, c -> k
-		z_2, d -> z_2
-
-		z_3, a -> k
-		z_3, b -> z_3
-		z_3, c -> z_3
-		z_3, d -> z_3
-
-		t_1, a -> t_2
-		t_1, b -> t_3
-		t_1, c -> t_1
-		t_1, d -> t_1
-
-		t_2, a -> t_2
-		t_2, b -> k
-		t_2, c -> t_2
-		t_2, d -> t_2
-
-		t_3, a -> k
-		t_3, b -> t_3
-		t_3, c -> t_3
-		t_3, d -> t_3
-
-		k, a -> k
-		k, b -> k
-		k, c -> k
-		k, d -> k
-
-  
-acc_states = k
-
-
+				8, b -> 9 
+				8, a -> 10 
+				
+				9, a -> E 
+				10, b -> E 
+				
+				#Reflexive Kanten
+				1, a -> 1 
+				1, b -> 1 
+				1, c -> 1
+				
+				2, a -> 2 
+				2, b -> 2 
+				2, c -> 2
+				
+				3, a -> 3 
+				3, b -> 3 
+				3, c -> 3
+				
+				4, a -> 4 
+				4, b -> 4 
+				4, c -> 4
+				
+				5, a -> 5 
+				5, b -> 5 
+				5, c -> 5
+				
+				6, a -> 6 
+				6, b -> 6 
+				6, c -> 6
+				
+				7, a -> 7 
+				7, b -> 7 
+				7, c -> 7
+				
+				8, a -> 8 
+				8, b -> 8 
+				8, c -> 8
+				
+				9, a -> 9 
+				9, b -> 9 
+				9, c -> 9
+				
+				10, a -> 10 
+				10, b -> 10
+				10, c -> 10
+				
+				E, a -> E 
+				E, b -> E
+				E, c -> E
+				
+acc_states = E

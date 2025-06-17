@@ -1,90 +1,60 @@
-input_alphabet = a, b, c ,d
+input_alphabet = a,b,c,d
 
-start_states = 0
+start_states = q_0
 
-transitions = 0, a -> 0
-0, b -> 0
-0, c -> 0
-0, d -> 0
+transitions = q_0, a ->q_a; q_0
+              q_0, b ->q_b; q_0
+              q_0, c ->q_c; q_0
+              q_0, d ->q_0
 
-0, a -> 1
-1, a -> 1
-1, b -> 1
-1, c -> 1
-1, d -> 1
+              q_a, b ->q_ab; q_a
+              q_a, c ->q_ac; q_a
+              q_a, a -> q_a
+              q_a, d -> q_a
 
-1, b -> 4
-4, a -> 4
-4, b -> 4
-4, c -> 4
-4, d -> 4
+              q_b, a ->q_ba; q_b
+              q_b, c ->q_bc; q_b
+              q_b, b -> q_b
+              q_b, d -> q_b
 
-4, c -> 10
+              q_c, b ->q_cb; q_c
+              q_c, a ->q_ca; q_c
+              q_c, c -> q_c
+              q_c, d -> q_c
 
-1, c -> 5
-5, a -> 5
-5, b -> 5
-5, c -> 5
-5, d -> 5
+              q_ab, b ->q_ab
+              q_ab, c ->q_end;q_ab
+              q_ab, a -> q_ab
+              q_ab, d -> q_ab
 
-5, b -> 10
+              q_ac, c -> q_ac
+              q_ac, a -> q_ac
+              q_ac, d -> q_ac
+              q_ac, b ->q_end; q_ac
 
+              q_bc, c -> q_bc
+              q_bc, a -> q_end; q_bc
+              q_bc, d -> q_bc
+              q_bc, b -> q_bc
 
-0, b -> 2
-2, a -> 2
-2, b -> 2
-2, c -> 2
-2, d -> 2
+              q_ba, c -> q_end; q_ba
+              q_ba, a -> q_ba
+              q_ba, d -> q_ba
+              q_ba, b -> q_ba
 
-2, a -> 6
-6, a -> 6
-6, b -> 6
-6, c -> 6
-6, d -> 6
+              q_ca, c -> q_ca
+              q_ca, a -> q_ca
+              q_ca, d -> q_ca
+              q_ca, b -> q_end;q_ca
 
-6, c -> 10
-
-
-2, c -> 7
-7, a -> 7
-7, b -> 7
-7, c -> 7
-7, d -> 7
-
-7, a -> 10
-
-
-0, c -> 3
-3, a -> 3
-3, b -> 3
-3, c -> 3
-3, d -> 3
-
-3, a -> 8
-8, a -> 8
-8, b -> 8
-8, c -> 8
-8, d -> 8
-
-8, b -> 10
-
-3, b -> 9
-9, a -> 9
-9, b -> 9
-9, c -> 9
-9, d -> 9
-
-9, a -> 10
-
-10, a -> 10
-10, b -> 10
-10, c -> 10
-10, d -> 10
-
-  
-  
-  
-  
-acc_states = 10
-
-
+              q_cb, c -> q_cb
+              q_cb, a -> q_end; q_cb
+              q_cb, d -> q_cb
+              q_cb, b -> q_cb
+              
+              q_end ,a -> q_end
+	      q_end ,b -> q_end
+	      q_end ,c -> q_end
+	      q_end ,d -> q_end
+	       
+acc_states = q_end

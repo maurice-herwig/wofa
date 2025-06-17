@@ -1,10 +1,19 @@
-input_alphabet = 0, 1, a, b
+input_alphabet = a, b, 0, 1
 
-start_states = q_0
+start_states = S
 
-transitions = q_0, 1 -> odd
-              q_0, 0 -> even
-              odd, a -> even
-              even, a -> q_1
-              q_1, a -> even
-acc_states = even
+transitions = 	S, 0	-> G
+		S, 1	-> T
+
+		G, a	-> F
+
+		F, a	-> G
+
+		T, a	-> U
+
+		U, a	-> T
+  
+  
+  
+  
+acc_states = G, U

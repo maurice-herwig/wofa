@@ -1,74 +1,48 @@
 input_alphabet = a, b
 
-start_states = s
+start_states = S
 
-transitions = s, a -> s0
-		s, b -> s
-		s0, a -> s01
-		s0, b -> s1
-		s1, a -> s02
-		s1, b -> s2
-		s2, a -> s03
-		s2, b -> s3
-		s3, a -> s0
-		s3, b -> se
-		se, a -> s0e
-		se, b -> se
-		s01, a -> s012
-		s01, b -> s12
-		s02, a -> s013
-		s02, b -> s13
-		s03, a -> s01
-		s03, b -> s1e
-		s0e, a -> s01e
-		s0e, b -> s1e
-		s12, a -> s023
-		s12, b -> s23
-		s13, a -> s02
-		s13, b -> s2e
-		s1e, a -> s02e
-		s1e, b -> s2e
-		s23, a -> s03
-		s23, b -> s3e
-		s2e, a -> s03e
-		s2e, b -> s3e
-		s3e, a -> s0e
-		s3e, b -> se
-		s012, a -> s0123
-		s012, b -> s123
-		s013, a -> s012
-		s013, b -> s12e
-		s01e, a -> s012e
-		s01e, b -> s12e
-		s023, a -> s013
-		s023, b -> s13e
-		s02e, a -> s013e
-		s02e, b -> s13e
-		s03e, a -> s01e
-		s03e, b -> s1e
-		s123, a -> s023
-		s123, b -> s23e
-		s12e, a -> s023e
-		s12e, b -> s23e
-		s13e, a -> s02e
-		s13e, b -> s2e
-		s23e, a -> s03e
-		s23e, b -> s3e
-		s0123, a -> s0123
-		s0123, b -> s123e
-		s012e, a -> s0123e
-		s012e, b -> s123e
-		s013e, a -> s012e
-		s013e, b -> s12e
-		s023e, a -> s013e
-		s023e, b -> s13e
-		s123e, a -> s023e
-		s123e, b -> s23e
-		s0123e, a -> s0123e
-		s0123e, b -> s123e
+transitions = S, b -> S
+            S, a -> q_1
+            q_1, b -> q_2
+            q_1, a -> q_3
+            q_3, b -> q_5
+            q_3, a -> q_6
+            q_5, a -> q_7
+            q_5, b -> q_9
+            q_9, b -> q_acc
+            q_9, a -> q_1
+            q_7, b -> q_acc
+            q_7, a -> q_3
+            q_6, b -> q_8
+            q_6, a -> q_10
+            q_10, a -> q_10
+            q_10, b -> q_acc
+            q_8, b -> q_acc
+            q_8, a -> q_11
+            q_11, b -> q_acc
+            q_11, a -> q_12
+            q_12, b -> q_acc
+            q_12, a -> q_12
+            q_2, b -> q_15
+            q_2, a -> q_4
+            q_4, a -> q_13
+            q_4, b -> q_16
+            q_13, b -> q_acc
+            q_13, a -> q_14
+            q_14, b -> q_8
+            q_14, a -> q_10
+            q_16, b -> q_acc
+            q_16, a -> q_4
+            q_15, b -> q_17
+            q_15, a -> q_18
+            q_18, a -> q_3
+            q_18, b -> q_acc
+            q_17, a -> q_1
+            q_17, b -> q_acc
+            q_acc, a -> q_acc
+            q_acc, b -> q_acc
   
   
   
-acc_states = se, s0e, s1e, s2e, s3e, s01e, s02e, s03e, s12e, s13e, s23e, s012e, s013e, s023e, s123e, s0123e
-
-
+acc_states = q_acc

@@ -1,15 +1,12 @@
-input_alphabet = 0,1,a,b
+input_alphabet = a,0,1
 
-start_states = A
+start_states = q_A
 
-transitions =   A,0->B
-		A,1->Bx
-		B,a->B1
-		B1,a->B
-		Bx,a->B1x
-		B1x,a->Bx
+transitions = q_A, 0	-> q_2
+	      q_A, 1	-> q_1
+	      q_2, a	-> q_4
+	      q_4, a	-> q_2
+	      q_1, a	-> q_3
+	      q_3, a	-> q_1	      
   
-  
-  
-acc_states =B,B1x,A
-
+acc_states = q_2, q_3

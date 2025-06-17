@@ -24,4 +24,3 @@ transitions = q_0, a -> q_1
   
   
 acc_states = q_0, q_4
-

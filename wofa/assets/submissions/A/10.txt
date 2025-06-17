@@ -1,12 +1,15 @@
 input_alphabet = a,b,0,1
 
-start_states = q_0
+start_states = q_0, q_1
 
-transitions = q_0, 0 -> even
-              q_0, 1 -> odd
-              even, a -> even1
-              even1, a -> even
-              odd1, a -> odd
-              odd, a -> odd1
-	        
-acc_states = odd1, even
+transitions =	q_0, 0		-> q_evena
+				q_1, 1		-> q_odda
+
+                q_evena, a   -> q_evenb
+                q_evenb, a   -> q_evena
+ 
+                q_odda, a   -> q_oddb
+                q_oddb, a   -> q_odda
+ 
+ 
+acc_states = q_oddb, q_evena

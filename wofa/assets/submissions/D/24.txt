@@ -1,19 +1,13 @@
 input_alphabet = a,b
 
-start_states = S
+start_states = S 
 
-transitions = S, epsilon	-> S
-	      S, a	-> S
+transitions = S, a	-> S
 	      S, b	-> B
-	      S, epsilon	-> B
 	      B, b	-> B
-	      B, epsilon	-> A
 	      B, a	-> A
-	      A, b	-> S
 	      A, a	-> C
 	      C, a	-> C
 	      C, b	-> C
-	      C, a	-> E
-	      C, b	-> E
 	        
-acc_states = S, E
+acc_states = S, C

@@ -1,114 +1,30 @@
-input_alphabet = a, b 
+# Die Idee ist, da u1 und u3 beliebige Wörter des Alphabets. Diese sind durch U1 und U3 beliebig wählbar.
+# Weiterhin ist als übergang zwischen u1 und u2 das "a" benötigt, sowie zwischen u2 und u3 das "b" benötigt ist.
+# Da wir in L3 sind ist gefordert das die Länge des Wortes U2 gleich n=3 ist, was durch die Zustände q_1 bis q_4 erfolgt.
+# In q_4 wird dann nochmals geprüft ob es nun u1au2b ist, wenn nicht wird alles als ein verlängertes u1 gedeutet.
+# Dadurch wird garantiert das die Übergänge mit a und b jeweils vor und nach einem 3 langem Wort u2 erfolgen.
+# Dies bedeutet wir haben u1a...bu3 wobei die drei Punkte für die Zeichen des Wortes u2 stehen.
 
-start_states = Q_0
+input_alphabet = a, b
 
-transitions = Q_0, a -> Q_1
-	      Q_0, b -> Q_0
-	      Q_1, a -> Q_3
-	      Q_1, b -> Q_2
-	      Q_2, a -> Q_5
-	      Q_2, b -> Q_4
-	      Q_3, a -> Q_7
-	      Q_3, b -> Q_6
-	      Q_4, a -> Q_9
-	      Q_4, b -> Q_8
-	      Q_5, a -> Q_11
-	      Q_5, b -> Q_10
-	      Q_6, a -> Q_13
-	      Q_6, b -> Q_12
-	      Q_7, a -> Q_15
-	      Q_7, b -> Q_14
-	      Q_8, a -> Q_1
-	      Q_8, b -> Q_16
-	      Q_9, a -> Q_3
-	      Q_9, b -> Q_17
+start_states = q_0
 
-	      Q_10, a -> Q_5
-	      Q_10, b -> Q_18
-	      Q_11, a -> Q_7
-	      Q_11, b -> Q_21
-	      Q_12, a -> Q_9
-	      Q_12, b -> Q_20
-	      Q_13, a -> Q_11
-	      Q_13, b -> Q_21
-	      Q_14, a -> Q_13
-	      Q_14, b -> Q_22
-	      Q_15, a -> Q_15
-	      Q_15, b -> Q_23
-	      Q_16, a -> Q_24
-	      Q_16, b -> Q_16
-	      Q_17, a -> Q_25
-	      Q_17, b -> Q_18
-	      Q_18, a -> Q_26
-	      Q_18, b -> Q_20
-	      Q_19, a -> Q_27
-	      Q_19, b -> Q_22
+transitions = 	U1, a -> U1; q_1
+		U1, b -> U1
 
-	      Q_20, a -> Q_24
-	      Q_20, b -> Q_16
-	      Q_21, a -> Q_25
-	      Q_21, b -> Q_18
-	      Q_22, a -> Q_26
-	      Q_22, b -> Q_20
-	      Q_23, a -> Q_27
-	      Q_23, b -> Q_22
-	      Q_24, a -> Q_28
-	      Q_24, b -> Q_17
-	      Q_25, a -> Q_29
-	      Q_25, b -> Q_21
-	      Q_26, a -> Q_28
-	      Q_26, b -> Q_17
-	      Q_27, a -> Q_29
-	      Q_27, b -> Q_21
-	      Q_28, a -> Q_30
-	      Q_28, b -> Q_19
-	      Q_29, a -> Q_30
-	      Q_29, b -> Q_19
+		q_1, a -> q_2
+		q_1, b -> q_2
 
-	      Q_30, a -> Q_31
-	      Q_30, b -> Q_23
-	      Q_31, a -> Q_31
-	      Q_31, b -> Q_23
-  
-acc_states = Q_16, Q_17, Q_18, Q_19, Q_20, Q_21, Q_22, Q_23, Q_24, Q_25, Q_26, Q_27, Q_28, Q_29, Q_30, Q_31 
+		q_2, a -> q_3
+		q_2, b -> q_3
 
+		q_3, a -> q_4
+		q_3, b -> q_4
+		
+		q_4, b -> U3
+		q_4, a -> U1
 
-# Der DFA A erkennt die Sprache Ln, da er die Potenzmengenkonstruktion des NFA A' realisiert, welcher folgend definiert ist:
-# NFA A' mit Zuständen: Q_0, Q_1, Q_2, Q_3, Q_4, Q_5
-#	 mit Alhabet: a, b 
-# 	 mit Transitionen: Q_0, a -> Q_0; Q_1
-#			   Q_0, b -> Q_0
-#			   Q_1, a -> Q_2
-#			   Q_1, b -> Q_2
-#			   Q_2, a -> Q_3
-#			   Q_2, b -> Q_3
-#			   Q_3, a -> Q_4
-#			   Q_3, b -> Q_4
-#			   Q_4, b -> Q_5
-#			   Q_5, a -> Q_5
-#			   Q_5, b -> Q_5
-# 	mit Startzuständen: Q_0
-#	mit Zielzuständen: Q_5
-# Aus den Transitionen kann man dann die Grammaik L'=(N, Sigma, P, S) bilden, welche wie folgt definiert ist:
-# Wähle als Nonterminals die Zustandsmenge, also N := Q.
-# Wähle als Alpabet Sigma das Alphabet des Automaten. 
-# Wähle als Startsymbol S := Q_0.
-# Definiere die Produktionsregeln P folgend:
-# 	P := {S -> aS | bS | aQ_1, 
-#	      Q_1 -> aQ_2 | bQ_2, 
-#	      Q_2 -> aQ_3 | bQ_3,
-#	      Q_3 -> aQ_4 | bQ_4,
-#	      Q_4 -> bQ_5,
-#	      Q_5 -> a | b | aQ_5 | bQ_5 }
-# Wie aus der Grammatik ersichtlich wird, erzeugen die Ableitungensregeln S -> aS und S -> bS
-# den Teil u1 des Wortes w, also jegliche Kombinationsmöglichkeiten aus a's und b's. 
-# Die Ableitungsregel S -> aQ_1 realisiert das "a" zwischen dem u1 und u2 Teil in w.
-# Der u2 Teil behinhaltet die Ableitungsregeln Q_1 -> aQ_2 | bQ_2, Q_2 -> aQ_3 | bQ_3 und Q_3 -> aQ_4 | bQ_4, 
-# welche alle möglichen Kombinationsmögkichkeiten aus a's und b's der Länge n=3 erzeugen.
-# Die Ableitungsregel Q_4 -> bQ_5 realisiert das "b" zwischen dem u2 und u3 Teil in w.
-# Die Ableitungsregeln Q_5 -> aQ_5 und Q_5 -> bQ_5 erzeugen alle Kombinationsmöglichkeiten von a's und b's.
-# Die Ableitungsregeln Q_5 -> a und Q_5 -> b ermöglichen schließlich das Ableiten von Wörtern aus L(G').
-# Offensichtlich gilt, dass für jedes Wort w element L3 eine Ableitung S =>* w in G' existiert.
-# Außerdem gilt, dass alle w element von L(A') ebenfalls element von L3 sind.
-# Daraus folgt L(A') = L3.
-# Da A die Potenzmengenkonstruktion des Automaten A' realisiert, folgt L(A) = L3. 
+		U3, a -> U3
+		U3, b -> U3
+
+acc_states = U3

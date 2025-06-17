@@ -1,42 +1,108 @@
+# Idee : U1,U2 ist eine beliebig wort in sigma stern,U1 durch a haben wir q1 und q1 durch a,b haben wir q2 und weiter bis qn1 ist in Position 
+#        n+1 , das bedeutet , dass zwischen wort u1a...bu2 haben wir eine Wort mit länge n 
+
 input_alphabet = a,b
 
-start_states = q_0
+start_states = q0
 
-transitions = q_0,b -> q_0
-			q_0, a -> q_a
-			q_a, a -> q_aa
-			q_a, b -> q_ab
-			q_aa, a -> q_aaa
-			q_aa, b -> q_aab
-			q_ab, a -> q_aba
-			q_ab, b -> q_abb
-			q_aaa, a -> q_aaaa
-			q_aaa, b -> q_aaab
-			q_aab, a -> q_aaba
-			q_aab, b -> q_aabb
-			q_aba, a -> q_abaa
-			q_aba, b -> q_abab
-			q_abb, a -> q_abba
-			q_abb, b -> q_abbb
-			q_aaaa, a -> q_aaaa
-			q_aaaa, b -> q_b
-			q_aaab, a -> q_aabb
-			q_aaab, b -> q_b
-			q_aaba, a -> q_abaa
-			q_aaba, b -> q_b
-			q_aabb, a -> q_abba
-			q_aabb, b -> q_b
-			q_abaa, a -> q_aaa
-			q_abaa, b -> q_b
-			q_abab, a -> q_aba
-			q_abab, b -> q_b
-			q_abba, a -> q_aa
-			q_abba, b -> q_b
-			q_abbb, a -> q_a
-			q_abbb, b -> q_b
-			q_b, a -> q_b
-			q_b, b -> q_b
-			
-acc_states = q_b
+transitions =   q0,b->q0
+		q0,a->q1
 
+		q1,b->q2
+		q1,a->q3
 
+		q2,b->q4
+		q2,a->q5
+
+		q3,b->q6
+		q3,a->q7
+
+		q4,b->q8
+		q4,a->q9
+
+		q5,b->q10
+		q5,a->q11
+
+		q6,b->q12
+		q6,a->q13
+
+		q7,b->q14
+		q7,a->q15
+
+		q8,b->q16
+		q8,a->q1
+
+		q9,b->q17
+		q9,a->q3
+
+		q10,b->q18
+		q10,a->q5
+
+		q11,b->q19
+		q11,a->q7
+
+		q12,b->q20
+		q12,a->q9
+
+		q13,b->q21
+		q13,a->q11
+
+		q14,b->q22
+		q14,a->q13
+
+		q15,b->q23
+		q15,a->q7
+
+		q16,b->q16
+		q16,a->q24
+
+		q17,b->q18
+		q17,a->q25
+
+		q18,b->q20
+		q18,a->q26
+
+		q19,b->q22
+		q19,a->q27
+
+		q20,b->q16
+		q20,a->q24
+
+		q21,b->q18
+		q21,a->q25
+
+		q22,b->q20
+		q22,a->q26
+
+		q23,b->q22
+		q23,a->q27
+
+		q24,b->q17
+		q24,a->q28
+
+		q25,b->q21
+		q25,a->q29
+
+		q26,b->q17
+		q26,a->q28
+
+		q27,b->q21
+		q27,a->q29
+
+		q28,b->q19
+		q28,a->q30
+
+		q29,b->q19
+		q29,a->q30
+
+		q30,b->q23
+		q30,a->q31
+
+		q31,b->q23
+		q31,a->q31
+
+  
+  
+  
+  
+acc_states =q16,q17,q18,q19,q20,q21,q22,q23,q24,q25,q26,q27,q28,q29,q30,q31

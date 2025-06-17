@@ -1,15 +1,16 @@
-input_alphabet = a, b, 0, 1
+input_alphabet = a,b,0,1
 
-start_states = Start
+start_states = q_0
 
-transitions = Start, 0 -> Even
-			  Start, 1 -> Odd_h
-			  Even, a -> Even_h
-			  Even_h, a -> Even
-			  Odd, a -> Odd_h
-			  Odd_h, a -> Odd
-  
-  
-acc_states = Even, Odd
-
-
+transitions = q_0, 0	-> q_1
+	      q_0, 1	-> q_4
+	      q_1, a	-> q_2
+	      q_1, 1	-> q_3
+	      q_2, a	-> q_3
+	      q_3, epsilon	-> q_1	
+	      q_4, a	-> q_5
+	      q_5, a	-> q_6
+	      q_6, a	-> q_7
+	      q_7, epsilon	-> q_5
+	        
+acc_states = q_3, q_5

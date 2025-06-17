@@ -17,5 +17,3 @@ q_5,b->q_5
   
   
 acc_states = q_5
-
-

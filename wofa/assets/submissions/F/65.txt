@@ -1,91 +1,107 @@
-input_alphabet = a, b
+input_alphabet = a, b 
 
-start_states = q_u1
+start_states = q_1 
 
-transitions = 	q_u1, 	a	-> q_u1q_u20
-		q_u1, 	b	-> q_u1
+transitions = q_1, a -> q_12
+		q_1, b -> q_1
+
+		q_12, a -> q_123
+		q_12, b -> q_13
+
+		q_13, a -> q_124
+		q_13, b -> q_14
+
+		q_14, a -> q_125
+		q_14, b -> q_15
+
+		q_15, a -> q_12
+		q_15, b -> q_16
+
+		q_16, a -> q_126
+		q_16, b -> q_16
+
+		q_126, a -> q_1236
+		q_126, b -> q_136
+
+		q_1236, a -> q_12346
+		q_1236, b -> q_1346
+
+		q_136, a -> q_1246
+		q_136, b -> q_146
+
+		q_125, a -> q_123
+		q_125, b -> q_136
+
+		q_124, a -> q_1235
+		q_124, b -> q_135
+
+		q_135, a -> q_124
+		q_135, b -> q_146
+
+		q_123, a -> q_1234
+		q_123, b -> q_134
+
+		q_134, a -> q_1245
+		q_134, b -> q_145
+
+		q_145, a -> q_125
+		q_145, b -> q_156
+
+		q_1235, a -> q_1234
+		q_1235, b -> q_1346
+
+		q_1245, a -> q_1235
+		q_1245, b -> q_1356
+
+		q_1234, a -> q_12345
+		q_1234, b -> q_1345
+
+		q_12345, a -> q_12345
+		q_12345, b -> q_13456
+
+		q_13456, a -> q_12456
+		q_13456, b -> q_1456
+
+		q_1345, a -> q_1245
+		q_1345, b -> q_1456
+
+		q_1236, a -> q_12346
+		q_1236, b -> q_1346
+
+		q_1256, a -> q_1236
+		q_1256, b -> q_136
+
+		q_1456, a -> q_1256
+		q_1456, b -> q_156
+
+		q_12456, a -> q_12356
+		q_12456, b -> q_1356
+
+		q_12356, a -> q_12346
+		q_12356, b -> q_1346
+
+		q_156, a -> q_126
+		q_156, b -> q_16
+
+		q_1246, a -> q_12356
+		q_1246, b -> q_1356
+
+		q_1356, a -> q_1246
+		q_1356, b -> q_146
+
+		q_12346, a -> q_123456
+		q_12346, b -> q_13456
+
+		q_1346, a -> q_12456
+		q_1346, b -> q_1456
+
+		q_146, a -> q_1256
+		q_146, b -> q_156
+
+		q_123456, a -> q_123456
+		q_123456, b -> q_13456
   
-  		q_u1q_u20, 	a	-> q_u1q_u20q_u21
-		q_u1q_u20, 	b	-> q_u1q_u21
   
-  		q_u1q_u20q_u21, 	a	-> q_u1q_u20q_u21q_u22
-		q_u1q_u20q_u21, 	b	-> q_u1q_u21q_u22	
-
-		q_u1q_u20q_u21q_u22, 	a	-> q_u1q_u20q_u21q_u22q_u23
-		q_u1q_u20q_u21q_u22, 	b	-> q_u1q_u21q_u22q_u23	
-
-		q_u1q_u20q_u21q_u22q_u23, 	a	-> q_u1q_u20q_u21q_u22q_u23
-		q_u1q_u20q_u21q_u22q_u23, 	b	-> q_u3
-
-		q_u1q_u21q_u22q_u23, 	a	-> q_u1q_u20q_u21q_u22q_u23
-		q_u1q_u21q_u22q_u23, 	b	-> q_u3
-
-		q_u1q_u21q_u22, 	a	-> q_u1q_u20q_u22q_u23
-		q_u1q_u21q_u22, 	b	-> q_u1q_u22q_u23
-
-		q_u1q_u20q_u22q_u23, 	a	-> q_u1q_u20q_u21q_u23
-		q_u1q_u20q_u22q_u23, 	b	-> q_u3	
-
-		q_u1q_u20q_u21q_u23, 	a	-> q_u1q_u20q_u21q_u22
-		q_u1q_u20q_u21q_u23, 	b	-> q_u3	
-
-		q_u1q_u22q_u23, 	a	-> q_u1q_u20q_u23
-		q_u1q_u22q_u23, 	b	-> q_u3
-
-		q_u1q_u20q_u23, 	a	-> q_u1q_u20q_u21
-		q_u1q_u20q_u23, 	b	-> q_u3
-
-		q_u1q_u21, 	a	-> q_u1q_u20q_u22
-		q_u1q_u21, 	b	-> q_u1q_u22
-
-		q_u1q_u20q_u22, 	a	-> q_u1q_u20q_u21q_u23
-		q_u1q_u20q_u22, 	b	-> q_u1q_u21q_u23
-
-		q_u1q_u21q_u23, 	a	-> q_u1q_u20q_u22
-		q_u1q_u21q_u23, 	b	-> q_u3
-
-		q_u1q_u22, 	a	-> q_u1q_u20q_u23
-		q_u1q_u22, 	b	-> q_u1q_u23
-
-		q_u1q_u23, 	a	-> q_u1q_u20
-		q_u1q_u23, 	b	-> q_u3
   
-
-acc_states = q_u3
-
-# NFA A :
-#	start: 		q_u1
-#	transitionen:
-#			q_u1,	a -> q_u1; q_u20
-#			q_u1,	b -> q_u1
-#
-#			q_u20,	a -> q_u21
-#			q_u20,	b -> q_u21
-#			
-#			q_u21,	a -> q_u22
-#			q_u21,	b -> q_u22
-#
-#			q_u22,	a -> q_u23
-#			q_u22,	b -> q_u23
-#
-#			q_u23,	b -> q_u3
-#
-#			q_u3,	a -> q_u3
-#			q_u3,	b -> q_u3
-#
-#	ende: q_u3
-#
-# Der angegebene DFA ist durch Potenzmengenkonstruktion aus dem NFA entstanden.
-# Die einzige Änderung die ich vorgenommen habe ist das ich alle Endzustände des DFAs
-# gleichgesetzt und q_u3 gennant. Dies ist möglich, da der NFA so konstruiert ist, dass nach der
-# Potenzmengenkonstruktion ein Zustand, welcher Endzustand ist auch immer Endzustand bleiben wird 
-# (durch die beiden letzten Regeln).
-#
-# Das der NFA die Sprache L3 erkennt ist recht offensichtlich.
-# Der Zustand q_u1 erkennt ein beliebiges Wort und kann nur bei, lesen eines a in die Erkennung des zweiten
-# Wortes (q_u20 - q_u23, erkennt genau drei Zeichen) springen. Zur Erkennung des dritten Wortes kommt der
-# Automat nach lesen eines b also ist u2 und u3 wie gewünscht "getrennt". q_u3 erkennt dann wieder ein beliebiges Wort.
-#
-# Da der DFA aus dem NFA entstanden ist erkennt er also auch L3.
-
-
+  
+acc_states = q_16, q_126, q_1236, q_136, q_13456, q_12456, q_1456, q_1256, q_1236, q_12356, q_156, q_1356, q_1246, q_12346, q_1346, q_146, q_123456

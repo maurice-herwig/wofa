@@ -1,38 +1,61 @@
-input_alphabet = a,b,c,d
+input_alphabet = a, b, c, d
 
 start_states = q_0
 
-transitions =	q_0, d 	-> q_0
-		q_0, a 	-> a
-		q_0, b 	-> b
-		q_0, c 	-> c
-		a, a 	-> a
-		a, d 	-> a
-		a, b 	-> ab
-		a, c 	-> ac
-		b, a 	-> ab
-		b, b 	-> b
-		b, c 	-> bc
-		b, d 	-> b
-		c, a 	-> ac
-		c, b 	-> bc
-		c, c 	-> c
-		c, d 	-> c
-		ab, a 	-> ab
-		ab, b 	-> ab
-		ab, c	-> abc
-		ab, d 	-> ab
-		ac, a 	-> ac
-		ac, b 	-> abc
-		ac, c 	-> ac
-		ac, d 	-> ac
-		bc, a 	-> abc
-		bc, b	-> bc
-		bc, c	-> bc
-		bc, d 	-> bc
-		abc, a 	-> abc
-		abc, b 	-> abc
-		abc, c 	-> abc
-		abc, d 	-> abc
-		
-acc_states = abc
+transitions = 	q_0, a -> q_1
+		q_0, b -> z_1
+		q_0, c -> t_1
+		q_0, d -> q_0
+
+		q_1, a -> q_1
+    		q_1, b -> q_2
+  		q_1, c -> q_3
+  		q_1, d -> q_1
+
+		q_2, a -> q_2
+		q_2, b -> q_2
+		q_2, c -> k
+		q_2, d -> q_2
+
+		q_3, a -> q_3
+		q_3, b -> k
+		q_3, c -> q_3
+		q_3, d -> q_3
+
+		z_1, a -> z_2
+		z_1, b -> z_1		
+		z_1, c -> z_3
+		z_1, d -> z_1
+
+		z_2, a -> z_2
+		z_2, b -> z_2
+		z_2, c -> k
+		z_2, d -> z_2
+
+		z_3, a -> k
+		z_3, b -> z_3
+		z_3, c -> z_3
+		z_3, d -> z_3
+
+		t_1, a -> t_2
+		t_1, b -> t_3
+		t_1, c -> t_1
+		t_1, d -> t_1
+
+		t_2, a -> t_2
+		t_2, b -> k
+		t_2, c -> t_2
+		t_2, d -> t_2
+
+		t_3, a -> k
+		t_3, b -> t_3
+		t_3, c -> t_3
+		t_3, d -> t_3
+
+		k, a -> k
+		k, b -> k
+		k, c -> k
+		k, d -> k
+
+  
+acc_states = k

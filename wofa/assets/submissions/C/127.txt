@@ -1,40 +1,39 @@
-input_alphabet = a, b, c, d
+input_alphabet = a,b,c,d
 
 start_states = q_0
 
-transitions = q_0, a -> a
-              q_0, b -> b
-              q_0, c -> c
-              q_0, d -> q_0
-              a, a -> a
-              a, b -> ab
-              a, c -> ac
-              a, d -> a
-              b, a -> ab
-              b, b -> b
-              b, c -> bc
-              b, d -> b
-              c, a -> ac
-              c, b -> bc
-              c, c -> c
-              c, d -> c
-              ab, a -> ab
-              ab, b -> ab
-              ab, c -> f
-              ab, d -> ab
-              ac, a -> ac
-              ac, b -> f
-              ac, c -> ac
-              ac, d -> ac
-              bc, a -> f
-              bc, b -> bc
-              bc, c -> bc
-              bc, d -> bc
-              f, a -> f
-              f, b -> f
-              f, c -> f
-              f, d -> f
-
-
-
-acc_states = f
+transitions =   q_0, a -> q_1
+		q_0, b -> q_2
+		q_0, c -> q_3
+		q_0, d -> q_0
+		q_1, a -> q_1
+		q_1, b -> q_4
+		q_1, c -> q_5
+		q_1, d -> q_1
+		q_2, a -> q_4
+		q_2, b -> q_2
+		q_2, c -> q_6
+		q_2, d -> q_2
+		q_3, a -> q_5
+		q_3, b -> q_6
+		q_3, c -> q_3
+		q_3, d -> q_3
+		q_4, a -> q_4
+		q_4, b -> q_4
+		q_4, c -> q_e
+		q_4, d -> q_4
+		q_5, a -> q_5
+		q_5, b -> q_e
+		q_5, c -> q_5
+		q_5, d -> q_5
+		q_6, a -> q_e
+		q_6, b -> q_6
+		q_6, c -> q_6
+		q_6, d -> q_6
+		q_e, a -> q_e
+		q_e, b -> q_e
+		q_e, c -> q_e
+		q_e, d -> q_e
+		
+	        
+acc_states = q_e

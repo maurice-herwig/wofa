@@ -2,33 +2,55 @@ input_alphabet = a, b
 
 start_states = q_0
 
-transitions = q_0, a -> q_1
-    q_0, b -> q_0
+transitions =   q_0, a -> q_a
+                q_0, b -> q_0
 
-    q_1, a -> q_2
-    q_1, b -> q_2
-
-    q_2, a -> q_3
-    q_2, b -> q_3
-
-    q_3, a -> q_4
-    q_3, b -> q_4
-
-    q_4, a -> q_1
-    q_4, b -> q_5
-
-    q_5, a -> q_5
-    q_5, b -> q_5
+                q_a, a -> q_aa
+                q_a, b -> q_abaa
   
-acc_states = q_5
+                q_aa, a -> q_aaa
+                q_aa, b -> q_aab
+  
+                q_ab, a -> q_aba
+                q_ab, b -> q_abb
 
-# Die Zustände q_2, q_3 und q_4 entsprechen dem Teilwort u2,
-# sodass sichergestellt wird, dass u2 immer 3 Zeichen lang ist.
-# Der Automat liest solange beliebig viele Zeichen ein, bis er ein 'a',
-# gefolgt von drei beliebigen Zeichen, gefolgt von einem 'b' liest.
-# Wird nach q_4 kein 'b' gelesen, springt der Automat zurück zum Anfang
-# von u2 und beginnt von neuem Zeichen zu lesen. Der letzte durchlauf
-# durch die Zustände q_2 -> q_3 -> q_4 entspricht dem Wort u2, 
-# alle durchläufe davor entsprechen u1. Nachdem u2 gefolgt von einem 'b'
-# gelesen wurde, werden noch beliebig viele Zeichen für u3 gelesen (q_5).
-# Sobald der Automat in q_5 ist, wird das Wort akzeptiert.
+                q_aaa, a -> q_aaaa
+                q_aaa, b -> q_aaab
+  
+                q_aab, a -> q_aaba
+                q_aab, b -> q_aabb
+  
+                q_aba, a -> q_abaa
+                q_aba, b -> q_abab
+
+                q_abb, a -> q_abba
+                q_abb, b -> q_abbb
+
+                q_aaaa, a -> q_aaaa
+                q_aaaa, b -> accept
+  
+                q_aaba, a -> q_abaa
+                q_aaba, b -> accept
+  
+                q_abaa, a -> q_aaa
+                q_abaa, b -> accept
+
+                q_abba, a -> q_aa
+                q_abba, b -> accept
+
+                q_aaab, a -> q_aaba
+                q_aaab, b -> accept
+  
+                q_aabb, a -> q_abba
+                q_aabb, b -> accept
+  
+                q_abab, a -> q_aba
+                q_abab, b -> accept
+
+                q_abbb, a -> q_a
+                q_abbb, b -> accept
+
+                accept, a -> accept
+                accept, b -> accept
+
+acc_states = accept

@@ -1,36 +1,13 @@
-input_alphabet = a, b, 0, 1
+input_alphabet = a,b,0,1
 
 start_states = q_0
 
-transitions = 	q_0, a -> error
-                q_0, b -> error
-                q_0, 0 -> even
-                q_0, 1 -> q_1
-
-                q_1, a -> odd
-                q_1, b -> error
-                q_1, 0 -> error
-                q_1, 1 -> error
-
-                odd, a -> q_1
-                odd, b -> error
-                odd, 0 -> error
-                odd, 1 -> error
-
-                even, a -> q_2
-                even, b -> error
-                even, 0 -> error
-                even, 1 -> error
-
-                q_2, a -> even
-                q_2, b -> error
-                q_2, 0 -> error
-                q_2, 1 -> error
-
-                error, a -> error
-                error, b -> error
-                error, 0 -> error
-                error, 1 -> error
-
-
-acc_states = even, odd
+transitions = 	q_0, 0 -> q_1
+		q_0, 1 -> q_3
+		q_1, a -> q_2
+		q_2, a -> q_1
+		q_3, a -> q_4
+		q_4, a -> q_3
+		
+	        
+acc_states = q_1, q_4

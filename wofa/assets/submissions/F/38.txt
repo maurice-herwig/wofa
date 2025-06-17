@@ -1,61 +1,72 @@
 input_alphabet = a, b
 
-start_states = q_0
+start_states = s
 
-transitions = 	q_0, b -> q_0 
-  		q_0, a -> q_1
-		
-		q_1, a -> q_a
-		q_1, b -> q_b
-
-		q_a, a -> q_aa
-		q_a, b -> q_ab
-
-		q_b, a -> q_ba
-		q_b, b -> q_bb
-
-		q_aa, a -> q_aaa
-		q_aa, b -> q_aab
-
-		q_ab, a -> q_aba
-		q_ab, b -> q_abb
-
-		q_bb, a -> q_bba
-		q_bb, b -> q_bbb
-
-		q_ba, a -> q_baa
-		q_ba, b -> q_bab
-
-		q_aaa, a -> q_aaa
-		q_aaa, b -> q_e
-
-		q_aab, a -> q_aba
-		q_aab, b -> q_e
-
-		q_aba, a -> q_baa
-		q_aba, b -> q_e
-
-		q_abb, a -> q_bba
-		q_abb, b -> q_e
-
-		q_baa, a -> q_aa
-		q_baa, b -> q_e
-
-		q_bab, a -> q_ba
-		q_bab, b -> q_e
-
-		q_bba, a -> q_a
-		q_bba, b -> q_e
-
-		q_bbb, a -> q_1
-		q_bbb, b -> q_e
-
-		q_e, a -> q_e
-		q_e, b -> q_e
-
-
+transitions = s, a -> s0
+		s, b -> s
+		s0, a -> s01
+		s0, b -> s1
+		s1, a -> s02
+		s1, b -> s2
+		s2, a -> s03
+		s2, b -> s3
+		s3, a -> s0
+		s3, b -> se
+		se, a -> s0e
+		se, b -> se
+		s01, a -> s012
+		s01, b -> s12
+		s02, a -> s013
+		s02, b -> s13
+		s03, a -> s01
+		s03, b -> s1e
+		s0e, a -> s01e
+		s0e, b -> s1e
+		s12, a -> s023
+		s12, b -> s23
+		s13, a -> s02
+		s13, b -> s2e
+		s1e, a -> s02e
+		s1e, b -> s2e
+		s23, a -> s03
+		s23, b -> s3e
+		s2e, a -> s03e
+		s2e, b -> s3e
+		s3e, a -> s0e
+		s3e, b -> se
+		s012, a -> s0123
+		s012, b -> s123
+		s013, a -> s012
+		s013, b -> s12e
+		s01e, a -> s012e
+		s01e, b -> s12e
+		s023, a -> s013
+		s023, b -> s13e
+		s02e, a -> s013e
+		s02e, b -> s13e
+		s03e, a -> s01e
+		s03e, b -> s1e
+		s123, a -> s023
+		s123, b -> s23e
+		s12e, a -> s023e
+		s12e, b -> s23e
+		s13e, a -> s02e
+		s13e, b -> s2e
+		s23e, a -> s03e
+		s23e, b -> s3e
+		s0123, a -> s0123
+		s0123, b -> s123e
+		s012e, a -> s0123e
+		s012e, b -> s123e
+		s013e, a -> s012e
+		s013e, b -> s12e
+		s023e, a -> s013e
+		s023e, b -> s13e
+		s123e, a -> s023e
+		s123e, b -> s23e
+		s0123e, a -> s0123e
+		s0123e, b -> s123e
   
   
-acc_states = q_e
-
-
+  
+acc_states = se, s0e, s1e, s2e, s3e, s01e, s02e, s03e, s12e, s13e, s23e, s012e, s013e, s023e, s123e, s0123e

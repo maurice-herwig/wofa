@@ -1,12 +1,41 @@
-input_alphabet = a,b,0,1
+input_alphabet = a, b, 0, 1
 
-start_states = q0
+start_states = q_0
 
-transitions =	q0, 0	-> q1
-				q0, 1 	-> q2
-				q1, a 	-> q3
-				q3, a	-> q1
-				q2, a	-> q4
-				q4, a	-> q2
-			
-acc_states = q1,q4
+# Only accept 0 or 1 as first character
+transitions = q_0, a -> q_5
+    q_0, b -> q_5
+    q_0, 0 -> q_1
+    q_0, 1 -> q_3
+
+# Word starts with 0 and has an even amount of a's
+    q_1, a -> q_2
+    q_1, b -> q_5
+    q_1, 0 -> q_5
+    q_1, 1 -> q_5
+
+# Word starts with 0 and has an odd amount of a's
+    q_2, a -> q_1
+    q_2, b -> q_5
+    q_2, 0 -> q_5
+    q_2, 1 -> q_5
+
+# Word starts with 1 and has an even amount of a's
+    q_3, a -> q_4
+    q_3, b -> q_5
+    q_3, 0 -> q_5
+    q_3, 1 -> q_5
+
+# Word start with 1 and has an odd amount of a's
+    q_4, a -> q_3
+    q_4, b -> q_5
+    q_4, 0 -> q_5
+    q_4, 1 -> q_5
+
+# Word is invalid
+    q_5, a -> q_5
+    q_5, b -> q_5
+    q_5, 0 -> q_5
+    q_5, 1 -> q_5
+
+acc_states = q_0, q_1, q_4

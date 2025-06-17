@@ -1,22 +1,14 @@
-input_alphabet = a,b,0,1
+input_alphabet = 0,1,a,b
 
-start_states = S
+start_states = A
 
-transitions = S,0	-> even
-	      S,1 	-> odd
-	      S,1a	-> odd
-	      S,1b	-> odd
-	      S,10	-> odd
-	      S,11	-> odd
-	      even, a	-> odd
-	      even, b	-> odd
-	      even, 0	-> odd
-	      even, 1	-> odd
-	      even, 	-> odd
-	      odd, a	-> even
-	      odd, b	-> even
-	      odd, 0	-> even
-	      odd, 1	-> even
-	      odd, 	-> even
-	        
-acc_states = even, odd
+transitions =   A,0->B
+		A,1->Bx
+		B,a->B1
+		B1,a->B
+		Bx,a->B1x
+		B1x,a->Bx
+  
+  
+  
+acc_states =B,B1x,A

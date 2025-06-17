@@ -1,17 +1,14 @@
 input_alphabet = a, b
 
-start_states = S
-
-transitions = 	S, a -> S
-				S, b -> B
-				S, a -> A
-				B, b -> B
-				B, a -> A
-				B, b -> S
-				B, a -> C
-				A, a -> C
-				A, b -> S
-				C, a -> C
-				C, b -> C
-	        
-acc_states = S, C
+start_states = s_0 
+# in graph B = p_0 und A = q_0
+transitions = s_0 , a -> s_0; q_0; c_0
+	      s_0 , b -> s_0; p_0
+		p_0 , b -> p_0
+		p_0 , a -> q_0
+		q_0 , b -> s_0
+		q_0 , a -> c_0
+		c_0, a -> c_0; q_f
+		c_0 , b -> c_0; q_f
+		  	
+acc_states = s_0 , q_f

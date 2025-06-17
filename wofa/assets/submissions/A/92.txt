@@ -1,17 +1,19 @@
-input_alphabet = a, b, 0, 1
+input_alphabet = 0,1,a,b
 
-start_states = q_0
+start_states = z_1
 
-transitions = q_0, 0 -> q_even
-	q_0, 1 -> q_odd
-	q_even, a -> q_e1
-	q_e1, a -> q_e2
-	q_e2, a -> q_e1
+transitions = z_1, 0 -> z_2
+		   z_1, 1 -> z_3
+		   z_1, a -> z_9
+		   z_2, a -> z_4
+		   z_3, a -> z_5
+		   z_3, a -> z_7
+		   z_4, a -> z_2
+		   z_5, a -> z_6
+		   z_6, a -> z_7
+		   z_7, a -> z_6
+	           z_8, a -> z_8
+		   z_9, a -> z_9
+		   z_1, b -> z_8
 
-	q_odd, a -> q_o1
-	q_o1, a -> q_odd
-  
-  
-acc_states = q_even, q_e2, q_o1 
-
-
+acc_states = z_2, z_3, z_7, z_8, z_9

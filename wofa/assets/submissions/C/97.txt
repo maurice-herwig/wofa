@@ -1,56 +1,50 @@
-input_alphabet = a, b
+input_alphabet = a,b,c,d
 
-start_states = p_0
+start_states = q_0
 
-transitions =   p_0, a -> p_a
-		p_0, b -> p_b
-		p_0, c -> p_c
-
-		p_0, a -> p_0
-		p_0, b -> p_0
-		p_0, c -> p_0
-		p_0, d -> p_0
+transitions =	q_0, a	-> q_0; q_a
+		q_0, b	-> q_0; q_b
+		q_0, c	-> q_0; q_c
+		q_0, d	-> q_0
+		q_a, a	-> q_a
+		q_a, b	-> q_a; q_d
+		q_a, c	-> q_a; q_e
+		q_a, d	-> q_a
+	        q_b, a	-> q_b; q_f
+		q_b, b	-> q_b
+		q_b, c	-> q_b; q_g
+		q_b, d	-> q_b
+		q_c, a	-> q_c; q_h
+		q_c, b	-> q_c; q_i
+		q_c, c	-> q_c
+		q_c, d	-> q_c
+		q_d, a	-> q_d
+		q_d, b	-> q_d
+		q_d, c	-> q_d ; q_j
+		q_d, d	-> q_d
+		q_e, a	-> q_e
+		q_e, b	-> q_e; q_j
+		q_e, c	-> q_e
+		q_e, d	-> q_e
+		q_f, a	-> q_f
+		q_f, b	-> q_f
+		q_f, c	-> q_f; q_j
+		q_f, d	-> q_f
+		q_g, a	-> q_g; q_j
+		q_g, b	-> q_g
+		q_g, c	-> q_g
+		q_g, d	-> q_g
+		q_h, a	-> q_h
+		q_h, b	-> q_h; q_j
+		q_h, c	-> q_h
+		q_h, d	-> q_h
+		q_i, a	-> q_i; q_j
+		q_i, b	-> q_i
+		q_i, c	-> q_i
+		q_i, d	-> q_i
+		q_j, a	-> q_j
+		q_j, b	-> q_j
+		q_j, c	-> q_j
+		q_j, d	-> q_j
 		
-		p_a, a -> p_a
-		p_a, b -> p_ab
-		p_a, c -> p_ac
-		p_a, d -> p_a
-		p_b, b -> p_b
-		p_b, a -> p_ba
-		p_b, c -> p_bc
-		p_b, d -> p_b
-		p_c, c -> p_c
-		p_c, a -> p_ca	
-		p_c, b -> p_cb
-		p_c, d -> p_c
-
-		p_ab, b -> p_ab
-		p_ab, d -> p_ab
-		p_ac, c -> p_ac
-		p_ac, d -> p_ac
-		p_ba, b -> p_ba
-		p_ba, d -> p_ba
-		p_bc, c -> p_ba
-		p_bc, d -> p_bc
-		p_ca, a -> p_ca
-		p_ca, d -> p_ca
-		p_cb, b -> p_cb
-		p_cb, d -> p_cb
-		
-		p_ab, c -> p_ec
-		p_ba, c -> p_ec
-		p_ec, d -> p_ec
-		p_ec, c -> p_ec
-		p_ac, b -> p_eb
-		p_ca, b -> p_eb
-		p_eb, d -> p_eb
-		p_eb, b -> p_eb
-		p_bc, a -> p_ea
-		p_cb, a -> p_ea
-		p_ea, d -> p_ea
-		p_ea, a -> p_ea
-		
-  		
-  
-acc_states = p_ea, p_eb, p_ec
-
+acc_states = q_j

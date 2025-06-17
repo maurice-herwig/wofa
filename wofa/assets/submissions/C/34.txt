@@ -1,50 +1,130 @@
-input_alphabet = a,b,c,d
+input_alphabet = a, b, c, d
 
-start_states = q_0
+start_states = q_s
 
-transitions =	q_0, a	-> q_0; q_a
-		q_0, b	-> q_0; q_b
-		q_0, c	-> q_0; q_c
-		q_0, d	-> q_0
-		q_a, a	-> q_a
-		q_a, b	-> q_a; q_d
-		q_a, c	-> q_a; q_e
-		q_a, d	-> q_a
-	        q_b, a	-> q_b; q_f
-		q_b, b	-> q_b
-		q_b, c	-> q_b; q_g
-		q_b, d	-> q_b
-		q_c, a	-> q_c; q_h
-		q_c, b	-> q_c; q_i
-		q_c, c	-> q_c
-		q_c, d	-> q_c
-		q_d, a	-> q_d
-		q_d, b	-> q_d
-		q_d, c	-> q_d; q_j
-		q_d, d	-> q_d
-		q_e, a	-> q_e
-		q_e, b	-> q_e; q_j
-		q_e, c	-> q_e
-		q_e, d	-> q_e
-		q_f, a	-> q_f
-		q_f, b	-> q_f
-		q_f, c	-> q_f; q_j
-		q_f, d	-> q_f
-		q_g, a	-> q_g; q_j
-		q_g, b	-> q_g
-		q_g, c	-> q_g
-		q_g, d	-> q_g
-		q_h, a	-> q_h
-		q_h, b	-> q_h; q_j
-		q_h, c	-> q_h
-		q_h, d	-> q_h
-		q_i, a	-> q_i; q_j
-		q_i, b	-> q_i
-		q_i, c	-> q_i
-		q_i, d	-> q_i
-		q_j, a	-> q_j
-		q_j, b	-> q_j
-		q_j, c	-> q_j
-		q_j, d	-> q_j
-		
-acc_states = q_j
+transitions = 	q_s, a -> q_s
+		q_s, b -> q_s
+		q_s, c -> q_s
+		q_s, d -> q_s
+
+		q_s, a -> q_A1
+		q_s, a -> q_A2
+		q_s, b -> q_B3
+		q_s, b -> q_B4
+		q_s, c -> q_C5
+		q_s, c -> q_C6
+
+
+		q_A1, b -> q_B1
+		q_B1, c -> q_C1
+
+		q_A2, c -> q_C2
+		q_C2, b -> q_B2
+
+		q_B3, a -> q_A3
+		q_A3, c -> q_C3
+
+		q_B4, c -> q_C4
+		q_C4, a -> q_A4
+
+		q_C5, a -> q_A5
+		q_A5, b -> q_B5
+
+		q_C6, c -> q_B6
+		q_B6, a -> q_A6
+
+
+		q_A1, a -> q_A1
+		q_A1, b -> q_A1
+		q_A1, c -> q_A1
+		q_A1, d -> q_A1
+
+		q_A2, a -> q_A2
+		q_A2, b -> q_A2
+		q_A2, c -> q_A2
+		q_A2, d -> q_A2
+
+		q_A3, a -> q_A3
+		q_A3, b -> q_A3
+		q_A3, c -> q_A3
+		q_A3, d -> q_A3
+
+		q_A4, a -> q_A4
+		q_A4, b -> q_A4
+		q_A4, c -> q_A4
+		q_A4, d -> q_A4
+
+		q_A6, a -> q_A5
+		q_A5, b -> q_A5
+		q_A5, c -> q_A5
+		q_A5, d -> q_A5
+
+		q_A6, a -> q_A6
+		q_A6, b -> q_A6
+		q_A6, c -> q_A6
+		q_A6, d -> q_A6
+
+
+		q_B1, a -> q_B1
+		q_B1, b -> q_B1
+		q_B1, c -> q_B1
+		q_B1, d -> q_B1
+
+		q_B2, a -> q_B2
+		q_B2, b -> q_B2
+		q_B2, c -> q_B2
+		q_B2, d -> q_B2
+
+		q_B3, a -> q_B3
+		q_B3, b -> q_B3
+		q_B3, c -> q_B3
+		q_B3, d -> q_B3
+
+		q_B4, a -> q_B4
+		q_B4, b -> q_B4
+		q_B4, c -> q_B4
+		q_B4, d -> q_B4
+
+		q_B5, a -> q_B5
+		q_B5, b -> q_B5
+		q_B5, c -> q_B5
+		q_B5, d -> q_B5
+
+		q_B6, a -> q_B6
+		q_B6, b -> q_B6
+		q_B6, c -> q_B6
+		q_B6, d -> q_B6
+
+		q_C1, a -> q_C1
+		q_C1, b -> q_C1
+		q_C1, c -> q_C1
+		q_C1, d -> q_C1
+
+		q_C2, a -> q_C2
+		q_C2, b -> q_C2
+		q_C2, c -> q_C2
+		q_C2, d -> q_C2
+
+		q_C3, a -> q_C3
+		q_C3, b -> q_C3
+		q_C3, c -> q_C3
+		q_C3, d -> q_C3
+
+		q_C4, a -> q_C4
+		q_C4, b -> q_C4
+		q_C4, c -> q_C4
+		q_C4, d -> q_C4
+
+		q_C5, a -> q_C5
+		q_C5, b -> q_C5
+		q_C5, c -> q_C5
+		q_C5, d -> q_C5
+
+		q_C6, a -> q_C6
+		q_C6, b -> q_C6
+		q_C6, c -> q_C6
+		q_C6, d -> q_C6
+  
+  
+  
+acc_states =q_C1, q_B2, q_C3, q_A4, q_B5, q_A6

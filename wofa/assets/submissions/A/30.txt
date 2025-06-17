@@ -1,10 +1,14 @@
-input_alphabet = a,b,0,1
+input_alphabet = a, b, 0, 1
 
-start_states = S0
+start_states = q_s
 
-transitions = S0, 0 -> S2
-	S0, 1 -> S1
-	S1, a -> S2
-	S2, a -> S1
-	        
-acc_states = S2
+transitions = q_s, 0 -> q_0
+			q_s, 1 -> q_1
+
+			q_0, a -> q_a  
+  			q_a, a -> q_0
+
+			q_1, a -> q_0	
+				  
+  
+acc_states = q_0

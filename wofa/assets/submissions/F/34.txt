@@ -2,83 +2,58 @@ input_alphabet = a, b
 
 start_states = q_0
 
-transitions = 	q_0 , a -> q_1
-		q_0 , b -> q_0
-		q_1 , a -> q_3
-		q_1 , b -> q_2
-		q_2 , a -> q_5
-		q_2 , b -> q_4
-		q_3 , a -> q_7
-		q_3 , b -> q_6
-		q_4 , a -> q_9
-		q_4 , b -> q_8
-		q_5 , a -> q_11
-		q_5 , b -> q_10
-		q_6 , a -> q_13
-		q_6 , b -> q_12
-		q_7 , a -> q_15
-		q_7 , b -> q_14
-		q_8 , a -> q_1
-		q_8 , b -> q_16
-		q_9 , a -> q_3
-		q_9 , b -> q_17
-		q_10 , a -> q_5
-		q_10 , b -> q_18
-		q_11 , a -> q_7
-		q_11 , b -> q_19
-		q_12 , a -> q_9
-		q_12 , b -> q_20
-		q_13 , a -> q_11
-		q_13 , b -> q_21
-		q_14 , a -> q_13
-		q_14 , b -> q_22
-		q_15 , a -> q_15
-		q_15 , b -> q_23
-		q_16 , a -> q_24
-		q_16 , b -> q_16
-		q_17 , a -> q_25
-		q_17 , b -> q_18
-		q_18 , a -> q_26
-		q_18 , b -> q_20
-		q_19 , a -> q_27
-		q_19 , b -> q_22
-		q_20 , a -> q_24
-		q_20 , b -> q_16
-		q_21 , a -> q_25
-		q_21 , b -> q_18
-		q_22 , a -> q_26
-		q_22 , b -> q_20
-		q_23 , a -> q_27
-		q_23 , b -> q_22
-		q_24 , a -> q_28
-		q_24 , b -> q_17
-		q_25 , a -> q_29
-		q_25 , b -> q_21
-		q_26 , a -> q_28
-		q_26 , b -> q_17
-		q_27 , a -> q_29
-		q_27 , b -> q_21
-		q_28 , a -> q_30
-		q_28 , b -> q_19
-		q_29 , a -> q_30
-		q_29 , b -> q_19
-		q_30 , a -> q_31
-		q_30 , b -> q_23
-		q_31 , a -> q_31
-		q_31 , b -> q_23
+transitions = 	q_0, b -> q_0 
+  		q_0, a -> q_1
+		
+		q_1, a -> q_a
+		q_1, b -> q_b
+
+		q_a, a -> q_aa
+		q_a, b -> q_ab
+
+		q_b, a -> q_ba
+		q_b, b -> q_bb
+
+		q_aa, a -> q_aaa
+		q_aa, b -> q_aab
+
+		q_ab, a -> q_aba
+		q_ab, b -> q_abb
+
+		q_bb, a -> q_bba
+		q_bb, b -> q_bbb
+
+		q_ba, a -> q_baa
+		q_ba, b -> q_bab
+
+		q_aaa, a -> q_aaa
+		q_aaa, b -> q_e
+
+		q_aab, a -> q_aba
+		q_aab, b -> q_e
+
+		q_aba, a -> q_baa
+		q_aba, b -> q_e
+
+		q_abb, a -> q_bba
+		q_abb, b -> q_e
+
+		q_baa, a -> q_aa
+		q_baa, b -> q_e
+
+		q_bab, a -> q_ba
+		q_bab, b -> q_e
+
+		q_bba, a -> q_a
+		q_bba, b -> q_e
+
+		q_bbb, a -> q_1
+		q_bbb, b -> q_e
+
+		q_e, a -> q_e
+		q_e, b -> q_e
 
 
   
   
-  
-  
-acc_states = q_16, q_17, q_18, q_19, q_20, q_21, q_22, q_23, q_24, q_25, q_26, q_27, q_28, q_29, q_30, q_31, q_32
-
-# Der automat basiert uf einem von mir Konstruierten NFA welcher für die Regeln eines DFA umkonstruiert wurde aber dennoch alle produktionregeln des NFA erfüllt 
-# Damit die ausschlusskriterien eines DFA vermiedenwerden konnten wurde für jeden ausschluassfall ein weiterer seperater pfad angelget welches das exponezielle wachstum der zustände erlärt.
-# Zudem lässt sich mit externen Tools (z.b JFlap) solche automaten überprüfen und erzeugen.
-# Grundlegen gilt zu sagen das der automat die sprache erkennt weil er auf dem NFA basiert und diese regeln übernimmt.
-#
-
-
-
+acc_states = q_e

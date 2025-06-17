@@ -1,10 +1,11 @@
-input_alphabet = 1, 0
+input_alphabet = a, b, 0, 1
 
-start_states = start
+start_states = q0
 
-transitions = start,1 -> more
-              start,0 -> one
-              one, 0 -> done
-              more,1 -> done
-	        
-acc_states = done
+transitions = q0, a -> q1
+		q1, a -> q0
+  
+  
+  
+  
+acc_states = q1

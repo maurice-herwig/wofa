@@ -1,43 +1,53 @@
 input_alphabet = a,b,c,d
 
-start_states = s
+start_states = q_0
 
-transitions = 	s, d	-> s
-		s, a	-> s_a
-		s, b	-> s_b
-		s, c	-> s_c
-		s_a, a	-> s_a
-		s_a, d	-> s_a
-		s_a, c	-> s_ac
-		s_a, b	-> s_ab
-		s_b, b	-> s_b
-		s_b, d	-> s_b
-		s_b, a	-> s_ab
-		s_b, c	-> s_bc
-		s_c, c	-> s_c
-		s_c, d	-> s_c
-		s_c, b	-> s_bc
-		s_c, a	-> s_ac
-		s_ac, a	-> s_ac
-		s_ac, c	-> s_ac
-		s_ac, d	-> s_ac
-		s_ac, b -> s_abc
-		s_ab, a	-> s_ab
-		s_ab, b	-> s_ab
-		s_ab, d	-> s_ab
-		s_ab, c	-> s_abc
-		s_bc, b	-> s_bc
-		s_bc, c	-> s_bc
-		s_bc, d	-> s_bc
-		s_bc, a	-> s_abc
-		s_ac, a	-> s_ac
-		s_ac, c	-> s_ac
-		s_ac, d	-> s_ac
-		s_ac, b	-> s_abc
-		s_abc, a	-> s_abc
-		s_abc, b	-> s_abc
-		s_abc, c	-> s_abc
-		s_abc, d	-> s_abc
-		
-	        
-acc_states = s_abc
+transitions = 	q_0, a -> q_0
+		q_0, a -> q_1
+		q_0, b -> q_0
+		q_0, b -> q_3
+		q_0, c -> q_0
+		q_0, c -> q_5
+		q_0, d -> q_0
+		q_1, a -> q_1
+		q_1, b -> q_1
+		q_1, b -> q_2
+		q_1, c -> q_1
+		q_1, c -> q_6
+		q_1, d -> q_1
+		q_2, a -> q_2
+		q_2, b -> q_2
+		q_2, c -> q_2
+		q_2, c -> q_7
+		q_2, d -> q_2
+		q_3, a -> q_3
+		q_3, a -> q_2
+		q_3, b -> q_3
+		q_3, c -> q_3
+		q_3, c -> q_4
+		q_3, d -> q_3
+		q_4, a -> q_4
+		q_4, a -> q_7
+		q_4, b -> q_4
+		q_4, c -> q_4
+		q_4, d -> q_4
+		q_5, a -> q_5
+		q_5, a -> q_6
+		q_5, b -> q_5
+		q_5, b -> q_4
+		q_5, c -> q_5
+		q_5, d -> q_5
+		q_6, a -> q_6
+		q_6, b -> q_6
+		q_6, b -> q_7
+		q_6, c -> q_6
+		q_6, d -> q_6
+		q_7, a -> q_7
+		q_7, b -> q_7
+		q_7, c -> q_7
+		q_7, d -> q_7
+  
+  
+  
+  
+acc_states = q_7

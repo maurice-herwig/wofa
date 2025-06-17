@@ -13,4 +13,3 @@ transitions =   p_0, a -> p_A
   
   
 acc_states = end, p_0
-

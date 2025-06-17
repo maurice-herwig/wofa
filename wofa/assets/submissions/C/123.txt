@@ -1,50 +1,50 @@
 input_alphabet = a, b, c, d
 
-start_states = S 
+start_states = Start
 
-transitions =	S, a	-> A
-		S, b	-> B
-		S, c 	-> C
-		S, d	-> S
-
-		A, a	-> A
-		A, b	-> AB
-		A, c	-> AC
-		A, d	-> A
-
-		B, a	-> AB
-		B, b	-> B
-		B, c	-> BC
-		B, d	-> B
-
-		C, a	-> AC
-		C, b	-> BC
-		C, c	-> C
-		C, d 	-> C
-
-		AB, a	-> AB
-		AB, b	-> AB
-		AB, c	-> ABC
-		AB, d	-> AB
-
-		AC, a	-> AC
-		AC, b	-> ABC
-		AC, c	-> AC
-		AC, d	-> AC
-
-		BC, a	-> ABC
-		BC, b	-> BC
-		BC, c	-> BC
-		BC, d	-> BC
-
-		ABC, a	-> ABC
-		ABC, b	-> ABC
-		ABC, c	-> ABC
-		ABC, d	-> ABC
-  
-  
-  
-  
-acc_states = ABC
-
-
+transitions = 	Start, a -> Start; A
+				Start, b -> Start; B
+				Start, c -> Start; C
+				Start, d -> Start
+				A, a -> A
+				A, b -> A; AB
+				A, c -> A; AC
+				A, d -> A
+				B, a -> B; BA
+				B, b -> B
+				B, c -> B; BC
+				B, d -> B
+				C, a -> C; CA
+				C, b -> C; CB
+				C, c -> C
+				C, d -> C
+				AB, a -> AB
+				AB, b -> AB
+				AB, c -> AB; End
+				AB, d -> AB
+				AC, a -> AC
+				AC, b -> AC; End
+				AC, c -> AC
+				AC, d -> AC
+				BA, a -> BA
+				BA, b -> BA
+				BA, c -> BA; End
+				BA, d -> BA
+				BC, a -> BC; End
+				BC, b -> BC
+				BC, c -> BC
+				BC, d -> BC
+				CA, a -> CA
+				CA, b -> CA; End
+				CA, c -> CA
+				CA, d -> CA
+				CB, a -> CB; End
+				CB, b -> CB
+				CB, c -> CB
+				CB, d -> CB
+				End, a -> End
+				End, b -> End
+				End, c -> End
+				End, d -> End
+	        
+acc_states = End

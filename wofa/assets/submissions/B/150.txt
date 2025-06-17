@@ -1,19 +1,15 @@
 input_alphabet = a, b
 
-start_states = q_0
+start_states = S
 
-transitions = 	q_0,	b	-> q_0
-		q_0,	a	-> q_a
-
-		q_a,	a	-> q_a	
-  		q_a,	b	-> q_b
-
-  		q_b,	b	-> q_b2
-		q_b,	a 	-> q_a
-		
-		q_b2,	b	-> q_b2; q_b
-  
-  
-acc_states = q_0, q_a, q_b, q_b2
-
-
+transitions = S, a	-> S
+	      S, b	-> A
+	      A, a	-> B
+	      B, a	-> B
+	      B, b	-> A
+	      A, b	-> C
+	      C, b	-> D
+	      D, b	-> D
+	      D, a	-> A
+	        
+acc_states = S, A, B, D
