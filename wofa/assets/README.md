@@ -1,6 +1,8 @@
 For the following taks, a solution exists in the [solutions](solutions) folder just as various student submissions 
 to these assignments exist in the [submissions](submissions) folder. Both can be parsed into a 
 [FiniteAutomata](../FiniteAutomata.py) object by the [Parser](../Parser.py).
+Additionally are in the folder [labels](labels) csv files that contains the given points for the submission on moodle 
+for some comparison tests.
 ![](Tasks.jpg)
 
 The following example shows how we can determine the weight for any submission of task A.
@@ -14,7 +16,7 @@ FiniteAutomata.set_alphabet({'a', '0', '1'})
 
 # Get autoamats objects
 solution = get_solution('A')
-submission = get_submission('A', str(random.randint(1, 174)))
+submission = get_submission('A', str(random.randint(0, 165)))
 
 # Calc the weight
 weight = weight_diff(solution, submission, eta, lam)

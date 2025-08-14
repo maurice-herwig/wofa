@@ -1,0 +1,36 @@
+input_alphabet = a,b,c,a oder b,b oder c,a oder b oder c,a oder c
+ 
+start_states = 1
+ 
+transitions = 1, a	-> 2
+	      1, b	-> 3
+	      1, c	-> 4
+	      3, b	-> 3
+	      2, a	-> 2
+	      2, c	-> 6
+	      3, c	-> 7
+	      4, a	-> 6
+	      4, b	-> 7
+	      4, c	-> 8
+	      6, b	-> 9
+	      6, a	-> 6
+	      6, c	-> 10
+	      2, b	-> 14
+	      3, a	-> 14
+	      14, a oder b	-> 14
+	      14, c	-> 9
+	      7, a	-> 9
+	      7, c	-> 11
+	      7, b	-> 7
+	      8, c	-> 8
+	      8, a	-> 10
+	      8, b	-> 11
+	      11, b oder c	-> 11
+	      11, a	-> 13
+	      9, a oder b	-> 9
+	      9, c	-> 13
+	      13, a oder b oder c	-> 13
+	      10, a oder c	-> 10
+	      10, b	-> 13
+
+acc_states = 11,13

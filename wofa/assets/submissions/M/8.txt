@@ -1,0 +1,22 @@
+input_alphabet = a,c,b
+ 
+start_states = 5
+ 
+transitions = 5, a	-> 6
+	      5, c	-> 6
+	      6, a	-> 7
+	      6, c	-> 7
+	      7, a	-> 6
+	      7, c	-> 6
+	      5, b	-> 8
+	      5, c	-> 8
+	      8, b	-> 9
+	      8, c	-> 9
+	      9, b	-> 10
+	      9, c	-> 10
+	      10, b	-> 8
+	      10, c	-> 8
+	      10, a	-> 6
+	      7, b	-> 8
+
+acc_states = 7,10

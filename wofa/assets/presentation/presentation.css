@@ -1,0 +1,88 @@
+/* Code fields are not displayed  */
+.input {
+    visibility: hidden;
+    height: 0;
+}
+
+.Theorem{
+    background-color: lightblue;
+    padding: 10px;
+    border: 1px solid black;
+    margin-bottom: 40px
+}
+
+.outputText{
+    font: 36px Lato, sans-serif;
+}
+
+p {
+}
+
+a{
+    /*Attention the a environment is used in this presentation only for the slide numbers.*/
+    font-size: 25px;
+}
+
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+div.output_subarea.output_png{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+div.widget-readout{
+    font: 36px Lato, sans-serif;
+    height: 40px;
+    margin: 5px 5px 5px 30px;
+}
+
+/*
+label.widget-label{
+    font: 20px Lato, sans-serif;
+    height: 60px;
+}
+ */
+
+#Example {
+    margin: 0;
+}
+#Example-to-choose-the-parameter{
+    margin: 0;
+}
+
+#Distance-of-two-languages{
+    margin: 0;
+}
+
+#Weight-of-a-language{
+    margin: 0;
+}
+
+#Practical-application{
+    margin: 0;
+}
+
+#Good-parameter-values{
+    margin: 0;
+}
+
+
+#For-a-DFA-the-weight-is-computable{
+    margin: 0;
+}
+
+#Summary{
+    margin: 0;
+}
+
+#Motivation{
+    margin: 0;
+}
+

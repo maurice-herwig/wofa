@@ -1,0 +1,31 @@
+35996244 Paul Müller
+35964647 Noel Brich
+
+input_alphabet = a,b,c,ε
+ 
+start_states = 1
+ 
+transitions = 1, a	-> 2
+	      1, b	-> 3
+	      1, c	-> 4
+	      2, a	-> 1
+	      2, b	-> 5
+	      2, c	-> 6
+	      3, a	-> 5
+	      3, b	-> 1
+	      3, c	-> 7
+	      4, a	-> 6
+	      4, b	-> 7
+	      4, c	-> 1
+	      5, a	-> 3
+	      5, b	-> 2
+	      5, c	-> 8
+	      6, a	-> 4
+	      6, b	-> 8
+	      6, c	-> 2
+	      7, a	-> 8
+	      7, b	-> 4
+	      7, c	-> 3
+	      1, ε	-> 8
+
+acc_states = 7
