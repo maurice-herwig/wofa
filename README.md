@@ -73,7 +73,7 @@ surface_to_tikz(sol.symmetric_difference(automaton2), etas=np.arange(0, 15), num
 This creates the file [SurfaceExample.tex](wofa/assets/SurfaceExample.tex). Which represents the following tikzpicture.
 ![](wofa/assets/SurfaceExample.jpg)
 
-More examples can be found in the [Example.py](./Example.py) file.
+More examples can be found in the [Example.py](examples/example.py) file.
 
 ## Project structure
 - [assets](wofa/assets)
@@ -101,7 +101,7 @@ More examples can be found in the [Example.py](./Example.py) file.
 
 
 
-- [Example.py](./Example.py)
+- [Example.py](examples/example.py)
 
   This file contains some examples of computations of the weights of regular languages represented by a finite automaton. Thus, the file should help to get an understanding of the application of weighting and to clarify the usage with some examples.
 
