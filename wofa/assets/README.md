@@ -1,7 +1,8 @@
-For the following taks, a solution exists in the [solutions](solutions) folder just as various student submissions 
-to these assignments exist in the [submissions](submissions) folder. Both can be parsed into a 
+For the following taks, a solution exists in the [solutions](solutions) folder just as various student submissions
+to these assignments exist in the [submissions](submissions) folder. Both can be parsed into a
 [FiniteAutomata](../FiniteAutomata.py) object by the [Parser](../Parser.py).
-Additionally are in the folder [labels](labels) csv files that contains the given points for the submission on moodle 
+Additionally are in the folder [labels](old_labels) csv files that contains the given points for the submission on
+moodle
 for some comparison tests.
 ![](Tasks.jpg)
 
