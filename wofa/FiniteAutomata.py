@@ -337,7 +337,7 @@ class FiniteAutomata:
         productive_states: set = self.productive()
 
         # Check if the automaton describe the empty language
-        if len(productive_states) == 0:
+        if len(productive_states.intersection(self.initials)) == 0:
             return None
 
         if self.accepts_empty_word():
@@ -378,7 +378,7 @@ class FiniteAutomata:
         Returns:
             bool: Is the language the empty language.
         """
-        if len(self.productive()) == 0:
+        if len(self.productive().intersect(self.initials)) == 0:
             return True
         return False
 
