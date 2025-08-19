@@ -378,7 +378,7 @@ class FiniteAutomata:
         Returns:
             bool: Is the language the empty language.
         """
-        if len(self.productive().intersect(self.initials)) == 0:
+        if len(self.productive().intersection(self.initials)) == 0:
             return True
         return False
 
