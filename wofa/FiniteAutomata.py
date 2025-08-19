@@ -327,6 +327,51 @@ class FiniteAutomata:
             return True
         return False
 
+    def get_shortest_accepting_words(self):
+        """
+        Compute all words that are accepted by the automaton of the shortest length.
+
+        Returns: List of all this word or None if the automaton describe the empty language
+        """
+
+        productive_states: set = self.productive()
+
+        # Check if the automaton describe the empty language
+        if len(productive_states) == 0:
+            return None
+
+        if self.accepts_empty_word():
+            return ['']
+
+        # Init a dict that store for each word a list of the shortest words to it
+        shortest_paths_to_state = {q: [''] for q in self.initials}
+        last_reached_states = set(shortest_paths_to_state.keys())
+        productive_states.difference_update(last_reached_states)
+
+        while True:
+            current_reached_states = set()
+
+            for p in last_reached_states:
+                for q, a in self.get_all_successors_with_letter(p=p):
+                    if q in productive_states:
+                        current_reached_states.add(q)
+                        if q in shortest_paths_to_state:
+                            shortest_paths_to_state[q] += [w + a for w in shortest_paths_to_state[p]]
+                        else:
+                            shortest_paths_to_state[q] = [w + a for w in shortest_paths_to_state[p]]
+
+            # Check if the current reached states a final node
+            finals_current_reached = current_reached_states.intersection(self.finals)
+            if len(finals_current_reached) > 0:
+                res = []
+                for q in finals_current_reached:
+                    res += shortest_paths_to_state[q]
+                return res
+
+            else:
+                productive_states.difference_update(current_reached_states)
+                last_reached_states = current_reached_states
+
     def is_empty(self):
         """ Determines whether the language described by the automaton is the empty language.
 
