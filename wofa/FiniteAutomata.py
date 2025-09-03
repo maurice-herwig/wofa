@@ -272,11 +272,14 @@ class FiniteAutomata:
         return FiniteAutomata.alphabet, set(range(self.get_number_of_states())), self.successors, self.get_initials(), \
             self.get_finals()
 
-    def is_deterministic(self):
+    def is_deterministic(self, require_dead_state=False):
         """ Check if the automaton finite automaton object a deterministic finite automaton.
         !!! Important, by using the minimise methods you can destroy the properties of and DFA and get an NFA.
         So if you have a DFA, don't call the minimise methods unless you want to change your DFA to an NFA!!!!
 
+        Args:
+            require_dead_state: (bool) then it is required that the automaton have a dead state instead such transitions
+             can be omitted.
         Returns:
             bool: if the automaton a deterministic one.
 
