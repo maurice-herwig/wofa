@@ -292,9 +292,11 @@ class FiniteAutomata:
         for letter in FiniteAutomata.alphabet:
             for state in range(self.num_states):
 
-                if require_dead_state:
-                    if not (state, letter) in self.successors:
+                if not (state, letter) in self.successors:
+                    if require_dead_state:
                         return False
+                    else:
+                        continue
 
                 if not len(self.successors[(state, letter)]) == 1:
                     return False
