@@ -65,11 +65,13 @@ def __get_lines(path):
     return lines
 
 
-def parse(lines):
+def parse(lines, return_state_renaming=False):
     """Parses the stored automata and then creates the corresponding automaton object.
 
     Args:
         lines (list of strings): List of lines of stored automata.
+        return_state_renaming: Boolean if the function also should return the state renaming dict. This dict maps the
+            state names in the file to the state numbers in the created automaton object.
 
     Raises:
         Exception: Parsing error.
@@ -188,5 +190,7 @@ def parse(lines):
 
             transitions.append((start, key[1], end))
 
+    if return_state_renaming:
+        return FiniteAutomata(initials, transitions, finials), state_dict
     # crate a FiniteAutomata Object
     return FiniteAutomata(initials, transitions, finials)
