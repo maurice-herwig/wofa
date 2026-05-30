@@ -272,6 +272,24 @@ class FiniteAutomata:
         return FiniteAutomata.alphabet, set(range(self.get_number_of_states())), self.successors, self.get_initials(), \
             self.get_finals()
 
+    def add_dead_state(self):
+        """ Add a non-final dead state and redirect all missing alphabet transitions to it.
+
+        Returns:
+            self: The completed finite automaton.
+        """
+        dead_state = self.get_number_of_states()
+
+        for letter in FiniteAutomata.alphabet:
+            self.__add_transition(dead_state, letter, dead_state)
+
+        for state in range(dead_state):
+            for letter in FiniteAutomata.alphabet:
+                if len(self.get_successors(state, letter)) == 0:
+                    self.__add_transition(state, letter, dead_state)
+
+        return self
+
     def is_deterministic(self, require_dead_state=False):
         """ Check if the automaton finite automaton object a deterministic finite automaton.
         !!! Important, by using the minimise methods you can destroy the properties of and DFA and get an NFA.

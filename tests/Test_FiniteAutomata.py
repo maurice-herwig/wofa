@@ -57,6 +57,24 @@ class TestFiniteAutomata(unittest.TestCase):
         # Assert
         self.assertFalse(FiniteAutomata.full_nfa().is_empty())
 
+    def test_add_dead_state(self):
+        # Assume
+        fa = FiniteAutomata([0], [(0, 'a', 1)], [1])
+
+        # Act
+        fa.add_dead_state()
+
+        # Assert
+        self.assertTrue(fa.is_deterministic(require_dead_state=True))
+        self.assertEqual({2}, fa.get_successors(0, 'b'))
+        self.assertEqual({2}, fa.get_successors(1, 'a'))
+        self.assertEqual({2}, fa.get_successors(1, 'b'))
+        self.assertEqual({2}, fa.get_successors(2, 'a'))
+        self.assertEqual({2}, fa.get_successors(2, 'b'))
+        self.assertTrue(fa.accepts_word('a'))
+        self.assertFalse(fa.accepts_word('aa'))
+        self.assertFalse(fa.accepts_word('b'))
+
     def test_equivalence(self):
         # Assume
         fa_a = FiniteAutomata.one_symbol_nfa('a')
