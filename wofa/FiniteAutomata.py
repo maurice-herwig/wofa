@@ -606,6 +606,12 @@ class FiniteAutomata:
         """
         return self.__shrink_to(remaining=self.productive())
 
+    def remove_unreachable_states(self):
+        """
+        Remove all non-reachable states from the automation.
+        """
+        return self.__shrink_to(remaining=self.reachable())
+
     def remove_non_alphabet_transitions(self):
         """
         Remove all  transitions with letter that are currently not in the alphabet.
