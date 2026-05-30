@@ -290,6 +290,32 @@ class FiniteAutomata:
 
         return self
 
+    def normalize_initial_states(self):
+        """Replace multiple initial states by one fresh initial state.
+
+        The construction preserves the NFA language without epsilon-transitions:
+        a fresh state is added, becomes the only initial state, and receives the
+        union of all outgoing transitions of the previous initial states. If one of
+        the previous initial states was final, the fresh state is marked final as
+        well.
+
+        The automaton is modified in place and returned for convenience.
+        """
+        if len(self.get_initials()) <= 1:
+            return self
+
+        new_initial_state = self.get_number_of_states()
+
+        for p in self.get_initials():
+            for q, a in self.get_all_successors_with_letter(p=p):
+                self.__add_transition(new_initial_state, a, q)
+
+        if self.get_initials() & self.get_finals():
+            self.__make_final(new_initial_state)
+
+        self.__set_initials({new_initial_state})
+        return self
+
     def is_deterministic(self, require_dead_state=False):
         """ Check if the automaton finite automaton object a deterministic finite automaton.
         !!! Important, by using the minimise methods you can destroy the properties of and DFA and get an NFA.
@@ -620,7 +646,7 @@ class FiniteAutomata:
 
     def remove_unproductive_states(self):
         """
-        Remove all non-productive states from the automation. 
+        Remove all non-productive states from the automation.
         """
         return self.__shrink_to(remaining=self.productive())
 
