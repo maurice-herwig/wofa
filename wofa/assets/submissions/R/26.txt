@@ -1,0 +1,21 @@
+input_alphabet = 0,1
+
+start_states = z0
+
+transitions = z0,1 -> z1
+	      z0,0 -> z0
+	      z0,1 -> z0
+
+	      z1,0 -> z2
+	      z1,1 -> z2
+
+	      z2,0 -> z1
+	      z2,1 -> z1
+	      z2,1 -> z3
+
+	      z3,1 -> z3
+	      z3,0 -> z3
+	      
+ 
+acc_states = z6
+

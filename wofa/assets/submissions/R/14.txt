@@ -1,0 +1,24 @@
+input_alphabet = 0, 1
+
+start_states = q0
+
+transitions =
+
+#Beliebiges Präfix lesen:
+q0, 0 -> q0
+q0, 1 -> q0; q1
+
+#Nach erster geratenen 1:
+#Anzahl der Zeichen zwischen den beiden 1en zählen
+q1, 0 -> q2
+q1, 1 -> q2
+
+#gerade/ungerade wechseln
+q2, 0 -> q1
+q2, 1 -> q1; q_accept
+
+#Nach akzeptierter zweiter 1 darf alles folgen
+q_accept, 0 -> q_accept
+q_accept, 1 -> q_accept 
+
+acc_states = q_accept

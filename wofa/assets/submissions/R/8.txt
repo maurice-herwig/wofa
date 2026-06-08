@@ -1,0 +1,17 @@
+input_alphabet = 0,1
+ 
+start_states = u
+ 
+transitions = v_gerade, 0	-> v_ungerade
+	      v_gerade, 1	-> v_ungerade
+	      v_ungerade, 0	-> v_gerade
+	      v_ungerade, 1	-> v_gerade
+	      v_ungerade, 1	-> z
+	      u, 0	-> u
+	      u, 1	-> u
+	      u, 1	-> v_gerade
+	      z, 0	-> z
+	      z, 1	-> z
+
+acc_states = z
+

@@ -1,0 +1,17 @@
+input_alphabet = 0,1
+ 
+start_states = q_start
+ 
+transitions = q_start, 0 -> q_dead
+              q_start, 1 -> q1
+              q0, 0 -> q0
+              q0, 1 -> q1
+              q1, 0 -> q2
+              q1, 1 -> q0
+              q2, 1 -> q2
+              q2, 0 -> q1
+              q_dead, 0 -> q_dead
+              q_dead, 1 -> q_dead
+acc_states = q0
+
+

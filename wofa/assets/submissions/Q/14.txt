@@ -1,0 +1,22 @@
+input_alphabet = 1,0
+ 
+start_states = q1
+ 
+transitions = q1, 1	-> q2
+	      q2, 1	-> q3
+	      q3, 0	-> q4
+	      q4, 0	-> q5
+	      q5, 0	-> q4
+	      q3, 1	-> q9
+	      q9, 1	-> q4
+	      q4, 1	-> q10
+	      q10, 1	-> q11
+	      q11, 0	-> q5
+	      q2, 0	-> q6
+	      q6, 0	-> q2
+	      q6, 1	-> q7
+	      q7, 0	-> q8
+	      q8, 1	-> q5
+
+acc_states = q3,q4,q5
+

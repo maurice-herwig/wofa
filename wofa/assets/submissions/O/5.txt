@@ -1,0 +1,26 @@
+input_alphabet = a, b
+
+start_states = ag_b0
+
+transitions = 
+ag_b0, a -> au_b0;
+ag_b0, b -> ag_b1;
+
+ag_b1, a -> au_b1;
+ag_b1, b -> ag_b2;
+
+ag_b2, a -> au_b2;
+ag_b2, b -> ag_b0;
+
+au_b0, a -> ag_b0;
+au_b0, b -> au_b1;
+
+au_b1, a -> ag_b1;
+au_b1, b -> au_b2;
+
+au_b2, a -> ag_b2;
+au_b2, b -> au_b0;
+
+acc_states = ag_b0
+
+

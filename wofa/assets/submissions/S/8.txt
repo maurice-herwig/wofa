@@ -1,0 +1,42 @@
+input_alphabet = b,c,a
+ 
+start_states = s
+ 
+transitions = s, b	-> kein_a
+	      s, c	-> kein_a
+	      kein_a, b	-> kein_a
+	      kein_a, c	-> kein_a
+	      s, a	-> kein_b
+	      s, c	-> kein_b
+	      kein_b, a	-> kein_b
+	      kein_b, c	-> kein_b
+	      s, a	-> kein_c
+	      s, b	-> kein_c
+	      kein_c, a	-> kein_c
+	      kein_c, b	-> kein_c
+	      kein_a, a	-> Ein_A
+	      Ein_A, b	-> Ein_A
+	      Ein_A, c	-> Ein_A
+	      Ein_A, a	-> zwei_a
+	      zwei_a, b	-> zwei_a
+	      zwei_a, c	-> zwei_a
+	      zwei_a, a	-> kein_wort
+	      kein_c, c	-> ein_c
+	      ein_c, c	-> zwei_c
+	      ein_c, a	-> ein_c
+	      ein_c, b	-> ein_c
+	      zwei_c, a	-> zwei_c
+	      zwei_c, b	-> zwei_c
+	      zwei_c, c	-> kein_wort
+	      kein_b, b	-> ein_b
+	      ein_b, b	-> zwei_b
+	      ein_b, a	-> ein_b
+	      ein_b, c	-> ein_b
+	      zwei_b, a	-> zwei_b
+	      zwei_b, c	-> zwei_b
+	      zwei_b, b	-> kein_wort
+	      s, c	-> ein_c
+	      s, b	-> ein_b
+	      s, a	-> Ein_A
+
+acc_states = s,kein_a,kein_b,kein_c,Ein_A,zwei_a,ein_c,zwei_c,ein_b,zwei_b

@@ -1,0 +1,26 @@
+input_alphabet = 0, 1
+
+start_states = start
+
+transitions = 
+  start, 0 -> nur_0
+  start, 1 -> rest_1
+
+  nur_0, 0 -> muell
+  nur_0, 1 -> muell
+
+  rest_0, 0 -> rest_0
+  rest_0, 1 -> rest_1
+
+  rest_1, 0 -> rest_2
+  rest_1, 1 -> rest_0
+
+  rest_2, 0 -> rest_1
+  rest_2, 1 -> rest_2
+
+  muell, 0 -> muell
+  muell, 1 -> muell
+
+acc_states = nur_0, rest_0
+
+

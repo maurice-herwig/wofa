@@ -1,0 +1,28 @@
+input_alphabet = a, b
+
+start_states = 1 , 2
+
+transitions =
+
+1, a -> 1
+1, b -> 3
+
+3, a -> 3
+3, b -> 5
+
+5, a -> 6
+5, b -> q_dead
+
+2, a -> 4
+2, b -> q_dead
+
+4, a -> 1
+4, b -> 6
+
+6, a -> 6
+6, b -> 6
+
+q_dead, a -> q_dead
+q_dead, b -> q_dead
+ 
+acc_states = 5, 6

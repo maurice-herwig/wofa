@@ -1,0 +1,33 @@
+input_alphabet = a, b
+
+start_states = q_s
+
+# Index 1 ist wie oft bbb gelesen wurde und Index 2 ist wie viele b am Ende gerade in Folge stehen (max 2, da sonst danach Index 1 hochgezählt wird)
+transitions =   q_s, a -> q_s
+                q_s, b -> q_0_1
+                q_0_1, a -> q_s
+                q_0_1, b -> q_0_2
+                q_0_2, a -> q_s
+                q_0_2, b -> q_1_2
+                q_1_0, a -> q_1_0
+                q_1_0, b -> q_1_1
+                q_1_1, a -> q_1_0
+                q_1_1, b -> q_1_2
+                q_1_2, a -> q_1_0
+                q_1_2, b -> q_2_2
+                q_2_0, a -> q_2_0
+                q_2_0, b -> q_2_1
+                q_2_1, a -> q_2_0
+                q_2_1, b -> q_2_2
+                q_2_2, a -> q_2_0
+                q_2_2, b -> q_3_2
+                q_3_0, a -> q_3_0
+                q_3_0, b -> q_3_1
+                q_3_1, a -> q_3_0
+                q_3_1, b -> q_3_2
+                q_3_2, a -> q_3_0
+                q_3_2, b -> q_3_2
+  
+acc_states = q_3_0, q_3_1, q_3_2
+
+

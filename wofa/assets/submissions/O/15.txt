@@ -1,0 +1,22 @@
+input_alphabet = a, b
+
+start_states = q_s
+
+
+# Index 1 ist a gerade oder ungerade und Index 2 ist Anzahl b
+transitions =   q_s, a -> q_1_0
+                q_s, b -> q_0_1
+                q_0_1, a -> q_1_1
+                q_0_1, b -> q_0_2
+                q_0_2, a -> q_1_2
+                q_0_2, b -> q_s
+                q_1_0, a -> q_s
+                q_1_0, b -> q_1_1
+                q_1_1, a -> q_0_1
+                q_1_1, b -> q_1_2
+                q_1_2, a -> q_0_2
+                q_1_2, b -> q_1_0
+  
+acc_states = q_s
+
+

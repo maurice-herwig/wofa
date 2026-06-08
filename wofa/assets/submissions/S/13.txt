@@ -1,0 +1,45 @@
+input_alphabet = a, b, c
+
+start_states = a_nullmal, b_nullmal, c_nullmal
+
+transitions =
+  a_nullmal, a -> a_einmal
+  a_nullmal, b -> a_nullmal
+  a_nullmal, c -> a_nullmal
+  a_einmal, a -> a_zweimal
+  a_einmal, b -> a_einmal
+  a_einmal, c -> a_einmal
+  a_zweimal, a -> a_zu_oft
+  a_zweimal, b -> a_zweimal
+  a_zweimal, c -> a_zweimal
+  a_zu_oft, a -> a_zu_oft
+  a_zu_oft, b -> a_zu_oft
+  a_zu_oft, c -> a_zu_oft
+
+  b_nullmal, a -> b_nullmal
+  b_nullmal, b -> b_einmal
+  b_nullmal, c -> b_nullmal
+  b_einmal, a -> b_einmal
+  b_einmal, b -> b_zweimal
+  b_einmal, c -> b_einmal
+  b_zweimal, a -> b_zweimal
+  b_zweimal, b -> b_zu_oft
+  b_zweimal, c -> b_zweimal
+  b_zu_oft, a -> b_zu_oft
+  b_zu_oft, b -> b_zu_oft
+  b_zu_oft, c -> b_zu_oft
+
+  c_nullmal, a -> c_nullmal
+  c_nullmal, b -> c_nullmal
+  c_nullmal, c -> c_einmal
+  c_einmal, a -> c_einmal
+  c_einmal, b -> c_einmal
+  c_einmal, c -> c_zweimal
+  c_zweimal, a -> c_zweimal
+  c_zweimal, b -> c_zweimal
+  c_zweimal, c -> c_zu_oft
+  c_zu_oft, a -> c_zu_oft
+  c_zu_oft, b -> c_zu_oft
+  c_zu_oft, c -> c_zu_oft
+
+acc_states = a_nullmal, a_einmal, a_zweimal, b_nullmal, b_einmal, b_zweimal, c_nullmal, c_einmal, c_zweimal

@@ -1,0 +1,7 @@
+input_alphabet = 
+
+start_states = 
+
+transitions =
+ 
+acc_states = 

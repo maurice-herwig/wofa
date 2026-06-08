@@ -1,0 +1,20 @@
+input_alphabet = 0, 1
+
+start_states = Search_1
+
+transitions =
+
+Search_1, 0 -> Search_1 
+Search_1, 1 -> Found_1; Search_1
+
+Found_1, 0 -> Odd;
+Found_1, 1 -> Odd;
+
+Even, 0 -> Odd;
+Even, 1 -> Odd;
+
+Odd, 0 -> Even;
+Odd, 1 -> acc
+ 
+acc_states = acc
+

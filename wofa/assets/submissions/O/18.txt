@@ -1,0 +1,22 @@
+input_alphabet = a,b
+
+start_states = a_even_b0
+
+transitions = 	a_even_b0, a	-> a_uneven_b0
+		a_even_b0, b	-> a_even_b1
+		a_even_b1, a	-> a_uneven_b1
+		a_even_b1, b	-> a_even_b2
+		a_even_b2, a	-> a_uneven_b2
+		a_even_b2, b	-> a_even_b0
+		a_uneven_b0, a	-> a_even_b0
+		a_uneven_b0, b	-> a_even_b1
+		a_uneven_b1, a	-> a_even_b1
+  		a_uneven_b1, b	-> a_even_b2
+		a_uneven_b2, a	-> a_even_b2
+		a_uneven_b2, b	-> a_uneven_b0
+  
+  
+  
+acc_states = a_even_b0
+
+
