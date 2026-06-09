@@ -2,8 +2,7 @@ input_alphabet = 1,0
  
 start_states = 0
  
-transitions = 
-	0, 1	-> 0
+transitions = 0, 1	-> 0
 	0, 0	-> 0
 	0, 1	-> 1
 	1, 0	-> 2

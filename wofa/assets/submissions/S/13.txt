@@ -2,8 +2,7 @@ input_alphabet = a, b, c
 
 start_states = a_nullmal, b_nullmal, c_nullmal
 
-transitions =
-  a_nullmal, a -> a_einmal
+transitions = a_nullmal, a -> a_einmal
   a_nullmal, b -> a_nullmal
   a_nullmal, c -> a_nullmal
   a_einmal, a -> a_zweimal

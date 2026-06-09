@@ -2,8 +2,7 @@ input_alphabet = a, b
 
 start_states = q00
 
-transitions =
-  q00, a -> q00
+transitions = q00, a -> q00
   q00, b -> q01
   q01, a -> q00
   q01, b -> q02

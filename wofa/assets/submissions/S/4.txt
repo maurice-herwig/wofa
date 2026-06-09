@@ -2,14 +2,9 @@ input_alphabet = a, b, c
 
 start_states = Start
 
-transitions =
-
-Start, a -> A1; B0; C0
+transitions = Start, a -> A1; B0; C0
 Start, b -> A0; B1; C0
 Start, c -> A0; B0; C1
-
-# Automat für a
-
 A0, a -> A1
 A0, b -> A0
 A0, c -> A0
@@ -26,7 +21,6 @@ DeadA, a -> DeadA
 DeadA, b -> DeadA
 DeadA, c -> DeadA
 
-# Automat für b
 
 B0, b -> B1
 B0, a -> B0
@@ -44,7 +38,6 @@ DeadB, a -> DeadB
 DeadB, b -> DeadB
 DeadB, c -> DeadB
 
-# Automat für c
 
 C0, c -> C1
 C0, a -> C0

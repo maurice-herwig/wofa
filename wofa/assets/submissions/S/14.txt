@@ -2,14 +2,9 @@ input_alphabet = a, b, c
 
 start_states = q_start
 
-transitions =
-
-#Nichtdeterministisch wählen, wenn Zeichen gezählt wird
-q_start, a -> qa1
+transitions = q_start, a -> qa1
 q_start, b -> qb1
 q_start, c -> qc1
-
-# --- a zählen ---
 
 qa1, a -> qa2
 qa1, b -> qa1
@@ -22,7 +17,6 @@ qa2, c -> qa2
 qa3, b -> qa3
 qa3, c -> qa3
 
-#--- b zählen ---
 
 qb1, b -> qb2
 qb1, a -> qb1
@@ -35,7 +29,6 @@ qb2, c -> qb2
 qb3, a -> qb3
 qb3, c -> qb3
 
-# --- c zählen ---
 
 qc1, c -> qc2
 qc1, a -> qc1

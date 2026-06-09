@@ -2,8 +2,7 @@ input_alphabet = 0, 1
 
 start_states = start
 
-transitions = 
-  start, 0 -> nur_0
+transitions = start, 0 -> nur_0
   start, 1 -> rest_1
 
   nur_0, 0 -> muell

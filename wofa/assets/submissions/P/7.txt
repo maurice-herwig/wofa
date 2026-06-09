@@ -1,7 +1,6 @@
 input_alphabet = a,b
 start_states = 0000
-transitions =
-0000, a-> 0000
+transitions = 0000, a-> 0000
 0001, a-> 0000
 0010, a-> 0000
 0100, a-> 0100
