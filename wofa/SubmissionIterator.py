@@ -10,7 +10,7 @@ class SubmissionIterator:
         self.task = task
 
     def __iter__(self):
-        self.index = 0
+        self.index = -1
         return self
 
     def __next__(self):

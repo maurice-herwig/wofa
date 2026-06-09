@@ -1,7 +1,7 @@
 input_alphabet = b,a
- 
+
 start_states = q0
- 
+
 transitions = q2, b	-> q3
 	      q3, b	-> bbb1
 	      bbb1, b	-> bbb2
@@ -24,5 +24,7 @@ transitions = q2, b	-> q3
 	      q13, b	-> q7
 	      q12, a	-> q11
 	      q13, a	-> q11
+		  q7, a	-> q7
+		  q7, b -> q7
 
 acc_states = q7
